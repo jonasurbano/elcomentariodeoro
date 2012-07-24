@@ -4,9 +4,9 @@ use Doctrine\ORM\Tools\Setup;
 
 require_once "Doctrine/ORM/Tools/Setup.php";
 
-echo 'Rev 3<br>Cargando bootstrap_doctrine.php...<br>';
+echo 'Rev 4<br>Cargando bootstrap_doctrine.php...<br>';
 
-$lib = "";
+$lib = __DIR__;
 Setup::registerAutoloadDirectory($lib);
 
 echo 'registerAutoloadDirectory<br>';
