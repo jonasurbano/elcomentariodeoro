@@ -1,0 +1,523 @@
+
+body {
+    color: #666;
+    font: 14px/1.5em "Lucida Grande", Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    width: 720px;
+    margin: 20px;
+}
+
+.principal {
+    position: relative;
+    border: 1px solid #ccc;
+    width: 718px;
+}
+
+.cabecera {
+    width: 718px;
+    height: 70px;
+}
+
+.partidos {
+    width: 718px;
+    border: none;
+    background-image: url('../images/grass.jpg');
+    background-color: #fff;
+}
+
+#partidos-centrar {
+    position: relative;
+    width: 526px;
+    left: 50%;
+    margin-left: -263px;
+}
+
+.partido {
+    padding: 1px;
+    width: 524px;
+    color: #fff;
+    font-weight: bold;
+}
+
+.partido:hover {
+    border: solid 1px #fff;
+    background-color: #373; 
+}
+
+.club {
+    border: none;
+    width: 135px;
+    text-align: center;
+    display: inline-block;
+    color: #fff;
+}
+
+.resultado {
+    border: none;
+    width: 64px;
+    display: inline;
+    color: #fff;
+}
+
+.uno, .x, .dos {
+    border: solid 1px chartreuse;
+    text-align: center;
+    width: 18px;
+    display: inline-block;
+    margin: 0px;
+    color: #fff;
+}
+
+.borde-rojo {
+    border: solid 1px #f00;
+    color: #f00;
+    background-color: #fff;
+}
+
+.comentar {
+    border: solid 1px #fff;
+    height: 17px;
+    color: #666;
+    width: 128px;
+    display: inline;
+    color: #666;
+}
+
+.btnComentariosAmigos {
+    text-align: center;
+    border: none;
+    width: 20px;
+    display: inline-block;
+    border: solid 1px chartreuse;
+    color: #fff;
+}
+
+.btnComentariosRecientes {
+    border: none;
+    width: 18px;
+    text-align: center;
+    display: inline-block;
+    border: solid 1px chartreuse;
+    color: #fff;
+}
+
+.btnComentariosMejores {
+    width: 18px;
+    text-align: center;
+    border: none;
+    display: inline-block;
+    border: solid 1px chartreuse;
+    color: #fff;
+}
+
+.otrasSecciones {
+    position: relative;
+    background-color: #fff;
+    height: 40px;
+    width: 320px;
+    left: 50%;
+    margin-left: -160px;
+    margin-top: 10px;
+}
+
+.btnJornadaAnterior {
+    width: 148px;
+    text-align: center;
+    border: solid 1px #666;
+    background-color: #3f3;
+    height: 20px;
+    display: inline-block;
+    margin-right: 5px;
+    color: #373;
+}
+
+.btnEstadisticas {
+    width: 148px;
+    text-align: center;
+    border: solid 1px #666;
+    background-color: #3f3;
+    height: 20px;
+    display: inline-block;
+    margin-left: 5px;
+    color: #373;
+}
+
+/* 
+ * Comentarios
+ */
+
+ .comentario {
+     width: 522px;
+     background-color: #fff;
+     border: solid 1px #0c3;
+ }
+ 
+ .comentario-cabecera {
+     width: 522px;
+     background-color: #cff;
+     border-bottom: solid 1px aqua;
+     height: 50px;
+     color: #0c3;
+ }
+ 
+ .comentario-texto {
+     /* @todo: Cambiar la fuente. */
+     width: 518px;
+     background-color: #fff;
+     color: #666;
+     padding: 3px;
+ }
+ 
+ .comentario-pie {
+     width: 524px;
+     height: 20px;
+     background-color: #cff;
+     border-top: solid 1px aqua;
+ }
+ 
+ .votos {
+     display: inline-block;
+     height: 20px;
+     background-color:#fff; 
+     color: #666; 
+     width: 80px;
+     padding-left: 2px;
+     height: 19px;
+     border-bottom: solid 1px #ccc;
+ }
+
+ .btnMas1, .btnMenos1 {
+     width: 18px;
+     height: 18px;
+     border: solid 1px #ccc;
+     background-color: #fff;
+     color: #ccc;
+     display: inline-block;
+     text-align: center;
+ }
+ 
+ .btnCompartirComentario {
+     background-color: #00f;
+     border: solid 1px #fff;
+     color: #fff;
+     width: 198px;
+     height: 18px;
+     display: inline-block;
+     text-align: center;
+ }
+  
+.masComentariosMejores,
+.masComentariosAmigos,
+.masComentariosJugador,
+.masComentariosRecientes,
+.btnOcultarComentarios {
+     display: block;
+     text-align: center;
+     background-color: #fff;
+     width: 524px;
+     color: #666;
+ }
+ 
+.marcado {
+     background-color: #0f0;
+     display: inline-block;
+     width: 18px;
+     border:solid 1px #ccc;
+     height: 18px;
+ }
+ 
+ .comentar-panel {
+     width: 520px;
+ }
+ 
+ .comentar-textarea {
+     width: 518px;
+     height: 300px;
+     color: #666;
+ }
+ 
+ .btnOcultarComentar {
+     width: 128px;
+     height: 20px;
+     border: solid 1px #70cbeb;
+     display: inline-block;
+     background: #0cc;
+     color: #fff;
+     text-align: center;
+     vertical-align: baseline;
+     margin-left: 65px;
+     margin-top: 5px;
+     margin-bottom: 5px;
+ } 
+ 
+ .btnComentar {
+     width: 198px;
+     height: 20px;
+     border: solid 1px #70cbeb;
+     margin-left: 95px;
+     display: inline-block;
+     background: #0cc;
+     color: #fff;
+     text-align: center;
+     vertical-align: baseline;
+     margin-right: 0px;
+     margin-top: 5px;
+     margin-bottom: 5px;
+ }
+ 
+ /* Usado para input.comentar */
+ .visible {
+     visibility: visible;
+ }
+ .no-visible {
+     visibility: hidden;
+ }
+ 
+ 
+ /* Jornada anterior */
+
+ 
+ .partidos-janterior {
+    width: 718px;
+    border: none;
+    background-image: url('../images/grass.jpg');
+    background-color: #fff;
+}
+
+#partidos-centrar-janterior {
+    position: relative;
+    width: 570px;
+    left: 50%;
+    margin-left: -285px;
+}
+
+.partido-janterior {
+    padding: 1px;
+    width: 568px;
+    color: #fff;
+    font-weight: bold;
+}
+
+.partido-janterior:hover {
+    border: solid 1px #fff;
+    background-color: #373; 
+}
+
+ .puntuacionComentarioPositiva, 
+ .puntuacionPronostico {
+     color: #0f0;
+     width: 20px;
+     display: inline-block;
+     background-color: #fff;
+     border: solid 1px #0f0;
+     text-align: center;
+ }
+ 
+ .puntuacionComentarioNegativa {
+     color: #f00;
+     width: 20px;
+     display: inline-block;
+     background-color: #fff;
+     border: solid 1px #f00;
+     text-align: center;
+ }
+ 
+ .puntuacionComentarioCero, 
+ .puntuacionPronosticoCero {
+     color: #000;
+     width: 20px;
+     display: inline-block;
+     background-color: #fff;
+     border: solid 1px #000;
+     text-align: center;
+ }
+ 
+ .resultadoSemanal {
+     border: solid 1px #0c3;
+     background-color: #fff;
+     padding: 3px;
+     width: 568px;
+     color: #0c3;
+     margin-top: 5px;
+     margin-bottom: 20px;
+ }
+ 
+ .partido-janterior .comentar-panel {
+     width: 564px;
+ }
+ 
+ .partido-janterior 
+ .comentar-textarea {
+     width: 562px;
+     height: 300px;
+     color: #666;
+ }
+ 
+ .partido-janterior
+ .btnOcultarComentar {
+     width: 128px;
+     height: 20px;
+     border: solid 1px #70cbeb;
+     display: inline-block;
+     background: #0cc;
+     color: #fff;
+     text-align: center;
+     vertical-align: baseline;
+     margin-left: 87px;
+     margin-top: 5px;
+     margin-bottom: 5px;
+ } 
+ 
+ .partido-janterior
+ .btnComentar {
+     width: 198px;
+     height: 20px;
+     border: solid 1px #70cbeb;
+     margin-left: 95px;
+     display: inline-block;
+     background: #0cc;
+     color: #fff;
+     text-align: center;
+     vertical-align: baseline;
+     margin-right: 0px;
+     margin-top: 5px;
+     margin-bottom: 5px;
+ }
+ 
+ .estadisticas {
+     width: 718px;
+ }
+ 
+ .estadisticas-jugador {
+     width: 716px;
+     border: solid 1px #ccc;
+     background-color: #fff;
+ }
+ 
+ .estadisticasGlobales {
+     
+ }
+ 
+ .jugador-cabecera {
+     width: 706px;
+     padding: 5px;
+     height: 70px;
+     background-color: #fff;
+ }
+ 
+ .jugador-foto {
+    background-position: center 25%;
+    background-repeat: no-repeat;
+    background-size: 64px;
+    float: left;
+    width: 64px;
+    height: 64px;
+    overflow: hidden;
+    margin-right: 2px;
+}
+ 
+ .jugador-nombre {
+     color: #00f;
+     float: left;
+     width: 640px;
+ }
+ 
+.jugador-puntosPronostico {
+     color: #666;;
+     width: 200px;
+     float: left;
+     height: 20px;
+}
+
+.jugador-puntosComentario {
+    color: #666;
+    width: 200px;
+    height: 20px;
+    float: left;
+ }
+
+
+.jugador-ranking-comentario {
+    width: 300px;
+    float: left;
+}
+
+.jugador-ranking-pronostico {
+    width: 300px;
+    float: left;
+ }
+ 
+ .jugador-comentarios {
+     display: block;
+ }
+ 
+ 
+ /* Ranking */
+ 
+.ranking-jugador {
+     width: 248px;
+     border: solid 1px #ccc;
+     background-color: #fff;
+     height: 95px;
+}
+ 
+.ranking-nombre {
+     width: 245px;
+     height: 30px;
+     font-size: 12px;
+     color: #00f;
+     float: none;
+ }
+ 
+.ranking-foto {
+     width: 64px;
+     height: 64px;
+     float: left;
+     background-size: 64px 64px;
+ }
+ 
+.ranking-numero {
+     width: 86px;
+     height: 64px;
+     color: #ccc;
+     font-size: 24px;
+     float: left;
+}
+ 
+.ranking-puntos {
+     width: 98px;
+     height: 64px;
+     color: #666;
+     font-size: 24px;
+ }
+ 
+ .ranking-masJugadores {
+     width: 248px;
+     text-align: center;
+     color: #666;
+     border-top: solid 1px #666;
+ }
+ 
+ .ranking-url {
+     width: 248px;
+     color: #666;
+     border-top: solid 1px #666;
+ }
+
+ .rankingComentarios {
+     
+ }
+ 
+.comentario-cabecera-foto {
+     width: 64px;
+     height: 64px;
+     float: left;
+     background-size: 64px 64px;
+ }
+ 
+ .cabecera-foto {
+     width: 64px;
+     height: 64px;
+     float: left;
+     background-size: 64px 64px;
+ }
