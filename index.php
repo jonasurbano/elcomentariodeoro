@@ -1,7 +1,5 @@
 <?php
 
-echo 'Cargando index.php...<br>';
-
 require_once 'bootstrap.php';
 
 $idFacebook = $facebook->getUser();
@@ -24,8 +22,6 @@ $repositorioComentarios = $em->getRepository('Comentario');
 $repositorioJugadores = $em->getRepository('Jugador');
 $repositorioPronostico = $em->getRepository('Pronostico');
 $jugador = $repositorioJugadores->getJugador($idFacebook);
-
-echo 'Parte de index.php cargado.<br>';
 
 ?>
 

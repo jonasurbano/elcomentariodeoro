@@ -1,7 +1,5 @@
 <?php
 
-echo 'Cargando bootstrap.php...<br>';
-
 header('Content-type: text/html; charset=utf-8');
 
 if (!class_exists("Doctrine\Common\Version", false)) {
@@ -36,7 +34,5 @@ $facebook = new Facebook(array(
     'secret' => AppInfo::appSecret(),
     'cookie' => true,
 ));
-
-echo 'bootstrap.php cargado.<br>';
 
 ?>
