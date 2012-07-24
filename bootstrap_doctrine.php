@@ -7,7 +7,7 @@ require_once 'Doctrine\ORM\EntityManager';
 
 echo 'Rev 5<br>Cargando bootstrap_doctrine.php...<br>';
 
-if (!isset(getenv('MYSQL_DB_HOST'))) {
+if (getenv('MYSQL_DB_HOST') == FALSE) {
     $lib = '';
     
     $conn = array(
@@ -21,10 +21,10 @@ if (!isset(getenv('MYSQL_DB_HOST'))) {
 
     $conn = array(
     'driver'   => 'pdo_mysql',
-    'host'     => $host,
-    'dbname'   => $dbname,
-    'user'     => $user,
-    'password' => $pass,);
+    'host'     => getenv('MYSQL_DB_HOST'),
+    'dbname'   => getenv('MYSQL_DB_NAME'),
+    'user'     => getenv('MYSQL_USERNAME'),
+    'password' => getenv('MYSQL_PASSWORD'),);
 }
 
 Setup::registerAutoloadDirectory($lib);
@@ -36,13 +36,6 @@ $config = Setup::createAnnotationMetadataConfiguration(
     array(__DIR__."/entities"), $isDevMode);
 
 echo 'createAnnotationMetadataConfiguration<br>';
-
-$host = getenv('MYSQL_DB_HOST');
-$user = getenv('MYSQL_USERNAME');
-$pass = getenv('MYSQL_PASSWORD');
-$dbname = getenv('MYSQL_DB_NAME');
-
-echo 'dbname = ' . $dbname . '<br>';
 
 $entityManager = \Doctrine\ORM\EntityManager::create($conn, $config);
 
