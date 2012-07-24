@@ -5,10 +5,20 @@ echo 'Cargando bootstrap_doctrine.php...<br>';
 $lib = "";
 Doctrine\ORM\Tools\Setup::registerAutoloadDirectory($lib);
 
+echo 'registerAutoloadDirectory<br>';
+
+$isDevMode = true;
+$config = Setup::createAnnotationMetadataConfiguration(
+    array(__DIR__."/entities"), $isDevMode);
+
+echo 'createAnnotationMetadataConfiguration<br>';
+
 $host = getenv('MYSQL_DB_HOST');
 $user = getenv('MYSQL_USERNAME');
 $pass = getenv('MYSQL_PASSWORD');
 $dbname = getenv('MYSQL_DB_NAME');
+
+echo 'dbname = ' . $dbname . '<br>';
 
 $conn = array(
     'driver'   => 'pdo_mysql',
@@ -20,6 +30,7 @@ $conn = array(
 
 $entityManager = \Doctrine\ORM\EntityManager::create($conn, $config);
 
+echo 'create';
 
 function GetMyEntityManager()
 {
