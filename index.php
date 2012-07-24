@@ -1,4 +1,6 @@
- <?php
+<?php
+
+echo 'Cargando index.php...<br>';
 
 require_once 'bootstrap.php';
 
@@ -22,6 +24,9 @@ $repositorioComentarios = $em->getRepository('Comentario');
 $repositorioJugadores = $em->getRepository('Jugador');
 $repositorioPronostico = $em->getRepository('Pronostico');
 $jugador = $repositorioJugadores->getJugador($idFacebook);
+
+echo 'Parte de index.php cargado.<br>';
+
 ?>
 
 <!DOCTYPE html>
@@ -47,9 +52,7 @@ $jugador = $repositorioJugadores->getJugador($idFacebook);
         <script type="text/javascript" src="scripts/script.js"></script>
         <script type="text/javascript" src="scripts/script2.js"></script>
 
-        <!--
-        <script type="text/javascript" src="scripts/jquery.brosho.js"></script>
-        -->
+
         <script type="text/javascript">
             function logResponse(response) {
         if (console && console.log) {
