@@ -2,7 +2,9 @@
 
 use Doctrine\ORM\Tools\Setup;
 
-echo 'Rev 2<br>Cargando bootstrap_doctrine.php...<br>';
+require_once "Doctrine/ORM/Tools/Setup.php";
+
+echo 'Rev 3<br>Cargando bootstrap_doctrine.php...<br>';
 
 $lib = "";
 Setup::registerAutoloadDirectory($lib);
