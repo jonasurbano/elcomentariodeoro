@@ -2,11 +2,31 @@
 
 use Doctrine\ORM\Tools\Setup;
 
-require_once "Doctrine/ORM/Tools/Setup.php";
+require_once 'Doctrine/ORM/Tools/Setup.php';
+require_once 'Doctrine\ORM\EntityManager';
 
-echo 'Rev 4<br>Cargando bootstrap_doctrine.php...<br>';
+echo 'Rev 5<br>Cargando bootstrap_doctrine.php...<br>';
 
-$lib = __DIR__;
+if (!isset(getenv('MYSQL_DB_HOST'))) {
+    $lib = '';
+    
+    $conn = array(
+    'driver'   => 'pdo_mysql',
+    'host'     => '127.0.0.1',
+    'dbname'   => 'ysdf',
+    'user'     => 'root',
+    'password' => '');
+} else {
+    $lib = __DIR__;
+
+    $conn = array(
+    'driver'   => 'pdo_mysql',
+    'host'     => $host,
+    'dbname'   => $dbname,
+    'user'     => $user,
+    'password' => $pass,);
+}
+
 Setup::registerAutoloadDirectory($lib);
 
 echo 'registerAutoloadDirectory<br>';
@@ -23,14 +43,6 @@ $pass = getenv('MYSQL_PASSWORD');
 $dbname = getenv('MYSQL_DB_NAME');
 
 echo 'dbname = ' . $dbname . '<br>';
-
-$conn = array(
-    'driver'   => 'pdo_mysql',
-    'host'     => $host,
-    'dbname'   => $dbname,
-    'user'     => $user,
-    'password' => $pass,
-);
 
 $entityManager = \Doctrine\ORM\EntityManager::create($conn, $config);
 
