@@ -3,7 +3,6 @@
 use Doctrine\ORM\Tools\Setup;
 
 require_once 'Doctrine/ORM/Tools/Setup.php';
-require_once 'Doctrine\ORM\EntityManager';
 
 echo 'Rev 5<br>Cargando bootstrap_doctrine.php...<br>';
 
