@@ -1,6 +1,6 @@
 <?php
 
-echo 'Cargando bootstrap_doctrine.php...<br>';
+echo 'Rev 1<br>Cargando bootstrap_doctrine.php...<br>';
 
 $lib = "";
 Doctrine\ORM\Tools\Setup::registerAutoloadDirectory($lib);
