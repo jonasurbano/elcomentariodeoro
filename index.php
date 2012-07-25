@@ -48,6 +48,10 @@ $jugador = $repositorioJugadores->getJugador($idFacebook);
         <script type="text/javascript" src="scripts/script.js"></script>
         <script type="text/javascript" src="scripts/script2.js"></script>
 
+    </head>
+    <body>
+        <div id=fb-root"></div>
+        
         <script type="text/javascript">
 
     window.fbAsyncInit = function() {
@@ -84,8 +88,8 @@ $jugador = $repositorioJugadores->getJugador($idFacebook);
     </script>
 
         
-    </head>
-    <body>
+    <h2>Bienvenido a YoS&eacute;DeF&uacute;tbol</h2>
+        
         <? if (isset($basic)) { ?>
         <div class="principal">
             <div class="cabecera">
