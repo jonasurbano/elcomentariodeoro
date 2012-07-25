@@ -38,15 +38,12 @@ $array = $facebook->api(array( 'method' => 'fql.query',
 
 $i = 1;
 foreach ($array as $key => $a) {
-    ?><div class="ranking-jugador" id="idf-<?= $jugadores[$key]->getIdFacebook() ?>">
-        <div class="ranking-nombre"><?= $a['name']; ?></div>
-        <div style="clear: both"></div>
-        <div class="ranking-numero"><?= $i ?>º</div><div class="ranking-foto" 
-             style="background-image: url(<?= $a['pic'] ?>);"></div>
-        <div class="ranking-puntos"><?= 
-            $jugadores[$key]->getSumaPronosticos(); ?></div>
-        <div class="ranking-url"><a target="_blank" href="<?= $a['url'] ?>">Perfil en Facebook</a></div>
-    </div><?
+    ?><div class="ranking-jugador" id="idf-<?= $jugadores[$key]->getIdFacebook() ?>"><div 
+        class="ranking-nombre"><?= $a['name']; 
+        ?></div><div class="ranking-numero"><?= $i ?>º</div><div class="ranking-foto" 
+             style="background-image: url(<?= $a['pic'] ?>);"></div><div class="ranking-puntos"><?= 
+            $jugadores[$key]->getSumaPronosticos(); 
+    ?></div><div class="ranking-url"><a target="_blank" href="<?= $a['url'] ?>">Perfil en Facebook</a></div></div><? 
     $i++;
 }
 

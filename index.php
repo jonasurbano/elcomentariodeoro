@@ -14,7 +14,7 @@ if ($idFacebook) {
     }
 }
 
-echo 'id de fb: ' . $idFacebook . '<br>';
+    echo 'id de fb: ' . $idFacebook . '<br>';
 
 $em = GetMyEntityManager();
 $numJornada = $em->getRepository('Jornada')->getNumJornada();
