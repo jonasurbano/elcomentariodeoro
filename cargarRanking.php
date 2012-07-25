@@ -37,14 +37,22 @@ $array = $facebook->api(array( 'method' => 'fql.query',
                                 'query' => $fql,));
 
 $i = 1;
+
 foreach ($array as $key => $a) {
-    ?><div class="ranking-jugador" id="idf-<?= $jugadores[$key]->getIdFacebook() ?>"><div 
-        class="ranking-nombre"><?= $a['name']; 
-        ?></div><div class="ranking-numero"><?= $i ?>º</div><div class="ranking-foto" 
-             style="background-image: url(<?= $a['pic'] ?>);"></div><div class="ranking-puntos"><?= 
-            $jugadores[$key]->getSumaPronosticos(); 
-    ?></div><div class="ranking-url"><a target="_blank" href="<?= $a['url'] ?>">Perfil en Facebook</a></div></div><? 
-    $i++;
+    ?>
+    <div class="ranking-jugador" id="idf-<?= $jugadores[$key]->getIdFacebook() ?>">
+        <div class="ranking-nombre"><?= $a['name']; ?></div>
+        <div>
+        <div class="ranking-numero"><?= $i ?>º</div>
+        <div class="ranking-foto" style="background-image: url(<?= $a['pic'] ?>);"></div>
+        <div class="ranking-puntos"><?= $jugadores[$key]->getSumaPronosticos(); ?><div style="font-size:10px">ptos</div></div>
+        </div>
+        <div style="clear: left"></div>
+        <div class="ranking-url">
+            <a target="_blank" href="<?= $a['url'] ?>">ver su perfil en Facebook</a>
+        </div>
+    </div>
+    <? $i++;
 }
 
 if ($hayMasJugadores) {

@@ -2,29 +2,6 @@
 
 require_once 'bootstrap.php';
 
-$idFacebook = $facebook->getUser();
-if ($idFacebook) {
-    try {
-        $basic = $facebook->api('/me');
-    } catch (FacebookApiException $e) {
-        if (!$facebook->getUser()) {
-            header('Location: ' . AppInfo::getUrl($_SERVER['REQUEST_URI']));
-            exit();
-        }
-    }
-}
-
-    echo 'id de fb: ' . $idFacebook . '<br>';
-
-$em = GetMyEntityManager();
-$numJornada = $em->getRepository('Jornada')->getNumJornada();
-$partidos = $em->getRepository('Partido')->getPartidos($numJornada);
-
-$repositorioComentarios = $em->getRepository('Comentario');
-$repositorioJugadores = $em->getRepository('Jugador');
-$repositorioPronostico = $em->getRepository('Pronostico');
-$jugador = $repositorioJugadores->getJugador($idFacebook);
-
 ?>
 
 <!DOCTYPE html>
@@ -85,7 +62,34 @@ $jugador = $repositorioJugadores->getJugador($idFacebook);
         
     <h2>Bienvenido a YoS&eacute;DeF&uacute;tbol</h2>
         
-        <? if (isset($basic)) { ?>
+        <? 
+        
+$idFacebook = $facebook->getUser();
+if ($idFacebook) {
+    try {
+        $basic = $facebook->api('/me');
+    } catch (FacebookApiException $e) {
+        if (!$facebook->getUser()) {
+            header('Location: ' . AppInfo::getUrl($_SERVER['REQUEST_URI']));
+            exit();
+        }
+    }
+}
+
+    echo 'id de fb: ' . $idFacebook . '<br>';
+
+$em = GetMyEntityManager();
+$numJornada = $em->getRepository('Jornada')->getNumJornada();
+$partidos = $em->getRepository('Partido')->getPartidos($numJornada);
+
+$repositorioComentarios = $em->getRepository('Comentario');
+$repositorioJugadores = $em->getRepository('Jugador');
+$repositorioPronostico = $em->getRepository('Pronostico');
+$jugador = $repositorioJugadores->getJugador($idFacebook);
+        
+        
+        
+        if (isset($basic)) { ?>
         <div class="principal">
             <div class="cabecera">
                 <div class="cabecera-foto" style="background-image: url(https://graph.facebook.com/<?php echo he($idFacebook); ?>/picture?type=normal)"></div>
