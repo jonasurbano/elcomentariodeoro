@@ -42,7 +42,8 @@ echo time();
           channelUrl : '//<?php echo $_SERVER["HTTP_HOST"]; ?>/channel.html',
           status     : true,
           cookie     : true,
-          xfbml      : true
+          xfbml      : true,
+          oauth      : true
         });
 
         FB.Event.subscribe('auth.login', function(response) {
