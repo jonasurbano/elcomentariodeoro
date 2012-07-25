@@ -1,5 +1,7 @@
 <?php
 
+echo 'Rev 1<br>';
+
 require_once 'bootstrap.php';
 
 echo time();
