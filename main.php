@@ -1,6 +1,6 @@
 <?php
 
-require 'fb/facebook.php';
+require 'sdk/src/facebook.php';
 
 $facebook = new Facebook(array(
   'appId'  => getenv('FACEBOOK_APP_ID'),
