@@ -4,6 +4,7 @@ use Doctrine\ORM\Tools\Setup;
 
 require_once 'Doctrine/ORM/Tools/Setup.php';
 
+//if ($_SERVER['REMOTE_ADDR'] == '127.0.0.1')
 if (getenv('MYSQL_DB_HOST') == FALSE) {
     $lib = '';
     

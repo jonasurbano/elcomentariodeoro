@@ -42,67 +42,13 @@ $jugador = $repositorioJugadores->getJugador($idFacebook);
         <link rel="stylesheet" href="stylesheets/ysdf_styles.css" type="text/css" />
         <link rel="stylesheet" href="stylesheets/screen.css" media="Screen" type="text/css" />
         <link rel="stylesheet" href="stylesheets/mobile.css" media="handheld, only screen and (max-width: 480px), only screen and (max-device-width: 480px)" type="text/css" />
-        <link rel="stylesheet" href="stylesheets/jquery.brosho.css" />
         
-        <script type="text/javascript" src="scripts/jquery.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"
+            type="text/javascript"  ></script>
         <script type="text/javascript" src="scripts/script.js"></script>
         <script type="text/javascript" src="scripts/script2.js"></script>
 
-
         <script type="text/javascript">
-            function logResponse(response) {
-        if (console && console.log) {
-          console.log('The response was', response);
-        }
-      }
-
-      $(function(){
-        // Set up so we handle click on the buttons
-        $('#postToWall').click(function() {
-          FB.ui(
-            {
-              method : 'feed',
-              link   : $(this).attr('data-url')
-            },
-            function (response) {
-              // If response is null the user canceled the dialog
-              if (response != null) {
-                logResponse(response);
-              }
-            }
-          );
-        });
-
-        $('#sendToFriends').click(function() {
-          FB.ui(
-            {
-              method : 'send',
-              link   : $(this).attr('data-url')
-            },
-            function (response) {
-              // If response is null the user canceled the dialog
-              if (response != null) {
-                logResponse(response);
-              }
-            }
-          );
-        });
-
-        $('#sendRequest').click(function() {
-          FB.ui(
-            {
-              method  : 'apprequests',
-              message : $(this).attr('data-message')
-            },
-            function (response) {
-              // If response is null the user canceled the dialog
-              if (response != null) {
-                logResponse(response);
-              }
-            }
-          );
-        });
-      });
 
     window.fbAsyncInit = function() {
         FB.init({
