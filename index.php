@@ -2,6 +2,8 @@
 
 require_once 'bootstrap.php';
 
+echo time();
+
 ?>
 
 <!DOCTYPE html>
