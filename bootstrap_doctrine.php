@@ -31,7 +31,7 @@ Setup::registerAutoloadDirectory($lib);
 
 $isDevMode = true;
 $config = Setup::createAnnotationMetadataConfiguration(
-    array(__DIR__."/entities"), $isDevMode, $lib . '/tmp' );
+    array(__DIR__."/entities"), $isDevMode, $lib . '/../tmp' );
 
 $entityManager = \Doctrine\ORM\EntityManager::create($conn, $config);
 
