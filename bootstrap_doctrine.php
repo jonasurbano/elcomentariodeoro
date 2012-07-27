@@ -2,6 +2,7 @@
 
 use Doctrine\ORM\Tools\Setup;
 
+
 require_once 'Doctrine/ORM/Tools/Setup.php';
 
 //if ($_SERVER['REMOTE_ADDR'] == '127.0.0.1')
@@ -27,9 +28,9 @@ if (getenv('MYSQL_DB_HOST') == FALSE) {
 
 Setup::registerAutoloadDirectory($lib);
 
-$isDevMode = FALSE;
+$isDevMode = true;
 $config = Setup::createAnnotationMetadataConfiguration(
-    array(__DIR__."/entities"), $isDevMode);
+    array(__DIR__."/entities"), $isDevMode, $lib . '/tmp' );
 
 $entityManager = \Doctrine\ORM\EntityManager::create($conn, $config);
 
