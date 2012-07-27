@@ -1,6 +1,12 @@
 $(document).ready(function() {
     $offsetComentarios = new Array();
 
+    $('div.partido').hover(function() {
+        $(this).addClass('partido-hover');
+    },function() {
+        $(this).removeClass('partido-hover');
+    })
+
     $('.btnComentariosAmigos').click(function() {
         var $idPartido = $(this).parent().attr("id");
         cargarComentarios($idPartido,1) }); 
@@ -13,31 +19,63 @@ $(document).ready(function() {
         var $idPartido = $(this).parent().attr("id");;
         cargarComentarios($idPartido,3) });
 
-    var comentarPanel1 = '<textarea class="comentar-textarea"\n\>';
-    var comentarPanel2 = '</textarea><div class="btnOcultarComentar"\n\
-        >Ocultar</div><div class="btnComentar">Guardar comentario</div>';
+    var comentarPanel1 = '<textarea class="comentar-textarea">';
+    var comentarPanel2 = '</textarea><div class="btnOcultarComentar btnPanelComentario"\n\
+        >Ocultar</div><div class="btnPanelComentario btnComentar">Guardar comentario</div>';
 
+    /**
+     * Muestra el panel con el comentario del jugador.
+     */
     $('input.comentar').click(function() {
         var textoInput = $(this).attr('value');
-
-        $(this).parent().find("div.comentar-panel")
-            .html(comentarPanel1 + textoInput + comentarPanel2).show();
+        var $padre = $(this).parent();
+        
+        /* Crea el textarea */
+        $padre.find("div.comentar-panel")
+            .html(comentarPanel1 + textoInput + comentarPanel2).hide();
+        
         $(this).addClass('no-visible');
+        $padre.find("div.comentar-panel").slideDown();
+        $padre.removeClass('partido-hover');
+        $padre.addClass('mostrandoComentario');
+        
+        $padre.unbind('hover');
+
+        
+        /**
+         * Funcionalidad del botón para comentar.
+         */
         $('div.btnComentar').click(function() {
-            idPartido = $(this).parent().parent().attr('id');
+            idPartido = $padre.attr('id');
             comentario = $(this).parent()
                 .find('textarea.comentar-textarea').val();
             guardarComentario(idPartido,comentario);
-        });   
+        });
+        
+        /**
+         * Funcionalidad del botón para ocultar comentario.
+         */
         $('div.btnOcultarComentar').click(function() {
             textoTextarea = $(this).parent().
                 find('textarea.comentar-textarea').val();
-            $(this).parent().hide();
-            $(this).parent().parent()
-                .find('input.comentar').attr('value',textoTextarea)
-                    .addClass('visible').removeClass('no-visible'); 
+            $(this).parent().slideUp();
+            $(this).parent().parent().find('input.comentar').
+                attr('value',textoTextarea).addClass('visible')
+                .removeClass('no-visible').end()
+                .removeClass('mostrandoComentario')
+                .hover(function() {
+                    $(this).addClass('partido-hover');
+                        },function() {
+                    $(this).removeClass('partido-hover');
+                })
+
         }); 
+
     });
+
+
+
+
 
     $('div.uno').not('.borde-rojo').click(function() {
         idPartido = $(this).parent().parent().attr('id');
@@ -137,7 +175,7 @@ $(document).ready(function() {
 });
 
 jqBtnCerrarComentarios = function() {
-    $(this).parent().hide();                
+    $(this).parent().slideUp();                
     var $idPartido = $(this).parent().parent().attr("id");
     $offsetComentarios[$idPartido] = 0;
 }
@@ -162,13 +200,13 @@ cargarComentarios = function($idPartido,$opcion) {
         /**
          * Si +1 o -1 está marcado no lanzará el evento.
          */
-        $('div.btnMas1').not('div.marcado').click(function() {
+        $('div.btnMas1').not('marcado').click(function() {
             alert('+1');
             $(this).addClass('marcado');
             $(this).parent().find('div.btnMenos1').removeClass('marcado');
             gustoComentario($(this).parent(),1);
         })
-        $('div.btnMenos1').not('div.marcado').click(function() {
+        $('div.btnMenos1').not('marcado').click(function() {
             alert('-1');
             $(this).addClass('marcado');
             $(this).parent().find('div.btnMas1').removeClass('marcado');
@@ -178,7 +216,6 @@ cargarComentarios = function($idPartido,$opcion) {
     }).show();
 
     $offsetComentarios[$idPartido] += 3; 
-
 }
 
 cargarMasComentarios = function($idPartido,$opcion) {
@@ -220,10 +257,10 @@ cargarMasComentarios = function($idPartido,$opcion) {
  * @param opcion
  */
 gustoComentario = function($comentario,opcion) {
-    $idComentario = $comentario.parent().attr('id');
+    idComentario = $comentario.parent().attr('id').substring(4);;
     
     var $urlGustoComentario = "gustoComentario.php?idComentario="
-        + $idComentario + "&opcion=" + opcion;
+        + idComentario + "&opcion=" + opcion;
 
     $.get($urlGustoComentario,function(data) {
         $($comentario).find('div.votos').html(data);

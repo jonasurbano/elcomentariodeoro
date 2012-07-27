@@ -27,7 +27,7 @@ if (getenv('MYSQL_DB_HOST') == FALSE) {
 
 Setup::registerAutoloadDirectory($lib);
 
-$isDevMode = true;
+$isDevMode = FALSE;
 $config = Setup::createAnnotationMetadataConfiguration(
     array(__DIR__."/entities"), $isDevMode);
 

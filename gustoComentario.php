@@ -9,6 +9,11 @@ $em = GetMyEntityManager();
 $idComentario = $_GET['idComentario'];
 $comentario = $em->find("Comentario", (int)$idComentario);
 
+if (!isset($comentario)) {
+    echo 'error';
+    exit();
+}
+
 $idFacebook = $facebook->getUser();
 $jugador = $em->getRepository('Jugador')->getJugador($idFacebook);
 if (!isset($jugador)) {

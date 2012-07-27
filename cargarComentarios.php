@@ -11,7 +11,6 @@
  * @param int offset Primer comentario a devolver por la consulta.
  * @param int idPartido. Opcional Identificador del partido para las 
  *  opciones 1, 2 y 3.
-
  */
 
 if (!isset($_GET['opcion'])) die();
@@ -94,9 +93,9 @@ foreach ($comentarios as $comentario) {
     $marcadoMenos1 = '';
     
     if (isset($jugador) && $jugador->gustaComentarioAJugador($comentario)) {
-        $marcadoMas1 = ', marcado'; }
+        $marcadoMas1 = ' marcado'; }
     if (isset($jugador) && $jugador->noGustaComentarioAJugador($comentario)) {
-        $marcadoMenos1 = ', marcado'; } 
+        $marcadoMenos1 = ' marcado'; } 
         
     ?><div class="comentario" id="com-<?= $comentario->getId() ?>">
         <?
@@ -126,7 +125,9 @@ foreach ($comentarios as $comentario) {
         ?><div class="btnMas1<?= $marcadoMas1 ?>">+1</div><div class="btnMenos1
             <?= $marcadoMenos1 ?>">-1</div><? } ?><div 
             class="btnCompartirComentario">Compartir en Facebook</div>
+            <div style="clear: both;" ></div>
         </div>
+        
     </div>
 <div class="btnOcultarComentarios">Ocultar comentarios</div><? }
     

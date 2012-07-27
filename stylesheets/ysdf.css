@@ -15,14 +15,30 @@ body {
 
 .cabecera {
     width: 718px;
-    height: 70px;
+    height: 150px;
+    background-image: url('../images/cabecera.jpg');  
+}
+
+.cabecera-foto {
+     width: 64px;
+     height: 64px;
+     float: left;
+     background-size: 64px 64px;
+     margin: 80px 6px 6px 6px;
+ }
+
+.cabecera-nombre {
+    font-size: 20px;
+    padding: 100px 0 0px 6px;
+    color: coral;
 }
 
 .partidos {
     width: 718px;
+    padding: 10px 0px;
     border: none;
-    background-image: url('../images/grass.jpg');
     background-color: #fff;
+    background-image: url('../images/grass2.jpg');    
 }
 
 #partidos-centrar {
@@ -33,15 +49,32 @@ body {
 }
 
 .partido {
-    padding: 1px;
+    padding: 5px 0px;
     width: 524px;
     color: #fff;
     font-weight: bold;
+    background-image: url('../images/partido.jpg');
+    background-repeat: no-repeat;
+    background-color: #0f4; 
 }
 
-.partido:hover {
+/**
+ * Clase que se le aplica a partido
+ * cuando aparece el panel Comentar.
+ */
+.mostrandoComentario {
+    background-image: url('../images/partido-alargado.jpg');
+    background-repeat: repeat-y;
+}
+
+.mostrandoComentario .btnComentariosAmigos,
+.mostrandoComentario .btnComentariosMejores,
+.mostrandoComentario .btnComentariosRecientes {
     border: solid 1px #fff;
-    background-color: #373; 
+}
+
+.partido-hover {
+    background-image: url('../images/partido-hover.jpg');
 }
 
 .club {
@@ -50,6 +83,7 @@ body {
     text-align: center;
     display: inline-block;
     color: #fff;
+    
 }
 
 .resultado {
@@ -60,12 +94,14 @@ body {
 }
 
 .uno, .x, .dos {
-    border: solid 1px chartreuse;
+    border: solid 1px #0f0;
     text-align: center;
     width: 18px;
     display: inline-block;
-    margin: 0px;
-    color: #fff;
+    color: #000;
+    background-color: #fff;
+    background-image: url('../images/bl-gr-bl-vertical.jpg');
+    background-repeat: repeat-x;
 }
 
 .borde-rojo {
@@ -75,12 +111,14 @@ body {
 }
 
 .comentar {
-    border: solid 1px #fff;
+    border: solid 1px #ccc;
+    background-color: #fff;
+    background-image: url('../images/bl-gr-bl-vertical.jpg');
+    background-repeat: repeat-x;
     height: 17px;
     color: #666;
     width: 128px;
     display: inline;
-    color: #666;
 }
 
 .btnComentariosAmigos {
@@ -111,13 +149,16 @@ body {
 }
 
 .otrasSecciones {
-    position: relative;
+    /*position: relative;*/
     background-color: #fff;
     height: 40px;
-    width: 320px;
+    width: 718px;
+    /*widt: 320px;
     left: 50%;
     margin-left: -160px;
-    margin-top: 10px;
+    margin-top: 10px;*/
+    background-image: url('../images/otras-secciones.jpg');
+    background-repeat: no-repeat;
 }
 
 .btnJornadaAnterior {
@@ -125,10 +166,14 @@ body {
     text-align: center;
     border: solid 1px #666;
     background-color: #3f3;
-    height: 20px;
+    height: 24px;
     display: inline-block;
     margin-right: 5px;
+    margin-left: 206px;
+    margin-top: 8px;
     color: #373;
+    background-image: url('../images/bl-gr-bl-vertical.jpg');
+    background-repeat: repeat;
 }
 
 .btnEstadisticas {
@@ -136,74 +181,87 @@ body {
     text-align: center;
     border: solid 1px #666;
     background-color: #3f3;
-    height: 20px;
+    height: 24px;
     display: inline-block;
     margin-left: 5px;
     color: #373;
+    background-image: url('../images/bl-gr-bl-vertical.jpg');
+    background-repeat: repeat;
 }
 
 /* 
  * Comentarios
  */
 
- .comentario {
+.comentario {
      width: 522px;
      background-color: #fff;
      border: solid 1px #0c3;
- }
+}
  
  .comentario-cabecera {
      width: 522px;
      background-color: #cff;
      border-bottom: solid 1px aqua;
-     height: 50px;
-     color: #0c3;
+     height: 26px;
+     color: #fff;
+     
+     background-image: url('../images/turquesa_vertical.jpg');
+     background-repeat: repeat-x;
+ }
+ 
+ .comentario-cabecera-nombre {
+     font-size: 18px;
  }
  
  .comentario-texto {
-     /* @todo: Cambiar la fuente. */
-     width: 518px;
+     width: 522px;
      background-color: #fff;
      color: #666;
-     padding: 3px;
- }
+}
  
- .comentario-pie {
-     width: 524px;
-     height: 20px;
+.comentario-pie {
+     width: 522px;
+     height: 30px;
      background-color: #cff;
      border-top: solid 1px aqua;
- }
+     background-image: url('../images/turquesa_vertical.jpg');
+     background-repeat: repeat-x;
+}
  
  .votos {
-     display: inline-block;
-     height: 20px;
-     background-color:#fff; 
-     color: #666; 
      width: 80px;
-     padding-left: 2px;
-     height: 19px;
-     border-bottom: solid 1px #ccc;
+     height: 20px;
+     display: inline-block;
+     background-color:#cff; 
+     color: #666; 
+     margin: 2px;
+     border: solid 1px #fff;
+     text-align: center;
  }
 
  .btnMas1, .btnMenos1 {
-     width: 18px;
-     height: 18px;
-     border: solid 1px #ccc;
-     background-color: #fff;
-     color: #ccc;
+     width: 24px;
      display: inline-block;
+     height: 20px;
+     border: solid 1px #fff;
+     background-color: #cff;
+     color: #00f;
      text-align: center;
+     margin: 2px 2px 2px 0;
+     background-image: url('../images/bl-gr-bl-vertical.jpg');
+     background-repeat: repeat-x;
  }
  
+ /* born to die */
  .btnCompartirComentario {
      background-color: #00f;
      border: solid 1px #fff;
      color: #fff;
      width: 198px;
-     height: 18px;
+     height: 20px;
      display: inline-block;
-     text-align: center;
+     text-align: center
  }
   
 .masComentariosMejores,
@@ -214,16 +272,26 @@ body {
      display: block;
      text-align: center;
      background-color: #fff;
-     width: 524px;
+     width: 200px;
      color: #666;
+     margin: 2px;
+     height: 22px;
+     background-image: url('../images/bl-gr-bl-vertical.jpg');
+     background-repeat: repeat-x;
  }
  
 .marcado {
-     background-color: #0f0;
+     width: 24px;
      display: inline-block;
-     width: 18px;
-     border:solid 1px #ccc;
-     height: 18px;
+     height: 20px;
+     border: solid 1px #fff;
+     background-color: #cff;
+     color: #00f;
+     text-align: center;
+     margin: 2px 2px 2px 0;
+     background-image: url('../images/verde_vertical.jpg');
+     background-repeat: repeat-x;
+     color: #00f;
  }
  
  .comentar-panel {
@@ -231,46 +299,51 @@ body {
  }
  
  .comentar-textarea {
-     width: 518px;
-     height: 300px;
-     color: #666;
+    width: 498px;
+    height: 300px;
+    color: #666;
+    margin: 10px;
+    font-family: sans-serif;
+    resize: none;
  }
+ 
+ .btnPanelComentario {
+     border: solid 1px #088;
+     display: inline-block;
+     background: #0cc;
+     color: #888;
+     text-align: center;
+     margin-top: 5px;
+     margin-bottom: 5px;
+     padding-top: 6px;
+     background-image: url('../images/panel-comentar.jpg');
+     background-repeat: repeat-x;
+}
+ 
+.btnPanelComentario:hover {
+     border: solid 1px #fff;
+     color: #fff;
+     font-weight: bold;
+}
  
  .btnOcultarComentar {
      width: 128px;
-     height: 20px;
-     border: solid 1px #70cbeb;
-     display: inline-block;
-     background: #0cc;
-     color: #fff;
-     text-align: center;
-     vertical-align: baseline;
+     height: 30px;
      margin-left: 65px;
-     margin-top: 5px;
-     margin-bottom: 5px;
  } 
  
  .btnComentar {
      width: 198px;
-     height: 20px;
-     border: solid 1px #70cbeb;
+     height: 30px;
      margin-left: 95px;
-     display: inline-block;
-     background: #0cc;
-     color: #fff;
-     text-align: center;
-     vertical-align: baseline;
-     margin-right: 0px;
-     margin-top: 5px;
-     margin-bottom: 5px;
  }
  
  /* Usado para input.comentar */
  .visible {
-     visibility: visible;
+     display: inline-block;
  }
  .no-visible {
-     visibility: hidden;
+     display: none;
  }
  
  
@@ -454,6 +527,14 @@ body {
  
  /* Ranking */
  
+
+.rankingComentarios,
+.rankingPronosticos{
+    width: 250px;
+    float: left;
+    margin-left: 40px;
+}
+ 
 .ranking-jugador {
     width: 248px;
     border: solid 1px #ccc;
@@ -513,22 +594,12 @@ body {
      border-top: solid 1px #666;
 }
  
-
-
- .rankingComentarios {
-     
- }
  
 .comentario-cabecera-foto {
      width: 64px;
      height: 64px;
      float: left;
      background-size: 64px 64px;
- }
+     margin: 5px 5px 0 5px;
+}
  
- .cabecera-foto {
-     width: 64px;
-     height: 64px;
-     float: left;
-     background-size: 64px 64px;
- }
