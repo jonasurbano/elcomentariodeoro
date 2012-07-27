@@ -2,7 +2,7 @@
 
 use Doctrine\ORM\Tools\Setup;
 
-echo __DIR__ . '/tmp';
+echo __DIR__ . '/../tmp';
 
 require_once 'Doctrine/ORM/Tools/Setup.php';
 
