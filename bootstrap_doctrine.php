@@ -2,8 +2,6 @@
 
 use Doctrine\ORM\Tools\Setup;
 
-echo __DIR__ . '/../tmp';
-
 require_once 'Doctrine/ORM/Tools/Setup.php';
 
 //if ($_SERVER['REMOTE_ADDR'] == '127.0.0.1')
@@ -16,6 +14,8 @@ if (getenv('MYSQL_DB_HOST') == FALSE) {
     'dbname'   => 'ysdf',
     'user'     => 'root',
     'password' => '');
+
+    $tmpProxy = null;
 } else {
     $lib = __DIR__;
 
@@ -25,13 +25,17 @@ if (getenv('MYSQL_DB_HOST') == FALSE) {
     'dbname'   => getenv('MYSQL_DB_NAME'),
     'user'     => getenv('MYSQL_USERNAME'),
     'password' => getenv('MYSQL_PASSWORD'),);
+
+    $tmpProxy = $lib . '/../tmp'; 
 }
 
 Setup::registerAutoloadDirectory($lib);
 
 $isDevMode = true;
+
+
 $config = Setup::createAnnotationMetadataConfiguration(
-    array(__DIR__."/entities"), $isDevMode, $lib . '/../tmp' );
+    array(__DIR__."/entities"), $isDevMode, $tmpProxy );
 
 $entityManager = \Doctrine\ORM\EntityManager::create($conn, $config);
 
