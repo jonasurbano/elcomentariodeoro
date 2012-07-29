@@ -5,26 +5,24 @@
     <head>
         <title>YoS&eacute;DeF&uacute;tbol</title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-            
+
         <meta property="og:title" content="YoS&eacute;DeF&uacute;tbol" />
         <meta property="og:type" content="website" />
         <meta property="og:url" content="<?php echo AppInfo::getUrl(); ?>" />
         <meta property="og:image" content="<?php echo AppInfo::getUrl('/logo.png'); ?>" />
         <meta property="og:site_name" content="YoS&eacute;DeF&uacute;tbol" />
-        <meta property="og:description" content="" />        
-        <meta property="og:description" content="Demuestra todo lo que sabes de f&uacute;tbol y descubre qui&eacute;n controla. Todo y m&aacute;s en YoS&eacute;DeF&uacute;tbol." />        
-        
-        <link rel="stylesheet" href="stylesheets/screen.css" media="Screen" type="text/css" />
-        <link rel="stylesheet" href="stylesheets/mobile.css" media="handheld, only screen and (max-width: 480px), only screen and (max-device-width: 480px)" type="text/css" />
+        <meta property="og:description" content="" />
+        <meta property="og:description" content="Demuestra todo lo que sabes de f&uacute;tbol y descubre qui&eacute;n controla. Todo y m&aacute;s en YoS&eacute;DeF&uacute;tbol." />
+
         <link rel="stylesheet" href="stylesheets/ysdf.css" media="Screen" type="text/css" />
-             
+
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"
         type="text/javascript"  ></script>
         <script type="text/javascript" src="scripts/script.js"></script>
         <script type="text/javascript" src="scripts/script2.js"></script>
-        <script type="text/javascript" src="scripts/fb.js"></script>   
+        <script type="text/javascript" src="scripts/fb.js"></script>
     </head>
-        
+
     <!--[if IE]>
       <script type="text/javascript">
         var tags = ['header', 'section'];
@@ -35,7 +33,7 @@
 </head>
 <body>
     <div id=fb-root"></div>
-        
+
         <script type="text/javascript">
 
     window.fbAsyncInit = function() {
@@ -47,14 +45,14 @@
             xfbml      : true,
             oauth      : true
         });
-        
+
         FB.Event.subscribe('auth.login', function(response) {
             window.location = window.location;
         });
-        
+
         FB.Canvas.setAutoGrow();
     };
-    
+
     (function(d, s, id) {
         var js, fjs = d.getElementsByTagName(s)[0];
         if (d.getElementById(id)) return;
@@ -64,7 +62,7 @@
     }(document, 'script', 'facebook-jssdk'));
     </script>
 
-<?  
+<?
 
 $idFacebook = $facebook->getUser();
 if ($idFacebook) {
@@ -77,11 +75,11 @@ if ($idFacebook) {
         }
     }
 } else {
-    echo '<div class="error">La autenticaci&oacute;n de su usuario en Facebook 
+    echo '<div class="error">La autenticaci&oacute;n de su usuario en Facebook
         no fue posible.</div>';
-}        
-        
-if (isset($basic)) { 
+}
+
+if (isset($basic)) {
 
     $em = GetMyEntityManager();
     $numJornada = $em->getRepository('Jornada')->getNumJornada();
@@ -91,7 +89,7 @@ if (isset($basic)) {
     $repositorioJugadores = $em->getRepository('Jugador');
     $repositorioPronostico = $em->getRepository('Pronostico');
     $jugador = $repositorioJugadores->getJugador($idFacebook);
-            
+
 ?>
     <div class="principal">
         <div class="cabecera">
@@ -100,8 +98,8 @@ if (isset($basic)) {
         </div>
         <div class="partidos">
             <div id="partidos-centrar">
-
-<? 
+                <div class="partidos-texto">¿Cómo quedarán los resultados?</div>
+<?
 
     foreach ($partidos as $partido) {
         if (isset($jugador)) {
@@ -115,14 +113,18 @@ if (isset($basic)) {
                     if (isset($jugador)) {
                         $c = $repositorioComentarios->getComentario($partido->getId(),$jugador->getId());
                         if (!isset($c)) {
-                            echo 'Ens&eacute;&ntilde;anos f&uacute;tbol...';
+                            echo 'Ens&eacute;&ntilde;anos f&uacute;tbol..."';
                         } else {
-                            echo $c->getComentario();
+                            echo $c->getComentario() . '" readonly="readonly"';
                         }
                     } else {
-                        echo 'Ens&eacute;&ntilde;anos f&uacute;tbol...';
+                        echo 'Ens&eacute;&ntilde;anos f&uacute;tbol..."';
                     }
-                    ?>" /><div class="btnComentariosAmigos">A</div><div class="btnComentariosRecientes">R</div><div class="btnComentariosMejores">M</div>
+                    ?> /><div class="btnComentarios"
+                        ><div class="btnComentariosAmigos">.</div
+                        ><div class="btnComentariosRecientes">.</div
+                        ><div class="btnComentariosMejores">.</div>
+                    </div>
                     <div class="comentarios" id="comentarios-<?= $partido->getId() ?>"></div>
                     <div class="comentar-panel"></div>
                 </div>
@@ -132,11 +134,7 @@ if (isset($basic)) {
             <div class="partidos-janterior"></div>
             <div class="estadisticas">
                 <div class="estadisticas-jugador"></div>
-                <div class="estadisticasGlobales">
-                    <div class="rankingPronosticos"></div>
-                    <div class="rankingComentarios"></div>
-                    <div style="clear: both;"></div>
-                </div>
+                <div class="estadisticasGlobales"></div>
             </div>
             <div class="otrasSecciones">
                 <div class="btnJornadaAnterior">Jornada anterior</div>

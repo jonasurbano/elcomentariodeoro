@@ -20,6 +20,7 @@ $sumaSemanal = 0;
 ?>
 
 <div id="partidos-centrar-janterior">
+    <div class="partidos-texto">Estos son los resultados de la jornada anterior. Para cada partido verás a la derecha los puntos conseguidos por el pronóstico (1, X, 2) y los puntos conseguidos por los votos de tu comentario.</div>
     <?
     foreach ($partidos as $partido) {
         $comentario = $repositorioComentarios->getComentario($partido->getId(),$jugador->getId());
@@ -27,7 +28,7 @@ $sumaSemanal = 0;
     ?>
     <div class="partido-janterior" id="<?= $partido->getId() ?>">
         <div class="club"><?= htmlentities($partido->getClub1()); ?></div><div class="resultado"><div class="uno <? if (isset($resultado) && $resultado == '1') echo ', borde-rojo' ?>
-            ">1</div><div class="x <? if (isset($resultado) && $resultado == 'x') echo ', borde-rojo' ?>">X</div><div class="dos <? if (isset($resultado) && $resultado == '2') echo ', borde-rojo' ?>">2</div></div><div class="club"><?= htmlentities($partido->getClub2()); ?></div><input type="text" class="comentar" value="<?
+            ">1</div><div class="x <? if (isset($resultado) && $resultado == 'x') echo ', borde-rojo' ?>">X</div><div class="dos <? if (isset($resultado) && $resultado == '2') echo ', borde-rojo' ?>">2</div></div><div class="club"><?= htmlentities($partido->getClub2()); ?></div><input type="text" class="comentar" readonly="readonly" value="<?
             if (isset($jugador)) {
                 $c = $repositorioComentarios->getComentario($partido->getId(), $jugador->getId());
                 if (isset($c)) {
@@ -42,23 +43,26 @@ $sumaSemanal = 0;
             if ($partido->getResultado() == $resultado) {
                 $sumaSemanal += 3;
                 echo '">+3';
-            } else echo 'Cero">0'; ?></div><div class="<? 
+            } else echo 'Cero">0'; ?></div><div class="<?
             if (isset($comentario)) {
                 $votosComentarios = $comentario->getVotos();
             } else $votosComentarios = 0;
             $sumaSemanal += $votosComentarios;
-            if ($votosComentarios < 0) 
+            if ($votosComentarios < 0)
                 echo 'puntuacionComentarioNegativa';
             else if ($votosComentarios == 0)
                 echo 'puntuacionComentarioCero';
             else echo 'puntuacionComentarioPositiva';
-            echo '">' . $votosComentarios; 
-            
+            echo '">' . $votosComentarios;
+
             ?></div>
             <div class="comentarios" id="comentarios-<?= $partido->getId() ?>"></div>
             <div class="comentar-panel"></div>
         </div>
-<? $resultado = NULL; 
+<? $resultado = NULL;
 $votosComentarios = null;
 $comentario = null;
-} ?><div class="resultadoSemanal">Resultado semanal: <?= $sumaSemanal ?></div></div>
+} ?><div class="resultadoSemanal">Resultado semanal:<?
+if ($sumaSemanal == 1 || $sumaSemanal == -1) echo ' 1 punto.';
+else echo ' ' . $sumaSemanal . ' votos.';
+?></div></div>

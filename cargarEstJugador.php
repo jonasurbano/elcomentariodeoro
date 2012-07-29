@@ -45,5 +45,5 @@ $rankingComentarios = $repositorioJugadores->
     <div class="jugador-ranking-comentario">Ranking: <?= $rankingComentarios ?>º</div>
 </div>
 <div style="clear:left;"></div>
-<div class="jugador-comentarios"></div>    
+<div class="jugador-comentarios"></div>
 
