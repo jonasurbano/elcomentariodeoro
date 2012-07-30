@@ -8,6 +8,8 @@
 
 <?php
 
+date_default_timezone_set("Europe/Madrid");
+
 $fecha = new DateTime('now',new DateTimeZone('UTC'));
 echo 'Tiempo del sistema: ' . date_format($fecha,DateTime::W3C) . '<BR>';
 
