@@ -8,13 +8,15 @@
 
 <?php
 
-$fecha = new DateTime;
+$fecha = new DateTime('now',new DateTimeZone('UTC'));
 echo 'Tiempo del sistema: ' . date_format($fecha,DateTime::W3C) . '<BR>';
 
 if (isset($_SERVER['HTTP_X_FORWARDED_PROTO'])
     && $_SERVER['HTTP_X_FORWARDED_PROTO'] != 'https') {
     die('La conexión tiene que ser HTTPS');
-}
+} else die('La conexión tiene que ser HTTPS');
+
+
 
 ?>
         <FORM action="actualizar.php/" metho="POST">
