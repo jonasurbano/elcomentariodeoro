@@ -16,6 +16,8 @@ if (!isset($_SERVER['HTTP_X_FORWARDED_PROTO'])
     die('La conexión tiene que ser HTTPS');
 }
 
+phpinfo();
+
 ?>
         <FORM action="actualizar.php/" metho="POST">
             <LABEL>Usuario:</LABEL>
