@@ -7,12 +7,9 @@
     <BODY>
 <?php
 
-if ("")
-
-if (isset($_SERVER['HTTPS']) &&
-    ($_SERVER['HTTPS'] != 'on' || $_SERVER['HTTPS'] != 1)
-    || $_SERVER['SERVER_PORT'] != 443) {
-    echo 'SERVER_PORT: ' . $_SERVER['SERVER_PORT'];
+if (!isset($_SERVER['HTTP_X_FORWARDED_PROTO'])
+    && $_SERVER['HTTP_X_FORWARDED_PROTO'] != 'https') {
+    die('La conexión tiene que ser HTTPS');
 }
 
 if (!isset($_POST['usuario']) || !isset($_POST['contrasena']))
