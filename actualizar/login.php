@@ -10,7 +10,7 @@
 
 date_default_timezone_set("Europe/Madrid");
 
-$fecha = new DateTime('now',new DateTimeZone('UTC'));
+$fecha = new DateTime('now');
 echo 'Tiempo del sistema: ' . date_format($fecha,DateTime::W3C) . '<BR>';
 
 if (isset($_SERVER['HTTP_X_FORWARDED_PROTO'])) {
