@@ -12,8 +12,8 @@ if ("")
 if (isset($_SERVER['HTTPS']) && ($_SERVER['HTTPS'] != 'on' ||
     $_SERVER['HTTPS'] != 1) ||
     $_SERVER['SERVER_PORT'] != 443 ||
-    !isset($_SERVER['HTTP_X_FORWARDED_PROTO']) &&
-    $_SERVER['HTTP_X_FORWARDED_PROTO'] != 'https')
+    (!isset($_SERVER['HTTP_X_FORWARDED_PROTO']) &&
+    $_SERVER['HTTP_X_FORWARDED_PROTO'] != 'https'))
 {
     die('La conexión tiene que ser https.');
 }
