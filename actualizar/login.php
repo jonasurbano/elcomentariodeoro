@@ -17,6 +17,8 @@ if (isset($_SERVER['HTTPS']) &&
     echo 'SERVER_PORT: ' . $_SERVER['SERVER_PORT'];
 }
 
+phpinfo();
+
 ?>
         <FORM action="actualizar.php/" metho="POST">
             <LABEL>Usuario:</LABEL>
