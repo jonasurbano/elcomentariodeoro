@@ -19,9 +19,9 @@ if (isset($_SERVER['HTTP_X_FORWARDED_PROTO'])
 ?>
         <FORM action="actualizar.php/" metho="POST">
             <LABEL>Usuario:</LABEL>
-            <INPUT id="usuario" type="text" />
+            <INPUT id="usuario" name="usuario" type="text" />
             <LABEL>Contraseña:</LABEL>
-            <INPUT id="contrasena" type="password" />
+            <INPUT id="contrasena" name="contrasena" type="password" />
             <INPUT id="submit" type="submit" />
         </FORM>
     </BODY>
