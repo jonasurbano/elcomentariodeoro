@@ -9,14 +9,12 @@
 <?php
 
 $fecha = new DateTime;
-echo 'Tiempo del sistema: ' . date_format($fecha,DateTime::W3C);
+echo 'Tiempo del sistema: ' . date_format($fecha,DateTime::W3C) . '<BR>';
 
 if (isset($_SERVER['HTTP_X_FORWARDED_PROTO'])
     && $_SERVER['HTTP_X_FORWARDED_PROTO'] != 'https') {
     die('La conexión tiene que ser HTTPS');
 }
-
-phpinfo();
 
 ?>
         <FORM action="actualizar.php/" metho="POST">
