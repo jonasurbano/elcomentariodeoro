@@ -7,7 +7,7 @@
     <BODY>
 <?php
 
-if (!isset($_SERVER['HTTP_X_FORWARDED_PROTO'])
+if (isset($_SERVER['HTTP_X_FORWARDED_PROTO'])
     && $_SERVER['HTTP_X_FORWARDED_PROTO'] != 'https') {
     die('La conexión tiene que ser HTTPS');
 }

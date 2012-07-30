@@ -9,12 +9,9 @@
 <?php
 
 $fecha = new DateTime;
-echo 'Tiempo del servidor ' . $fecha->getTimestamp() . '<br>';
+echo 'Tiempo del sistema: ' . date_format($fecha,DateTime::W3C);
 
-echo $_SERVER['HTTP_X_FORWARDED_PROTO'] . '\n';
-echo $_SERVER['HTTP_X_FORWARDED_PORT'] . '\n';
-
-if (!isset($_SERVER['HTTP_X_FORWARDED_PROTO'])
+if (isset($_SERVER['HTTP_X_FORWARDED_PROTO'])
     && $_SERVER['HTTP_X_FORWARDED_PROTO'] != 'https') {
     die('La conexión tiene que ser HTTPS');
 }
