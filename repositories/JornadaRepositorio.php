@@ -3,25 +3,62 @@
 use Doctrine\ORM\EntityRepository;
 
 class JornadaRepositorio extends EntityRepository {
- 
-    
+
+
     /**
      * Devuelve el número de jornada actual.
      * @return int
      */
     function getNumJornada() {
-        $dql = "SELECT j.id FROM Jornada j 
-            WHERE CURRENT_DATE() < j.fechaResultados
+        $now = new DateTime();
+        $fecha = "'" . $now->format("Y-m-d H:i:s") . "'";
+        $dql = "SELECT j.id FROM Jornada j
+            WHERE" . $fecha . "< j.fechaResultados
             ORDER BY j.id ASC";
-        $query = $this->getEntityManager()->createQuery($dql)->
+        $query = $this->getEntityManager()->
+            createQuery($dql)->
             setMaxResults(1);
-        
+
         $result = $query->getScalarResult();
         $r = reset($result);
         if (!isset($r) || sizeof($r) == 0) return NULL;
         return $r['id'];
     }
-    
+
+    /**
+     * Devuelve el número de jornada actual.
+     * @return int
+     */
+    public function getJornada() {
+        $now = new DateTime();
+        $fecha = "'" . $now->format("Y-m-d H:i:s") . "'";
+        $dql = "SELECT j FROM Jornada j
+            WHERE" . $fecha . "< j.fechaResultados
+            ORDER BY j.id ASC";
+        $query = $this->getEntityManager()->
+            createQuery($dql)->
+            setMaxResults(1);
+
+        $result = $query->getResult();
+        $r = reset($result);
+        if (!isset($r) || sizeof($r) == 0) return NULL;
+        return $r;
+    }
+
+    public function numUltimaJornada() {
+        $now = new DateTime();
+        $dql = "SELECT j.id FROM Jornada j
+            ORDER BY j.id DESC";
+        $query = $this->getEntityManager()->
+            createQuery($dql)->
+            setMaxResults(1);
+
+        $result = $query->getScalarResult();
+        $r = reset($result);
+        if (!isset($r) || sizeof($r) == 0) return NULL;
+        return $r['id'];
+    }
+
 }
 
 ?>

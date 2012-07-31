@@ -6,8 +6,9 @@ require_once 'Doctrine/ORM/Tools/Setup.php';
 
 //if ($_SERVER['REMOTE_ADDR'] == '127.0.0.1')
 if (getenv('MYSQL_DB_HOST') == FALSE) {
-    $lib = '';
-    
+    if (!isset($lib))
+        $lib = '';
+
     $conn = array(
     'driver'   => 'pdo_mysql',
     'host'     => '127.0.0.1',
@@ -26,7 +27,7 @@ if (getenv('MYSQL_DB_HOST') == FALSE) {
     'user'     => getenv('MYSQL_USERNAME'),
     'password' => getenv('MYSQL_PASSWORD'),);
 
-    $tmpProxy = $lib . '/../tmp'; 
+    $tmpProxy = $lib . '/../tmp';
 }
 
 Setup::registerAutoloadDirectory($lib);
