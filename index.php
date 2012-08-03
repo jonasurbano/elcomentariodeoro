@@ -1,18 +1,17 @@
 <?php require_once 'bootstrap.php'; ?>
 
 <!DOCTYPE html>
-<html>
+<html xmlns:fb="http://ogp.me/ns/fb#" lang="en">
     <head>
         <title>YoS&eacute;DeF&uacute;tbol</title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
-        <meta property="og:title" content="YoS&eacute;DeF&uacute;tbol" />
+        <meta property="og:title" content="YoSéDeFútbol" />
         <meta property="og:type" content="website" />
         <meta property="og:url" content="<?php echo AppInfo::getUrl(); ?>" />
-        <meta property="og:image" content="<?php echo AppInfo::getUrl('/logo.png'); ?>" />
-        <meta property="og:site_name" content="YoS&eacute;DeF&uacute;tbol" />
-        <meta property="og:description" content="" />
-        <meta property="og:description" content="Demuestra todo lo que sabes de f&uacute;tbol y descubre qui&eacute;n controla. Todo y m&aacute;s en YoS&eacute;DeF&uacute;tbol." />
+        <meta property="og:image" content="<?php echo AppInfo::getUrl('images/icono.png'); ?>" />
+        <meta property="og:site_name" content="YoSéDeFútbol" />
+        <meta property="og:description" content="'Cuéntanos qué pasará en la liga. En YoSéDeFútbol podrás puntuar y escribir todo lo que quieras sobre los partidos de la jornada. Además podrás leer lo que piensan tus amigos y más..." />
 
         <link rel="stylesheet" href="stylesheets/ysdf.css" media="Screen" type="text/css" />
 
@@ -74,15 +73,21 @@ if ($idFacebook) {
             exit();
         }
     }
-} else {
-    echo '<div class="error">La autenticaci&oacute;n de su usuario en Facebook
-        no fue posible.</div>';
-}
+} else { ?>
+    <div>Intentando autenticarle en Facebook</div>';
+<? }
 
 if (isset($basic)) {
 
     $em = GetMyEntityManager();
-    $numJornada = $em->getRepository('Jornada')->getNumJornada();
+
+    $jornada = $em->getRepository('Jornada')->getJornada();
+    $numJornada = $jornada->getId();
+
+    if ($jornada->getFechaTope() < new DateTime) {
+        ?><div id="jugando" style="display: none;">jugando</div><?
+    }
+
     $partidos = $em->getRepository('Partido')->getPartidos($numJornada);
 
     $repositorioComentarios = $em->getRepository('Comentario');
@@ -108,8 +113,13 @@ if (isset($basic)) {
                 }
 ?>
                 <div class="partido" id="<?= $partido->getId() ?>">
-                    <div class="club"><?= htmlentities($partido->getClub1()); ?></div><div class="resultado"><div class="uno <? if (isset($resultado) &&  $resultado == '1') echo ', borde-rojo' ?>
-                        ">1</div><div class="x <? if (isset($resultado) && $resultado == 'x') echo ', borde-rojo' ?>">X</div><div class="dos <? if (isset($resultado) && $resultado == '2') echo ', borde-rojo' ?>">2</div></div><div class="club"><?= htmlentities($partido->getClub2()); ?></div><input type="text" class="comentar" value="<?
+                    <div class="club"><?= htmlentities($partido->getClub1()); ?></div>
+                    <div class="resultado">
+                        <div class="uno <? if (isset($resultado) &&  $resultado == '1') echo ', borde-rojo' ?>">1</div>
+                        <div class="x <? if (isset($resultado) && $resultado == 'x') echo ', borde-rojo' ?>">X</div>
+                        <div class="dos <? if (isset($resultado) && $resultado == '2') echo ', borde-rojo' ?>">2</div></div>
+                    <div class="club"><?= htmlentities($partido->getClub2()); ?></div>
+                    <input type="text" class="comentar" value="<?
                     if (isset($jugador)) {
                         $c = $repositorioComentarios->getComentario($partido->getId(),$jugador->getId());
                         if (!isset($c)) {
@@ -120,10 +130,11 @@ if (isset($basic)) {
                     } else {
                         echo 'Ens&eacute;&ntilde;anos f&uacute;tbol..."';
                     }
-                    ?> /><div class="btnComentarios"
-                        ><div class="btnComentariosAmigos">.</div
-                        ><div class="btnComentariosRecientes">.</div
-                        ><div class="btnComentariosMejores">.</div>
+                    ?> />
+                    <div class="btnComentarios">
+                        <div class="btnComentariosAmigos">.</div>
+                        <div class="btnComentariosRecientes">.</div>
+                        <div class="btnComentariosMejores">.</div>
                     </div>
                     <div class="comentarios" id="comentarios-<?= $partido->getId() ?>"></div>
                     <div class="comentar-panel"></div>
@@ -134,18 +145,17 @@ if (isset($basic)) {
             <div class="partidos-janterior"></div>
             <div class="estadisticas">
                 <div class="estadisticas-jugador"></div>
-                <div class="estadisticasGlobales"></div>
+                <div class="estadisticasGlobales" ></div>
             </div>
             <div class="otrasSecciones">
                 <div class="btnJornadaAnterior">Jornada anterior</div>
                 <div class="btnEstadisticas">Estad&iacute;sticas</div>
             </div></div>
         <div id="jornada"><?= $numJornada ?></div>
-        <div id="depuracion">Jornada: <?= $numJornada; ?><br><?= he(idx($basic, 'id')) ?></div>
         <?php } else { ?>
         <div>
             <h1>Bienvenido</h1>
-            <div class="fb-login-button" data-scope="user_likes,user_photos"></div>
+            <div class="fb-login-button" data-scope="publish_stream"></div>
         </div>
         <?php } ?>
 

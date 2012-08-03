@@ -14,92 +14,49 @@ class ComentarioRepositorio extends EntityRepository {
      * Devuelve 3 de los comentarios recientes.
      * @param int $offset.
      * @param int $idPartido.
+     * @param int $idJugador. No se cargan sus comentarios.
      * @return Array de objetos Comentario.
      * Comprobar isset() y sizeof().
      */
-    public function getComentariosRecientes($offset,$idPartido) {
+    public function getComentariosRecientes($offset,$idPartido,$idJugador) {
         if ($offset < 0) return NULL;
-        
-        $dql = "SELECT c FROM Comentario c 
-            WHERE c.partido = ?1
+
+        $dql = "SELECT c FROM Comentario c
+            WHERE c.partido = ?1 AND c.escritor <> ?2
             ORDER BY c.fecha DESC";
         $query = $this->getEntityManager()->
             createQuery($dql)->
-            setParameter(1, (int)$idPartido)->    
-            setMaxResults(3)->
+            setParameter(1, (int)$idPartido)->
+            setParameter(2, (int)$idJugador)->
+            setMaxResults(4)->
             setFirstResult((int)$offset);
         return $query->getResult();
     }
-    
-    /**
-     * Comprueba si hay comentarios posteriores a los
-     * últimos obtenidos que se han indicado con $offset.
-     * @param int $offset
-     * @param int $idPartido
-     * @return boolean
-     * Comprobar isset().
-     */
-    public function hayPosterioresComentariosRecientes($offset,$idPartido) {
-        if ($offset < 0) return NULL;
-        
-        $dql = "SELECT c FROM Comentario c
-            WHERE c.partido = ?1
-            ORDER BY c.fecha DESC";
-        $query = $this->getEntityManager()
-            ->createQuery($dql)
-            ->setParameter(1, (int)$idPartido)
-            ->setFirstResult((int)$offset+3)    
-            ->setMaxResults(1)
-            ->getArrayResult();
 
-        return sizeof($query) > 0;
-    }
-    
     /**
      * Devuelve 3 de los comentarios más votados.
      * @param int $offset.
      * @param int $idPartido.
+     * @param int $idJugador. No se cargan sus comentarios.
      * @return Array de objetos Comentario.
      * Comprobar isset() y sizeof().
      */
-    public function getComentariosMasVotados($offset,$idPartido) {
+    public function getComentariosMasVotados($offset,$idPartido,$idJugador) {
         if ($offset < 0) return NULL;
-        
-        $dql = "SELECT c FROM Comentario c 
+
+        $dql = "SELECT c FROM Comentario c
             WHERE c.partido = ?1
+            AND c.escritor <> ?2
             ORDER BY c.votos DESC";
         $query = $this->getEntityManager()->
             createQuery($dql)->
-            setParameter(1, (int)$idPartido)->    
-            setMaxResults(3)->
+            setParameter(1, (int)$idPartido)->
+            setParameter(2, (int)$idJugador)->
+            setMaxResults(4)->
             setFirstResult((int)$offset);
         return $query->getResult();
     }
-    
-    /**
-     * Comprueba si hay comentarios posteriores a los
-     * últimos obtenidos que se han indicado con $offset.
-     * @param int $offset
-     * @param int $idPartido
-     * @return boolean.
-     * Comprobar isset().
-     */
-    public function hayPosterioresComentariosMasVotados($offset,$idPartido) {
-        if ($offset < 0) return NULL;
-        
-        $dql = "SELECT c FROM Comentario c
-            WHERE c.partido = ?1
-            ORDER BY c.votos DESC";
-        $query = $this->getEntityManager()
-            ->createQuery($dql)
-            ->setParameter(1, (int)$idPartido)
-            ->setFirstResult((int)$offset+3)    
-            ->setMaxResults(1)
-            ->getArrayResult();
 
-        return sizeof($query) > 0;
-    }
-    
     /**
      * Devuelve 3 de los comentarios de amigos en Facebook.
      * @param int $offset
@@ -109,39 +66,17 @@ class ComentarioRepositorio extends EntityRepository {
      * Comprobar isset() y sizeof().
      */
     public function getComentariosAmigos($offset,$idPartido,$listaAmigos) {
-        $dql = "SELECT c FROM Comentario c 
-            WHERE c.partido = ?1 AND c.escritor IN (" . 
+        $dql = "SELECT c FROM Comentario c
+            WHERE c.partido = ?1 AND c.escritor IN (" .
             $listaAmigos . ") ORDER BY c.votos DESC";
-        
+
         $query = $this->getEntityManager()->
             createQuery($dql)->
             setParameter(1, (int)$idPartido)->
-            setMaxResults(3)->
+            setMaxResults(4)->
             setFirstResult($offset);
-        
+
         return $query->getResult();
-    }
-    
-    /**
-     * Comprueba si hay comentarios posteriores a los
-     * últimos obtenidos que se han indicado con $offset.
-     * @param int $offset
-     * @param int $idPartido
-     * @return boolean.
-     * Comprobar isset().
-     */    
-    public function hayMasComentariosAmigos($offset,$idPartido,$listaAmigos) {
-        $dql = "SELECT c FROM Comentario c 
-            WHERE c.partido = ?1 AND c.escritor IN (" . 
-            $listaAmigos . ") ORDER BY c.votos DESC";
-        
-        $query = $this->getEntityManager()->
-            createQuery($dql)->
-            setParameter(1, (int)$idPartido)->
-            setMaxResults(3)->
-            setFirstResult($offset+3);
-        
-        return sizeof($query->getResult()) > 0;
     }
 
     /**
@@ -152,20 +87,20 @@ class ComentarioRepositorio extends EntityRepository {
      * @return boolean
      */
     public function existeComentario($idPartido,$idEscritor) {
-        $dql = "SELECT COUNT(c.id) AS num FROM Comentario c 
+        $dql = "SELECT COUNT(c.id) AS num FROM Comentario c
             WHERE c.partido = ?1 AND c.escritor = ?2";
         $query = $this->getEntityManager()->
             createQuery($dql)->
             setParameter(1, (int)$idPartido)->
             setParameter(2, (int)$idEscritor)->
             setMaxResults(1);
-        
+
         $result = $query->getScalarResult();
         $r = reset($result);
         if (!isset($r) || sizeof($r) == 0) return NULL;
         return $r['num'] > 0;
     }
-    
+
     /**
      * Devuelve el comentario identificado por $idPartido
      * y $idEscritor.
@@ -175,45 +110,31 @@ class ComentarioRepositorio extends EntityRepository {
      * Comprobar isset().
      */
     public function getComentario($idPartido,$idEscritor) {
-        $dql = "SELECT c FROM Comentario c 
+        $dql = "SELECT c FROM Comentario c
             WHERE c.partido = ?1 AND c.escritor = ?2";
         $query = $this->getEntityManager()->
             createQuery($dql)->
             setParameter(1, (int)$idPartido)->
             setParameter(2, (int)$idEscritor)->
             setMaxResults(1);
-        
+
         $result = $query->getResult();
         if (sizeof($result) == 0) return NULL;
         else if (sizeof($result) == 1) return reset($result);
     }
-    
+
     public function getComentariosJugador($offset,$idEscritor) {
-        $dql = "SELECT c FROM Comentario c 
+        $dql = "SELECT c FROM Comentario c
             WHERE c.escritor = ?1 ORDER BY c.votos DESC";
-        
+
         $query = $this->getEntityManager()->
             createQuery($dql)->
             setParameter(1, (int)$idEscritor)->
-            setMaxResults(3)->
+            setMaxResults(4)->
             setFirstResult($offset);
-        
+
         return $query->getResult();
     }
-    
-    public function hayPosterioresComentariosJugador($offset,$idEscritor) {
-        $dql = "SELECT c FROM Comentario c 
-            WHERE c.escritor = ?1 ORDER BY c.votos DESC";
-        
-        $query = $this->getEntityManager()->
-            createQuery($dql)->
-            setParameter(1, (int)$idEscritor)->
-            setMaxResults(3)->
-            setFirstResult($offset+3);
-        
-        return sizeof($query->getResult()) > 0;    
-    }
-    
 }
 
 ?>

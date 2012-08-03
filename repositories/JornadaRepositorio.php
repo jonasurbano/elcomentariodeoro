@@ -6,7 +6,8 @@ class JornadaRepositorio extends EntityRepository {
 
 
     /**
-     * Devuelve el número de jornada actual.
+     * Devuelve el número de jornada teniendo en cuenta
+     * que la fecha es anterior a la fecha de resultados.
      * @return int
      */
     function getNumJornada() {
@@ -26,7 +27,8 @@ class JornadaRepositorio extends EntityRepository {
     }
 
     /**
-     * Devuelve el número de jornada actual.
+     * Devuelve el número de jornada teniendo en cuenta
+     * que la fecha es anterior a la fecha de resultados.
      * @return int
      */
     public function getJornada() {

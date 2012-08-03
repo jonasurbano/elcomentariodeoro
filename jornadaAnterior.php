@@ -40,7 +40,7 @@ $sumaSemanal = 0;
                 echo 'Ens&eacute;&ntilde;anos f&uacute;tbol...';
             }
             ?>" /><div class="btnComentariosAmigos">A</div><div class="btnComentariosRecientes">R</div><div class="btnComentariosMejores">M</div><div class="puntuacionPronostico<?
-            if ($partido->getResultado() == $resultado) {
+            if ($partido->pronosticoAcertado($resultado)) {
                 $sumaSemanal += 3;
                 echo '">+3';
             } else echo 'Cero">0'; ?></div><div class="<?

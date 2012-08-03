@@ -1,17 +1,30 @@
 <?php
 
-require_once 'bootstra.php';
+require_once 'bootstrap.php';
 
-$jugador = $_GET['jugador'];
-if (!isset($_GET['jugador'])) die();
+if (!isset($_GET['mensaje'])) die('Mensaje no recibido.');
+$mensaje = $_GET['mensaje'];
 
 try {
     $ret_obj = $facebook->api('/me/feed', 'POST',
         array(
-            'link' => 'www.example.com',
-            'message' => $jugador . ' ha escrito un comentario
-                muy interesante que puedes ver en YoS&eacute;DeF&uacute;tbol.'
+            'link' => AppInfo::getUrl('images/logo.png'),
+            'message' => $mensaje,
+            'name' => 'YoséDeFútbol',
+            'caption' => 'Juega en YoSéDeFútbol',
+            'description' => 'Cuéntanos qué pasará en ' .
+                'la liga. En YoSéDeFútbol podrás puntuar ' .
+                'y escribir todo lo que quieras sobre los partidos ' .
+                'de la jornada. Además podrás leer lo que piensan tus ' .
+                'amigos y más...',
+            'picture' => 'http://ysdf.phpfogapp.com/images/icono.png',
+            'type' => 'link',
+            'application' => array(
+                'name' => 'Name of your app',
+                'id' => AppInfo::appID() )
         ));
-} catch (FacebookApiException $e) {}
-    
+} catch (FacebookApiException $e) {
+    echo $e;
+}
+
 ?>

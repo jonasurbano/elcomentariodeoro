@@ -102,6 +102,18 @@ class Partido {
             $this->resultado = $resultado;
         if ($resultado == 'X') $this->resultado = 'x';
     }
+
+    /**
+     * Determina si el pronóstico equivale al resultado.
+     * @param string $pronostico '1' | '2' | 'x' | 'X'.
+     * @return boolean
+     */
+    public function pronosticoAcertado($pronostico) {
+        if ($pronostico != '1' && $pronostico != 'x'
+            && $pronostico != '2' && $pronostico != 'X')
+            return false;
+        return $this->resultado == $pronostico;
+    }
 }
 
 ?>

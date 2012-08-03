@@ -1,5 +1,21 @@
 $(document).ready(function() {
-    $offsetComentarios = new Array();
+
+    /**
+     * Mantiene el número de comentarios mostrados.
+     * clave: id del partido.
+     * valor: entero.
+     */
+    offsetComentarios = new Array();
+
+    numJornada = $('#jornada').html();
+    $('#jornada').remove();
+
+    /**
+     * Esta variable si (== true) indica que se ha superado fechaTope de
+     * la jornada y el usuario no puede comentar ni pronosticar resultados.
+     */
+    jugando = $('#jugando').html() == 'jugando';
+    $('#jugando').remove();
 
     accionesPartidos();
     accionesEstadisticas();
@@ -7,115 +23,132 @@ $(document).ready(function() {
     $('div.btnJornadaAnterior').toggle(function() {
         cargarJornadaAnterior();
         $(this).html('Jornada actual');
-        $('div.partidos').hide();
+        $('div.btnEstadisticas').html('Estad&iacute;sticas');
+        $('div.partidos').slideUp();
+        $('div.estadisticas').slideUp();
     },function() {
         $(this).html('Jornada anterior');
-        $('div.partidos').show();
-        $('div.partidos-janterior').hide();
+        $('div.btnEstadisticas').html('Estad&iacute;sticas');
+        $('div.partidos').slideDown();
+        $('div.estadisticas').slideUp();
+        $('div.partidos-janterior').slideUp();
     });
 
 });
 
+/**
+ * Define comportamiento para div.partido y su contenido.
+ * - Define hover para div.partido y div.partido-janterior.
+ * - Define click y hover para los 3 botones de comentarios.
+ * - Define click para los botones de resultado.
+ * - Define las acciones para mostrar los comentarios.
+ */
 accionesPartidos = function() {
+    /**
+     * No defino :hover en CSS porque cuando la altura de div.partido
+     * se amplía para div.panel-comentar no quiero que :hover ocurra.
+     */
     $('div.partido, div.partido-janterior').hover(function() {
         $(this).addClass('partido-hover');
     },function() {
         $(this).removeClass('partido-hover');
     })
 
-    $('.btnComentariosAmigos').click(function() {
-        var $idPartido = $(this).parent().parent().attr("id");
-        cargarComentarios($idPartido,1) });
+    $('div.btnComentariosAmigos').click(function() {
+        var idPartido = $(this).parent().parent().attr("id");
+        cargarComentarios(idPartido,1) });
 
-    $('.btnComentariosRecientes').click(function() {
-        var $idPartido = $(this).parent().parent().attr("id");;
-        cargarComentarios($idPartido,2) });
+    $('div.btnComentariosRecientes').click(function() {
+        var idPartido = $(this).parent().parent().attr("id");;
+        cargarComentarios(idPartido,2) });
 
-    $('.btnComentariosMejores').click(function() {
-        var $idPartido = $(this).parent().parent().attr("id");;
-        cargarComentarios($idPartido,3) });
+    $('div.btnComentariosMejores').click(function() {
+        var idPartido = $(this).parent().parent().attr("id");;
+        cargarComentarios(idPartido,3) });
 
-    /* Código para mostrar la "explicación" de los botones.
-     * Indico que el antecesor es .partidos para evitar el comportamiento
-     * en .partidos-janterior
-     **/
-
-    $('.partidos .btnComentariosAmigos').hover(function() {
+    /* Las explicaciones sólo se muestran en partidos.
+     * No en partidos-janterior
+     */
+    $('div.partido div.btnComentariosAmigos').hover(function() {
         $('<span id="explicacion">¿Y tus amigos?</span>').insertAfter($(this));
     },function() {
         $('#explicacion').remove();
     });
-
-    $('.partidos .btnComentariosRecientes').hover(function() {
+    $('div.partido div.btnComentariosRecientes').hover(function() {
         $('<span id="explicacion">Los últimos</span>').insertAfter($(this));
     },function() {
         $('#explicacion').remove();
     });
-
-    $('.partidos .btnComentariosMejores').hover(function() {
+    $('div.partido div.btnComentariosMejores').hover(function() {
         $('<span id="explicacion">Los + votados</span>').insertAfter($(this));
     },function() {
         $('#explicacion').remove();
     });
 
-    $('div.uno').not('.borde-rojo').click(function() {
-        idPartido = $(this).parent().parent().attr('id');
-        $(this).parent().find('.borde-rojo').removeClass('borde-rojo');
-        $(this).addClass('borde-rojo');
-        guardarResultado(idPartido,'1');
-    });
+    if (!jugando) {
+        $('div.partido div.resultado').children().hover(function() {
+           $(this).addClass('resultados-hover');
+        },function() {
+           $(this).removeClass('resultados-hover');
+        });
 
-    $('div.x').not('.borde-rojo').click(function() {
-        idPartido = $(this).parent().parent().attr('id');
-        $(this).parent().find('.borde-rojo').removeClass('borde-rojo');
-        guardarResultado(idPartido,'x');
-        $(this).addClass('borde-rojo');
-    });
-
-    $('div.dos').not('.borde-rojo').click(function() {
-        var idPartido = $(this).parent().parent().attr('id');
-        $(this).parent().find('.borde-rojo').removeClass('borde-rojo');
-        guardarResultado(idPartido,'2');
-        $(this).addClass('borde-rojo');
-    });
+        $('div.partido div.resultado').children().click(function() {
+            var $this = $(this);
+            var $parent = $(this).parent();
+            var idPartido = $parent.parent().attr('id');
+            $parent.find('.borde-rojo').removeClass('borde-rojo');
+            $this.addClass('borde-rojo');
+            if ($this.hasClass('uno')) guardarResultado(idPartido,'1');
+            else if ($this.hasClass('x')) guardarResultado(idPartido,'2');
+            else if ($this.hasClass('dos')) guardarResultado(idPartido,'3');
+        });
+    }
 
     mostrarPanelComentar();
 }
 
 /**
- * Muestra el panel con el comentario del jugador.
+ * Define comportamiento necesario para mostrar el panel para comentar.
+ * - Define el comportamiento del cuadro de texto y de partido.
+ * - Define el comportamiento para ocultar el panel.
+ * - Define el comportamiento del botón para guardar un comentario.
+ * - Define el comportamiento del botón para ocultar el panel.
  */
 mostrarPanelComentar = function() {
     var comentarPanel1 = '<textarea class="comentar-textarea">';
-    var comentarPanel2 = '</textarea><div class="btnPanelComentario btnOcultarComentar">Ocultar</div>';
-    var comentarPanel3 = '<div class="btnPanelComentario btnComentar">Guardar comentarios</div>';
+    var comentarPanel2 = '</textarea><div class="btnPanelComentario ' +
+        'btnOcultarComentar">Ocultar</div>';
+    var comentarPanel3 = '<div class="btnPanelComentario btnComentar">' +
+        'Guardar comentarios</div>';
 
     $('input.comentar').click(function() {
         var textoInput = $(this).attr('value');
-        var $padre = $(this).parent();
-
+        var $partido = $(this).parent();
         var contenidoHttml = comentarPanel1 + textoInput + comentarPanel2;
 
-        /* Ocultar botón btnComentar si el comentario está en la BD */
+        /* Si el comentario viene desde la BD input['readonly']='readonly' */
         var readonly = $(this).attr('readonly');
-        if (!readonly || readonly.toLowerCase() === 'false') {
+        if (!jugando && (!readonly || readonly.toLowerCase() === 'false')) {
             contenidoHttml += comentarPanel3;
         }
 
-        $padre.find("div.comentar-panel").html(contenidoHttml).hide();
+        /* Retirar hover de partido */
+        $partido.find("div.comentar-panel")
+            .html(contenidoHttml)
+            .hide()
+            .slideDown()
+            .removeClass('partido-hover')
+            .addClass('mostrandoComentario')
+            .unbind('hover');
 
         $(this).addClass('no-visible');
-        $padre.find("div.comentar-panel").slideDown();
-        $padre.removeClass('partido-hover');
-        $padre.addClass('mostrandoComentario');
-        $padre.unbind('hover');
 
-        if ($(this).attr('readonly') == 'readonly') {
+        if ($(this).attr('readonly') == 'readonly' || jugando) {
             $('textarea.comentar-textarea').attr('readonly','readonly');
 
             /* Mostrar mensaje de que el comentario no se puede guardar */
             $('<div class="mensaje">Este comentario no se puede modificar.</div>')
-                .prependTo($(this).parent().find('.comentar-panel'))
+                .prependTo($partido.find('.comentar-panel'))
                 .hide().slideDown().delay(5000).slideUp(function() {
                     $(this).remove();
                 });
@@ -123,206 +156,230 @@ mostrarPanelComentar = function() {
             $('textarea.comentar-textarea').select();
         }
 
-        /**
-         * Funcionalidad del botón para comentar.
-         */
-        $('div.btnComentar').click(function() {
-            idPartido = $padre.attr('id');
+        ocultarPanel = function($partido) {
+            textoTextarea = $partido.find('textarea.comentar-textarea').val();
+            $partido.find('div.comentar-panel').slideUp();
+            $partido.find('input.comentar').attr('value',textoTextarea)
+                .addClass('visible')
+                .removeClass('no-visible');
+
+            /* Volver a asignar hover a partido */
+            $partido.removeClass('mostrandoComentario')
+                .hover(function() {
+                    $partido.addClass('partido-hover');
+                        },function() {
+                    $partido.removeClass('partido-hover');
+            });
+        }
+
+        /* $partido ya que con $() se cerraban todos. */
+        $partido.find('div.btnComentar').click(function() {
+            idPartido = $partido.attr('id');
             comentario = $(this).parent()
                 .find('textarea.comentar-textarea').val();
             guardarComentario(idPartido,comentario);
+            ocultarPanel($partido);
         });
 
-        /**
-         * Funcionalidad del botón para ocultar comentario.
-         */
-        $('div.btnOcultarComentar').click(function() {
-            textoTextarea = $(this).parent().
-                find('textarea.comentar-textarea').val();
-            $(this).parent().slideUp();
-            $(this).parent().parent().find('input.comentar').
-                attr('value',textoTextarea).addClass('visible')
-                .removeClass('no-visible').end()
-                .removeClass('mostrandoComentario')
-                .hover(function() {
-                    $(this).addClass('partido-hover');
-                        },function() {
-                    $(this).removeClass('partido-hover');
-                });
+        $partido.find('div.btnOcultarComentar').click(function() {
+            ocultarPanel($partido);
         });
     });
-
 }
 
 /**
- * Muestra y oculta la sección de estadísticas
+ * Muestra y oculta la sección de estadísticas.
+ * - Define el comportamiento para el botón de estadísticas.
+ * - Carga las estadísticas del jugador y los mejores comentarios del usuario.
+ * - Carga las estadísticas globales.
+ * - Define el comportamiento cuando se hace click sobre los nombres de los
+ *      jugadores.
+ *
+ * Cuando se cargan las estadísticas personales:
+ * - Se desliza el div de estadísticas.
+ *
+ * Cuando se cargan las estadísticas globales:
+ * - Se le asignan imágenes de fondo a los 3 primeros ranking-jugador.
  */
 accionesEstadisticas = function() {
-
     $('div.btnEstadisticas').toggle(function() {
-        $('div.estadisticas').show();
+        $('div.partidos').slideUp();
+        $('div.partidos-janterior').slideUp();
+        $('dib.btnJornadaAnterior').html('Jornada anterior');
 
-        $('div.estadisticas-jugador').empty().load('cargarEstJugador.php',
+        $('div.estadisticas-jugador').empty()
+            .load('cargarEstJugador.php',
             function() {
                 cargarMejoresComentariosJugador();
-                $('div.btnEstadisticas').html('Ocultar estad&iacute;sticas');
+                $('div.btnEstadisticas')
+                    .html('Ocultar estad&iacute;sticas');
+
+                $('div.estadisticas').slideDown();
+
+                offsetComentariosJugador = 0;
         });
 
-        /**
-         * Carga el ranking de jugadores por mejores pronósticos.
-         * @element DIV rankingPronosticos.
-         */
         $('div.estadisticasGlobales').empty()
-            .load('cargarRanking.php?offset=0',function() {
+            .load('cargarRanking.php?offset=0',
+            function() {
 
-                /**
-                 * Carga la sección estadísitcas del jugador.
-                 * @element: Nombres de los usuarios en los rankings.
-                 */
-                $('div.ranking-nombre').click(function() {
-                   var idElem = $(this).parent().attr('id');
-                   var idFacebook = idElem.substring(4);
-                   $('div.estadisticas-jugador').empty()
-                       .load('cargarEstJugador.php?idf=' + idFacebook,
-                       function() {
-                           cargarMejoresComentariosJugador(idFacebook);
-                   });
-                });
+            $('div.ranking-nombre').click(function() {
+                var idElem = $(this).parent().attr('id');
+                var idFacebook = idElem.substring(4);
 
-                $('div.rankingPronosticos div.ranking-jugador').first()
-                    .css('background-image','url("../images/oro.jpg")');
+                $('div.estadisticas-jugador').empty()
+                    .load('cargarEstJugador.php?idf=' + idFacebook,
+                    function() {
+                        cargarMejoresComentariosJugador(idFacebook);
 
-                $('div.rankingComentarios div.ranking-jugador').first()
-                    .css('background-image','url("../images/oro.jpg")');
+                        offsetComentariosJugador = 0;
+                    });
+            });
 
-                $('div.rankingPronosticos div.ranking-jugador').eq(1)
-                    .css('background-image','url("../images/plata.jpg")');
+            $('div.rankingPronosticos div.ranking-jugador').first()
+                .css('background-image','url("../images/oro.jpg")');
 
-                $('div.rankingComentarios div.ranking-jugador').eq(1)
-                    .css('background-image','url("../images/plata.jpg")');
+            $('div.rankingComentarios div.ranking-jugador').first()
+                .css('background-image','url("../images/oro.jpg")');
 
-                $('div.rankingPronosticos div.ranking-jugador').eq(2)
-                    .css('background-image','url("../images/bronce.jpg")');
+            $('div.rankingPronosticos div.ranking-jugador').eq(1)
+                .css('background-image','url("../images/plata.jpg")');
 
-                $('div.rankingComentarios div.ranking-jugador').eq(2)
-                    .css('background-image','url("../images/bronce.jpg")');
+            $('div.rankingComentarios div.ranking-jugador').eq(1)
+                .css('background-image','url("../images/plata.jpg")');
+
+            $('div.rankingPronosticos div.ranking-jugador').eq(2)
+                .css('background-image','url("../images/bronce.jpg")');
+
+            $('div.rankingComentarios div.ranking-jugador').eq(2)
+                .css('background-image','url("../images/bronce.jpg")');
+
+            $(this).css('display','block').slideDown();
 
             });
 
     },function() {
         $(this).html('Estad&iacute;sticas');
-        $('div.estadisticas').hide();
+        $('div.estadisticas').slideUp();
+        $('div.partidos').slideDown();
     });
 }
 
-jqBtnCerrarComentarios = function() {
-    $(this).parent().slideUp();
-    var $idPartido = $(this).parent().parent().attr("id");
-    $offsetComentarios[$idPartido] = 0;
-}
+/*
+ * Define el comportamiento de los botones +1 y -1 para click y hover.
+ */
+comportamientoBtnVotar = function() {
+    /* Si +1 o -1 está marcado no lanzará el evento. */
+    $('div.btnMas1').not('marcado').click(function() {
+        $(this).addClass('marcado');
+        $(this).parent().find('div.btnMenos1').removeClass('marcado');
+        gustoComentario($(this).parent(),1);
+    })
+    $('div.btnMenos1').not('marcado').click(function() {
+        $(this).addClass('marcado');
+        $(this).parent().find('div.btnMas1').removeClass('marcado');
+        gustoComentario($(this).parent(),2);
+    })
 
-cargarComentarios = function($idPartido,$opcion) {
-    $offsetComentarios[$idPartido] = 0;
-
-    var $urlComentarios = "cargarComentarios.php?offset="
-        + $offsetComentarios[$idPartido]
-        + "&idpartido=" + $idPartido + "&opcion=" + $opcion;
-
-    $('#comentarios-' + $idPartido).empty().load($urlComentarios,function() {
-        $('.btnOcultarComentarios').click(jqBtnCerrarComentarios);
-
-        $('.masComentariosAmigos').click(function(){
-            cargarMasComentarios($idPartido,1) });
-        $('.masComentariosRecientes').click(function(){
-            cargarMasComentarios($idPartido,2) });
-        $('.masComentariosMejores').click(function(){
-            cargarMasComentarios($idPartido,3) });
-
-        /**
-         * Si +1 o -1 está marcado no lanzará el evento.
-         */
-        $('div.btnMas1').not('marcado').click(function() {
-            $(this).addClass('marcado');
-            $(this).parent().find('div.btnMenos1').removeClass('marcado');
-            gustoComentario($(this).parent(),1);
-        })
-        $('div.btnMenos1').not('marcado').click(function() {
-            $(this).addClass('marcado');
-            $(this).parent().find('div.btnMas1').removeClass('marcado');
-            gustoComentario($(this).parent(),2);
-        })
-
-        $('div.btnMas1').not('marcado').hover(function() {
-            $(this).addClass('btnVotos-hover');
-        },function() {
-            $(this).removeClass('btnVotos-hover');
-        })
-        $('div.btnMenos1').not('marcado').hover(function() {
-            $(this).addClass('btnVotos-hover');
-        },function() {
-            $(this).removeClass('btnVotos-hover');
-        })
-
-    }).show();
-
-    $offsetComentarios[$idPartido] += 3;
-}
-
-cargarMasComentarios = function($idPartido,$opcion) {
-a
-    var $urlComentarios = "cargarComentarios.php?offset="
-        + $offsetComentarios[$idPartido]
-        + "&idpartido=" + $idPartido + "&opcion=" + $opcion;
-
-    $.get($urlComentarios, function(data) {
-        $('#comentarios-' + $idPartido + " > .masComentariosRecientes").remove();
-        $('#comentarios-' + $idPartido + " > .masComentariosMejores").remove();
-
-        $('#comentarios-' + $idPartido).append(data);
-
-        $('.btnOcultarComentarios').click(jqBtnCerrarComentarios);
-
-        $('.masComentariosMejores').click(function(){
-            cargarMasComentarios($idPartido,1) });
-
-        $('.masComentariosRecientes').click(function(){
-            cargarMasComentarios($idPartido,2) });
-
-        $('.masComentariosMejores').click(function(){
-            cargarMasComentarios($idPartido,3) });
-
-        $('div.btnMas1').not('marcado').click(function() {
-            $(this).addClass('marcado');
-            $(this).parent().find('div.btnMenos1').removeClass('marcado');
-            gustoComentario($(this).parent(),1);
-        })
-        $('div.btnMenos1').not('marcado').click(function() {
-            $(this).addClass('marcado');
-            $(this).parent().find('div.btnMas1').removeClass('marcado');
-            gustoComentario($(this).parent(),2);
-        })
-
-        $('div.btnMas1').not('marcado').hover(function() {
-            $(this).addClass('btnVotos-hover');
-        },function() {
-            $(this).removeClass('btnVotos-hover');
-        })
-        $('div.btnMenos1').not('marcado').hover(function() {
-            $(this).addClass('btnVotos-hover');
-        },function() {
-            $(this).removeClass('btnVotos-hover');
-        })
-    });
-
-    $offsetComentarios[$idPartido] += 3;
+    $('div.btnMas1').not('marcado').hover(function() {
+        $(this).addClass('btnVotos-hover');
+    },function() {
+        $(this).removeClass('btnVotos-hover');
+    })
+    $('div.btnMenos1').not('marcado').hover(function() {
+        $(this).addClass('btnVotos-hover');
+    },function() {
+        $(this).removeClass('btnVotos-hover');
+    })
 }
 
 /**
+ * Carga y muestra los comentarios.
+ * - Define el comportamiento de más comentarios.
+ * - Define el comportamiento de los botones +1 y -1 para click y hover.
+ * - Elimina los botones de más comentarios si existen.
+ * - Define el comportamiento de los botones de ocultar comentarios.
+ * - Define el comportamiento de los botones para compartir en Fb.
+ */
+cargarComentarios = function(idPartido,opcion) {
+    if (typeof offsetComentarios[idPartido] == 'undefined')
+        offsetComentarios[idPartido] = 0;
+
+    var urlComentarios = "cargarComentarios.php?offset="
+        + offsetComentarios[idPartido]
+        + "&idpartido=" + idPartido + "&opcion=" + opcion;
+
+    $.get(urlComentarios, function(data) {
+        $('#comentarios-' + idPartido + " > .masComentariosRecientes").remove();
+        $('#comentarios-' + idPartido + " > .masComentariosMejores").remove();
+
+        $('#comentarios-' + idPartido).append(data);
+
+        $('.btnOcultarComentarios').click(function() {
+            $(this).parent().slideUp();
+            var idPartido = $(this).parent().parent().attr("id");
+            offsetComentarios[idPartido] = 0;
+        });
+
+        $('.masComentariosMejores').click(function(){
+            cargarComentarios(idPartido,1) });
+        $('.masComentariosRecientes').click(function(){
+            cargarComentarios(idPartido,2) });
+        $('.masComentariosMejores').click(function(){
+            cargarComentarios(idPartido,3) });
+
+        $('div.btnCompartirComentario').click(function() {
+            var $comentario = $(this).parent().parent();
+            var $partido = $comentario.parent().parent();
+            var jugador = $comentario
+                .find('div.comentario-cabecera-nombre').html();
+            var club1 = $partido.find('div.club').eq(0).html();
+            var club2 = $partido.find('div.club').eq(1).html();
+            var mensaje = jugador + ' ha escrito un comentario muy bueno ' +
+               'sobre el partido entre ' + club1 + ' y ' + club2 +
+               ' en YoSéDeFútbol. ¿No vas a leerlo?';
+
+            var $mensajeFb = $('<div class="mensajeFb"><textarea class="texto">'
+                + mensaje + '</textarea><span>Compartiendo...</span><div class="btnCerrar">Cerrar</div>' +
+                '<div class="btnCompartir">Compartir</div></div>')
+                .appendTo('body').hide()
+                .css({
+                    'top' : $(this).offset().top + 22,
+                    'left': $(this).offset().left - 101
+                }).fadeIn();
+
+            $mensajeFb.find('div.btnCompartir').click(function() {
+                $mensajeFb.find('span').css('visibility','visible');
+                $.get('compartirEnFB.php?mensaje=' + mensaje,function(data) {
+                    if (data != '') alert(data);
+                    /*$mensajeFb.children().not('span').remove();
+                    $mensajeFb.find('span').html('Compartido en tu muro.');
+                    $mensajeFb.delay(5000).fadeOut().remove();*/
+                    $mensajeFb.fadeOut().remove();
+                });
+            });
+
+            $mensajeFb.find('div.btnCerrar').click(function() {
+                $mensajeFb.fadeOut().remove();
+            });
+
+        });
+
+        comportamientoBtnVotar();
+    });
+
+    offsetComentarios[idPartido] += 3;
+}
+
+/**
+ * Ejecuta +1 o -1 sobre un comentario.
  * @param $comentario jQuery del elemento con clase comentario.
  * @param opcion
+ * - Envía la petición al servidor.
+ * - Actualiza el contador de votos.
  */
 gustoComentario = function($comentario,opcion) {
-    idComentario = $comentario.parent().attr('id').substring(4);;
+    idComentario = $comentario.parent().attr('id').substring(4);
 
     var $urlGustoComentario = "gustoComentario.php?idComentario="
         + idComentario + "&opcion=" + opcion;
@@ -330,43 +387,40 @@ gustoComentario = function($comentario,opcion) {
     $.get($urlGustoComentario,function(data) {
         $($comentario).find('div.votos').html(data);
     });
-
 }
 
-guardarComentario = function($idPartido,$comentario) {
+guardarComentario = function(idPartido,comentario) {
     $.post("guardarComentario.php",
-        { idPartido: $idPartido, comentario: $comentario });
+        { idPartido: idPartido, comentario: comentario });
 }
 
 guardarResultado = function($idPartido,$resultado) {
-
-
     $.post("guardarPronostico.php",
-        { idPartido: $idPartido, resultado: $resultado },
-    function(data) {
-        $('#depuracion').append(data);
-    });
+        { idPartido: $idPartido, resultado: $resultado });
 }
 
 cargarJornadaAnterior = function() {
-    $numJornada = $('#jornada').html();
     $('div.partidos-janterior').
-        load('jornadaAnterior.php?jornada=' + $numJornada,
-            accionesPartidos).show();
-}
-
-jqBtnCerrarComentariosJugador = function() {
-    $(this).parent().hide();
-    $offsetComentariosJugador = 0;
+        load('jornadaAnterior.php?jornada=' + numJornada,function() {
+            accionesPartidos();
+            $(this).slideDown();
+        });
 }
 
 /**
  * Carga comentarios del jugador debajo de sus estadísticas.
  * @parameter idFacebook. Opcional. id de Facebook si se quieren
  * ver los comentarios de otro jugador que no sea el de sesión.
+ * - Define el comportamiento del botón para ocultar los comentarios.
+ * - Define el comportamiento para el botón de más comentarios.
+ * - Define el comportamiento de los botones +1 y -1.
+ * - Elimina el botón de más comentarios anterior si existe.
+ * - Define el comportamiento del botón Comentar en Facebook.
  */
 cargarMejoresComentariosJugador = function(idFacebook) {
-    offsetComentariosJugador = 0;
+
+    if (typeof offsetComentariosJugador == 'undefined')
+        offsetComentariosJugador = 0;
 
     var urlComentarios = "cargarComentarios.php?offset="
         + offsetComentariosJugador;
@@ -374,66 +428,51 @@ cargarMejoresComentariosJugador = function(idFacebook) {
     if (typeof idFacebook == 'undefined') urlComentarios += "&opcion=4";
     else urlComentarios += "&opcion=4&idf=" + idFacebook;
 
-    $.get(urlComentarios,function(data) {
-        $('div.jugador-comentarios').html(data).show();
-    });
-
-    $('div.jugador-comentarios').empty().load(urlComentarios,function() {
-        $('.btnOcultarComentarios').click(jqBtnCerrarComentariosJugador);
-
-        $('.masComentariosJugador').click(function(idFacebook){
-            cargarMasMejoresComentariosJugador(idFacebook) });
-
-        /**
-         * Si +1 o -1 está marcado no lanzará el evento.
-         */
-        $('div.btnMas1').not('div.marcado').click(function() {
-            $(this).addClass('marcado');
-            $(this).parent().find('div.btnMenos1').removeClass('marcado');
-            gustoComentario($(this).parent(),1);
-        })
-        $('div.btnMenos1').not('div.marcado').click(function() {
-            $(this).addClass('marcado');
-            $(this).parent().find('div.btnMas1').removeClass('marcado');
-            gustoComentario($(this).parent(),2);
-        })
-
-    }).show();
-
-    offsetComentariosJugador += 3;
-}
-
-/**
- * Carga más comentarios del jugador debajo de sus estadísticas.
- * @parameter idFacebook. Opcional. id de Facebook si se quieren
- * ver los comentarios de otro jugador que no sea el de sesión.
- */
-cargarMasMejoresComentariosJugador = function(idFacebook) {
-
-    var $urlComentarios = "cargarComentarios.php?offset="
-        + $offsetComentariosJugador + "&opcion=4&idf=" + idFacebook;
-
-    $.get($urlComentarios, function(data) {
-        $('div.jugador-comentarios > .masComentariosJugador').remove();
-
+    $.get(urlComentarios, function(data) {
         $('div.jugador-comentarios').append(data);
 
-        $('.btnOcultarComentarios').click(jqBtnCerrarComentariosJugador);
+        $('div.btnOcultarComentarios').click(function() {
+            $(this).parent().slideUp();
+            offsetComentariosJugador = 0;
+        });
+        $('div.jugador-comentarios > .masComentariosJugador').remove();
 
-        $('.masComentariosJugador').click(function(){
-            cargarMasMejoresComentariosJugador(idFacebook) });
+        $('div.masComentariosJugador').click(function() {
+            cargarMejoresComentariosJugador(idFacebook) });
 
-        $('div.btnMas1').not('div.marcado').click(function() {
-            $(this).addClass('marcado');
-            $(this).parent().find('div.btnMenos1').removeClass('marcado');
-            gustoComentario($(this).parent(),1);
-        })
-        $('div.btnMenos1').not('div.marcado').click(function() {
-            $(this).addClass('marcado');
-            $(this).parent().find('div.btnMas1').removeClass('marcado');
-            gustoComentario($(this).parent(),2);
-        })
+        $('div.jugador-comentarios div.btnCompartirComentario').click(function()
+        {
+            var jugador = $('div.jugador-nombre a').html();
+            var mensaje = jugador + ' ha escrito comentarios muy buenos ' +
+                'en YoSéDeFútbol. ¿No vas a leerlos?';
+
+            var $mensajeFb = $('<div class="mensajeFb"><textarea class="texto">'
+                + mensaje + '</textarea><span>Compartiendo...</span><div class="btnCerrar">Cerrar</div>' +
+                '<div class="btnCompartir">Compartir</div></div>')
+                .appendTo('body').hide()
+                .css({
+                    'top' : $(this).offset().top + 22,
+                    'left': $(this).offset().left - 101
+                }).fadeIn();
+
+            $mensajeFb.find('div.btnCompartir').click(function() {
+                $mensajeFb.find('span').css('visibility','visible');
+                $.get('compartirEnFB.php?mensaje=' + mensaje,function(data) {
+                    if (data != '') alert(data);
+                    $mensajeFb.fadeOut().remove();
+                });
+            });
+
+            $mensajeFb.find('div.btnCerrar').click(function() {
+                $mensajeFb.fadeOut().remove();
+            });
+
+        });
+
+        comportamientoBtnVotar();
+
+        $('div.jugador-comentarios').slideDown();
     });
 
-    $offsetComentarios[$idPartido] += 3;
+    offsetComentariosJugador += 3;
 }

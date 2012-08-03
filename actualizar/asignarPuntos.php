@@ -59,6 +59,10 @@ $facebook = new Facebook(array(
 
 ?>
 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"
+    type="text/javascript"  ></script>
+
+
 <script type="text/javascript">
     window.fbAsyncInit = function() {
         FB.init({
@@ -124,53 +128,21 @@ $em->flush();
 
 arsort($puntuaciones);
 
-foreach ($puntuaciones as $id => $p) {
-    echo '<div class="puntuacion"><span class="idf">' . $id . '</span>
-        <span class="nombre"></span> ha conseguido <span class="puntos">' . $p .
-        '</span> puntos.<span class="btnCompartirMuro" style="border:solid
-        1px #00f; width: 200px; text-align:center;">Compartir en FB</span></div>';
-}
-?>
+foreach ($puntuaciones as $id => $p) { ?>
+<div class="puntuacion">
+    <span class="idf"><?= $id ?>'</span>
+    <span class="nombre"></span> ha conseguido <span class="puntos"><?= $p ?>
+    </span> puntos.<input type="text" class="mensaje" /><span class="btnCompartirComentario" style="border:solid
+    1px #00f; width: 200px; text-align:center;">Compartir en FB</span>
+</div>';
+
+<? } ?>
 
 <script>
-$('div.puntuacion').each(function() {
-var idf = $(this).find('span.idf').html();
-var $nombre = $(this).find('span.nombre');
-FB.api(
-  {
-    method: 'fql.query',
-    query: 'SELECT name FROM user WHERE uid=' + idf
-  },
-  function(response) {
-      $nombre.html(response[0].name);
-  }
-);
-});
-
-$('.btnCompartirMuro').click(function() {
-FB.ui(
-  {
-   method: 'feed',
-   name: 'YoS&eacute;DeF&uacute;tbol',
-   caption: 'Juega en YoS&eacute;DeF&uacute;tbol',
-      description: (
-      'Cu&eacute;ntanos qu&eacute; pasar&aacute; en la liga. En' +
-          'YoS&eacute;DeF&uacute;tbol podr&aacute;s puntuar ' +
-          'y escribir todo lo que quieras sobre los partidos de la jornada. ' +
-          'Adem&aacute;s podr&aacute;s leer lo que piensan tus amigos ' +
-          'e incluso conocer que sabe de f&uacute;tbol.'
-   ),
-   link: 'https://apps.facebook.com/394014370642216/',
-   picture: 'http://ysdf.phpfogapp.com/icono.png',
-   user_message_prompt: 'Publica la puntuaci&oacute;n conseguida en FB.'
-   },
-  function(response) {
-    if (response && response.post_id) {
-      alert('Post was published.');
-    } else {
-      alert('Post was not published.');
-    }
-  }
-);
-});
+    $('span.btnCompartirComentario').click(function() {
+        mensaje = $(this).parent().find('input.mensaje').val();
+        $.get('compartirEnFB.php?mensaje=' + mensaje,function(data) {
+            if (data != '') alert(data);
+        });
+    });
 </script>
