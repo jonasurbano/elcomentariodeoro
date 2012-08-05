@@ -38,6 +38,18 @@ class Jugador
     private $idFacebook;
 
     /**
+     * @Column(type="string")
+     * @var string
+     */
+    private $sigueClub;
+
+    /**
+     * @Column(type="integer")
+     * @var int
+     */
+    private $sumaPuntosSemanal;
+
+    /**
      * @OneToMany(targetEntity="Pronostico", mappedBy="jugador")
      * @var Pronostico[]
      * */
@@ -72,11 +84,12 @@ class Jugador
         $this->setIdFacebook($idFb);
         $this->setSumaComentarios(0);
         $this->setSumaPronosticos(0);
+        $this->setSumaPuntosSemanal(0);
 
-        $this->pronosticos = new PersistentCollection();
-        $this->comentarios = new PersistentCollection();
-        $this->comentariosGustados = new PersistentCollection();
-        $this->comentariosNoGustados = new PersistentCollection();
+        $this->pronosticos = new ArrayCollection();
+        $this->comentarios = new ArrayCollection();
+        $this->comentariosGustados = new ArrayCollection();
+            $this->comentariosNoGustados = new ArrayCollection();
     }
 
     public function comentarioAsignado($comentario)
@@ -148,6 +161,26 @@ class Jugador
 
     public function setIdFacebook($idFacebook) {
         $this->idFacebook = $idFacebook;
+    }
+
+    public function getSigueClub() {
+        return $this->sigueClub;
+    }
+
+    public function setSigueClub($club) {
+        $this->sigueClub = $club;
+    }
+
+    public function tieneClub() {
+        return $this->sigueClub != null;
+    }
+
+    public function getSumaPuntosSemanal() {
+        return $this->sumaPuntosSemanal;
+    }
+
+    public function setSumaPuntosSemanal($sumaPuntosSemanal) {
+        $this->sumaPuntosSemanal = $sumaPuntosSemanal;
     }
 
     /**

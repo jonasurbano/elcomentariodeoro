@@ -5,14 +5,14 @@ class PartidoRepositorio extends Doctrine\ORM\EntityRepository {
 
     /**
      * Devuelve la lista de partidos
-     * @param int $jornada Número de jornada
+     * @param int $numJornada Número de jornada
      * @return Partido
      */
-    function getPartidos($jornada) {
+    function getPartidos($numJornada) {
         $dql = "SELECT p FROM PARTIDO p
             WHERE p.jornada = ?1";
         $query = $this->getEntityManager()->createQuery($dql);
-        $query->setParameter(1, $jornada);
+        $query->setParameter(1, $numJornada);
         return $query->getResult();
     }
 

@@ -34,26 +34,26 @@ $sumaSemanal = 0;
                 if (isset($c)) {
                     echo $c->getComentario();
                 } else {
-                    echo 'Ens&eacute;&ntilde;anos f&uacute;tbol...';
+                    echo '';
                 }
             } else {
-                echo 'Ens&eacute;&ntilde;anos f&uacute;tbol...';
+                echo '';
             }
-            ?>" /><div class="btnComentariosAmigos">A</div><div class="btnComentariosRecientes">R</div><div class="btnComentariosMejores">M</div><div class="puntuacionPronostico<?
+            ?>" /><div class="btnComentariosAmigos">A</div><div class="btnComentariosRecientes">R</div><div class="btnComentariosMejores">M</div><div class="puntuacion puntuacionPronostico<?
             if ($partido->pronosticoAcertado($resultado)) {
                 $sumaSemanal += 3;
-                echo '">+3';
-            } else echo 'Cero">0'; ?></div><div class="<?
+                echo ' puntuacionPositiva">3';
+            } else echo ' puntuacionCero">0'; ?></div><div class="puntuacion puntuacionComentario<?
             if (isset($comentario)) {
                 $votosComentarios = $comentario->getVotos();
             } else $votosComentarios = 0;
             $sumaSemanal += $votosComentarios;
             if ($votosComentarios < 0)
-                echo 'puntuacionComentarioNegativa';
+                echo ' puntuacionNegativa"';
             else if ($votosComentarios == 0)
-                echo 'puntuacionComentarioCero';
-            else echo 'puntuacionComentarioPositiva';
-            echo '">' . $votosComentarios;
+                echo ' puntuacionCero"';
+            else echo ' puntuacionPositiva"';
+            echo '>' . $votosComentarios;
 
             ?></div>
             <div class="comentarios" id="comentarios-<?= $partido->getId() ?>"></div>
@@ -64,5 +64,5 @@ $votosComentarios = null;
 $comentario = null;
 } ?><div class="resultadoSemanal">Resultado semanal:<?
 if ($sumaSemanal == 1 || $sumaSemanal == -1) echo ' 1 punto.';
-else echo ' ' . $sumaSemanal . ' votos.';
-?></div></div>
+else echo ' <span class="puntos">' . $sumaSemanal . '</span>puntos. ';
+?><span class="compartirPuntuacionSemanalEnFb">Compartir</span></div></div>

@@ -8,7 +8,7 @@ $mensaje = $_GET['mensaje'];
 try {
     $ret_obj = $facebook->api('/me/feed', 'POST',
         array(
-            'link' => AppInfo::getUrl('images/logo.png'),
+            'link' => AppInfo::getUrl(),
             'message' => $mensaje,
             'name' => 'YoséDeFútbol',
             'caption' => 'Juega en YoSéDeFútbol',

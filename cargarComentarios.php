@@ -51,6 +51,11 @@ $idFacebook = $facebook->getUser();
 $jugador = $repositorioJugadores->getJugador($idFacebook);
 $idJugador = $jugador->getId();
 
+/**
+ * Si los comentarios son del usuario, no se pueden votar.
+ */
+$mostrarVotacion = true;
+
 if ($opcion == 1) {
     $idPartido = $_GET['idpartido'];
 
@@ -77,7 +82,7 @@ if ($opcion == 1) {
     if (isset($_GET['idf'])) {
         $mostrarVotacion = true;
         $idJugador = $repositorioJugadores->getIdJugador($_GET['idf']);
-    }
+    } else $mostrarVotacion = false;
 
     $comentarios = $repositorioComentarios->
         getComentariosJugador($offset,$idJugador);

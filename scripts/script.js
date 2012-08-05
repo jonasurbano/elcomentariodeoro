@@ -1,5 +1,13 @@
 $(document).ready(function() {
 
+    $('#elegirClub').fadeIn('slow');
+    $('#elegirClub .guardar').click(function() {
+        $.get('guardarClub.php?club=' + $('#elegirClub option:selected').val(),
+        function() {
+            $('#elegirClub').fadeOut('slow').remove();
+        });
+    })
+
     /**
      * Mantiene el número de comentarios mostrados.
      * clave: id del partido.
@@ -18,23 +26,144 @@ $(document).ready(function() {
     $('#jugando').remove();
 
     accionesPartidos();
-    accionesEstadisticas();
+    accionesListaAmigos();
 
-    $('div.btnJornadaAnterior').toggle(function() {
-        cargarJornadaAnterior();
-        $(this).html('Jornada actual');
-        $('div.btnEstadisticas').html('Estad&iacute;sticas');
-        $('div.partidos').slideUp();
-        $('div.estadisticas').slideUp();
-    },function() {
-        $(this).html('Jornada anterior');
-        $('div.btnEstadisticas').html('Estad&iacute;sticas');
-        $('div.partidos').slideDown();
-        $('div.estadisticas').slideUp();
-        $('div.partidos-janterior').slideUp();
+    /**
+     * Variable que define qué sección está viendo el usuario.
+     * "actual", "anterior" y "estadisticas".
+     */
+    mostrando = "actual";
+
+    $('#btnJornadaAnterior').click(function() {
+        if (mostrando == "actual") mostrarJornadaAnterior();
+        else mostrarJornadaActual();
     });
 
+    $('#btnEstadisticas').click(function() {
+        if (mostrando == "estadisticas") mostrarJornadaActual();
+        else mostrarEstadisticas();
+    });
 });
+
+mostrarJornadaAnterior = function() {
+    if (typeof jornadaAnteriorCargada == 'undefined') {
+        $('div.partidos-janterior')
+            .load('jornadaAnterior.php?jornada=' + numJornada,function() {
+            accionesPartidos();
+            $(this).slideDown();
+        });
+        jornadaAnteriorCargada = true;
+    } else {
+        $('div.partidos-janterior').slideDown();
+    }
+
+    $('#btnJornadaAnterior').html('Jornada actual');
+    $('#btnEstadisticas').html('Estad&iacute;sticas');
+
+    $('div.partidos').slideUp();
+    $('div.estadisticas').slideUp();
+
+    mostrando = "anterior";
+}
+
+mostrarJornadaActual = function() {
+    $('#btnJornadaAnterior').html('Jornada anterior');
+    $('#btnEstadisticas').html('Estad&iacute;sticas');
+
+    $('div.estadisticas').slideUp();
+    $('div.partidos-janterior').slideUp();
+    $('div.partidos').slideDown();
+
+    mostrando = "actual";
+}
+
+/**
+ * Muestra la sección de estadísticas.
+ * - Define el comportamiento para el botón de estadísticas.
+ *
+ * Cuando se cargan las estadísticas personales:
+ * - Se desliza el div de estadísticas.
+ *
+ * Cuando se cargan las estadísticas globales:
+ * - Se le asignan imágenes de fondo a los 3 primeros ranking-jugador.
+ */
+mostrarEstadisticas = function(idFacebook) {
+    cargarEstadisticas(idFacebook);
+
+    $('div.btnJornadaAnterior').html('Jornada actual');
+    /*$('#btnEstadisticas').html('Ocultar stad&iacute;sticas');*/
+
+    $('div.partidos').slideUp();
+    $('div.partidos-janterior').slideUp();
+    $('div.estadisticas').slideDown();
+
+    mostrando = "estadisticas";
+}
+
+function sendRequestToRecipients(idFacebook) {
+    FB.ui({
+        method: 'apprequests',
+        message: 'Demuestra lo que sabes de fútbol...',
+        to: idFacebook
+    }, requestCallback);
+}
+
+function requestCallback(response) {
+}
+
+
+compartirEnFacebook = function($boton,mensaje) {
+    var $mensajeFb = $('<div class="mensajeFb"><textarea class="texto">'
+        + mensaje + '</textarea><span>Compartiendo...</span><div class="btnCerrar">Cerrar</div>' +
+        '<div class="btnCompartir">Compartir</div></div>')
+        .appendTo('body').hide()
+        .css({
+            'top' : $boton.offset().top + 22,
+            'left': $boton.offset().left - 101
+        }).fadeIn();
+
+    $mensajeFb.find('div.btnCompartir').click(function() {
+        $mensajeFb.find('span').css('visibility','visible');
+        $.get('compartirEnFB.php?mensaje=' + mensaje,function(data) {
+            if (data != '') alert(data);
+            /*$mensajeFb.children().not('span').remove();
+            $mensajeFb.find('span').html('Compartido en tu muro.');
+            $mensajeFb.delay(5000).fadeOut().remove();*/
+            $mensajeFb.fadeOut().remove();
+        });
+    });
+
+    $mensajeFb.find('div.btnCerrar').click(function() {
+        $mensajeFb.fadeOut().remove();
+    });
+}
+
+
+accionesListaAmigos = function() {
+    $.get('cargarAmigos.php',function(data) {
+        $('div.cabecera').append(data);
+        listaAmigos = $('#listaAmigos').html();
+        $('#listaAmigos').remove();
+
+        $('#amigos').hover(function() {},function() {
+            $(this).scrollTop(0);
+        })
+
+        $('.amigo:gt(0)').click(function() {
+            var idFb = $(this).attr('id').substring(4);
+            var esJugador;
+            $.get('esJugador.php?idf=' + idFb,function(data) {
+                esJugador = data == 'jugador';
+                if (esJugador) {
+                    mostrarEstadisticas(idFb);
+                } else {
+                    sendRequestToRecipients(idFb);
+                }
+            })
+
+        });
+    });
+}
 
 /**
  * Define comportamiento para div.partido y su contenido.
@@ -103,6 +232,26 @@ accionesPartidos = function() {
             else if ($this.hasClass('dos')) guardarResultado(idPartido,'3');
         });
     }
+
+    $('div.puntuacion').hover(function() {
+        var texto;
+        if ($(this).hasClass('puntuacionPronostico')) texto = 'Pronóstico';
+        else texto = 'Votos de comentarios';
+        $('<div id="puntuacionDscripcion">' + texto + '</div>').appendTo('body')
+            .css({
+                'top' : $(this).offset().top - 22,
+                'left': $(this).offset().left - 22
+            }).show();
+    },function() {
+        $('#puntuacionDscripcion').remove();
+    });
+
+    $('span.compartirPuntuacionSemanalEnFb').click(function() {
+        var resultado = $(this).parent().find('.puntos').html();
+        var mensaje = 'He conseguido ' + resultado + ' puntos esta semana en'
+            + ' YoSéDeFútbol. Supérame.';
+        compartirEnFacebook($(this),mensaje);
+    });
 
     mostrarPanelComentar();
 }
@@ -188,80 +337,120 @@ mostrarPanelComentar = function() {
 }
 
 /**
- * Muestra y oculta la sección de estadísticas.
- * - Define el comportamiento para el botón de estadísticas.
+ * Carga las estadísticas del jugador y globales.
  * - Carga las estadísticas del jugador y los mejores comentarios del usuario.
  * - Carga las estadísticas globales.
  * - Define el comportamiento cuando se hace click sobre los nombres de los
  *      jugadores.
+ * - Oculta las capas de partidos.
+ * - Cambia el botón a "Jornada anterior"
  *
- * Cuando se cargan las estadísticas personales:
- * - Se desliza el div de estadísticas.
- *
- * Cuando se cargan las estadísticas globales:
- * - Se le asignan imágenes de fondo a los 3 primeros ranking-jugador.
+ * Cuando se cargan las estadísticas del jugador:
+ * - Carga los mejores comentarios del jugador.
+ * - Cambia el botón a "Ocultar estadísticas"
  */
-accionesEstadisticas = function() {
-    $('div.btnEstadisticas').toggle(function() {
-        $('div.partidos').slideUp();
-        $('div.partidos-janterior').slideUp();
-        $('dib.btnJornadaAnterior').html('Jornada anterior');
+cargarEstadisticas = function(idFacebook) {
+    if (typeof idFacebook != 'undefined') {
+        url = 'cargarEstJugador.php?idf=' + idFacebook;
+    } else url = 'cargarEstJugador.php';
 
-        $('div.estadisticas-jugador').empty()
-            .load('cargarEstJugador.php',
-            function() {
-                cargarMejoresComentariosJugador();
-                $('div.btnEstadisticas')
-                    .html('Ocultar estad&iacute;sticas');
+    $('div.estadisticas-jugador').empty()
+        .load(url,function() {
+            cargarMejoresComentariosJugador(idFacebook);
+            $('#btnEstadisticas')
+                .html('Ocultar estad&iacute;sticas');
 
-                $('div.estadisticas').slideDown();
+            $('div.estadisticas').slideDown();
 
-                offsetComentariosJugador = 0;
+            offsetComentariosJugador = 0;
+    });
+
+    offsetRanking = 0;
+
+    $('div.estadisticasGlobales').empty()
+        .load('cargarRanking.php?offset=' + offsetRanking,
+        function() {
+
+        $('div.ranking-nombre').click(function() {
+            var idElem = $(this).parent().attr('id');
+            var idFacebook = idElem.substring(4);
+
+            $('div.estadisticas-jugador').empty()
+                .load('cargarEstJugador.php?idf=' + idFacebook,
+                function() {
+                    cargarMejoresComentariosJugador(idFacebook);
+
+                    offsetComentariosJugador = 0;
+                });
         });
 
-        $('div.estadisticasGlobales').empty()
-            .load('cargarRanking.php?offset=0',
-            function() {
+        $('div.compartirRankingEnFb').click(function() {
+            var $rankingJugador = $(this).parent().parent();
+            var mensaje = 'He conseguido el ' +
+                $rankingJugador.find('div.ranking-numero').html()
+                + ' puesto en YoSéDeFútbol. Soy un crack.';
 
-            $('div.ranking-nombre').click(function() {
-                var idElem = $(this).parent().attr('id');
-                var idFacebook = idElem.substring(4);
+            compartirEnFacebook($(this),mensaje);
+        });
 
-                $('div.estadisticas-jugador').empty()
-                    .load('cargarEstJugador.php?idf=' + idFacebook,
+        $('div.rankingPronosticos div.ranking-jugador-pronosticos').first()
+            .css('background-image','url("../images/oro.jpg")');
+
+        $('div.rankingComentarios div.ranking-jugador-comentarios').first()
+            .css('background-image','url("../images/oro.jpg")');
+
+        $('div.rankingClubes div.ranking-club').first()
+            .css('background-image','url("../images/oro.jpg")');
+
+        $('div.rankingPronosticos div.ranking-jugador-pronosticos').eq(1)
+            .css('background-image','url("../images/plata.jpg")');
+
+        $('div.rankingComentarios div.ranking-jugador-comentarios').eq(1)
+            .css('background-image','url("../images/plata.jpg")');
+
+        $('div.rankingClubes div.ranking-club').eq(1)
+            .css('background-image','url("../images/plata.jpg")');
+
+        $('div.rankingPronosticos div.ranking-jugador-pronosticos').eq(2)
+            .css('background-image','url("../images/bronce.jpg")');
+
+        $('div.rankingComentarios div.ranking-jugador-comentarios').eq(2)
+            .css('background-image','url("../images/bronce.jpg")');
+
+        $('div.rankingClubes div.ranking-club').eq(2)
+            .css('background-image','url("../images/bronce.jpg")');
+
+        offsetRanking += 5;
+
+        $('div.ranking-masJugadores').click(function() {
+            $.get('cargarRanking.php?offset=' + offsetRanking,function(data) {
+                $('div.ranking-masJugadores').remove();
+                $(data).find('div.ranking-jugador-pronosticos')
+                    .appendTo('div.rankingPronosticos');
+                $(data).find('div.ranking-jugador-comentarios')
+                    .appendTo('div.rankingComentarios');
+
+
+                offsetRanking += 3;
+
+                $('div.ranking-nombre').click(function() {
+                    var idElem = $(this).parent().attr('id');
+                    var idFacebook = idElem.substring(4);
+
+                    $('div.estadisticas-jugador').empty()
+                        .load('cargarEstJugador.php?idf=' + idFacebook,
                     function() {
                         cargarMejoresComentariosJugador(idFacebook);
 
                         offsetComentariosJugador = 0;
-                    });
-            });
+                });
+        });
+            })
 
-            $('div.rankingPronosticos div.ranking-jugador').first()
-                .css('background-image','url("../images/oro.jpg")');
+        })
 
-            $('div.rankingComentarios div.ranking-jugador').first()
-                .css('background-image','url("../images/oro.jpg")');
+        $(this).css('display','block').slideDown();
 
-            $('div.rankingPronosticos div.ranking-jugador').eq(1)
-                .css('background-image','url("../images/plata.jpg")');
-
-            $('div.rankingComentarios div.ranking-jugador').eq(1)
-                .css('background-image','url("../images/plata.jpg")');
-
-            $('div.rankingPronosticos div.ranking-jugador').eq(2)
-                .css('background-image','url("../images/bronce.jpg")');
-
-            $('div.rankingComentarios div.ranking-jugador').eq(2)
-                .css('background-image','url("../images/bronce.jpg")');
-
-            $(this).css('display','block').slideDown();
-
-            });
-
-    },function() {
-        $(this).html('Estad&iacute;sticas');
-        $('div.estadisticas').slideUp();
-        $('div.partidos').slideDown();
     });
 }
 
@@ -292,6 +481,7 @@ comportamientoBtnVotar = function() {
         $(this).removeClass('btnVotos-hover');
     })
 }
+
 
 /**
  * Carga y muestra los comentarios.
@@ -339,30 +529,7 @@ cargarComentarios = function(idPartido,opcion) {
                'sobre el partido entre ' + club1 + ' y ' + club2 +
                ' en YoSéDeFútbol. ¿No vas a leerlo?';
 
-            var $mensajeFb = $('<div class="mensajeFb"><textarea class="texto">'
-                + mensaje + '</textarea><span>Compartiendo...</span><div class="btnCerrar">Cerrar</div>' +
-                '<div class="btnCompartir">Compartir</div></div>')
-                .appendTo('body').hide()
-                .css({
-                    'top' : $(this).offset().top + 22,
-                    'left': $(this).offset().left - 101
-                }).fadeIn();
-
-            $mensajeFb.find('div.btnCompartir').click(function() {
-                $mensajeFb.find('span').css('visibility','visible');
-                $.get('compartirEnFB.php?mensaje=' + mensaje,function(data) {
-                    if (data != '') alert(data);
-                    /*$mensajeFb.children().not('span').remove();
-                    $mensajeFb.find('span').html('Compartido en tu muro.');
-                    $mensajeFb.delay(5000).fadeOut().remove();*/
-                    $mensajeFb.fadeOut().remove();
-                });
-            });
-
-            $mensajeFb.find('div.btnCerrar').click(function() {
-                $mensajeFb.fadeOut().remove();
-            });
-
+           compartirEnFacebook($(this), mensaje);
         });
 
         comportamientoBtnVotar();
@@ -399,14 +566,6 @@ guardarResultado = function($idPartido,$resultado) {
         { idPartido: $idPartido, resultado: $resultado });
 }
 
-cargarJornadaAnterior = function() {
-    $('div.partidos-janterior').
-        load('jornadaAnterior.php?jornada=' + numJornada,function() {
-            accionesPartidos();
-            $(this).slideDown();
-        });
-}
-
 /**
  * Carga comentarios del jugador debajo de sus estadísticas.
  * @parameter idFacebook. Opcional. id de Facebook si se quieren
@@ -429,6 +588,11 @@ cargarMejoresComentariosJugador = function(idFacebook) {
     else urlComentarios += "&opcion=4&idf=" + idFacebook;
 
     $.get(urlComentarios, function(data) {
+        if (data == '') {
+            $('div.jugador-comentarios').hide();
+            return;
+        }
+        
         $('div.jugador-comentarios').append(data);
 
         $('div.btnOcultarComentarios').click(function() {
