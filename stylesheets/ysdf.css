@@ -742,6 +742,7 @@ a:link, a:visited, a:active, a:hover {
     top: 180px;
     z-index: 1;
     display: none;
+    visibility: hidden;
     background-color: #fff;
     border: solid 1px #0c3;
     padding: 20px;

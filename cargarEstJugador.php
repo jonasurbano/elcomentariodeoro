@@ -17,7 +17,7 @@ $em = GetMyEntityManager();
 $repositorioJugadores = $em->getRepository('Jugador');
 
 $jugador = $repositorioJugadores->getJugador($idFacebook);
-if (!isset($jugador)) {
+if (!$jugador) {
     $jugador = new Jugador($idFacebook);
     $em->persist($jugador);
     $em->flush($jugador);
@@ -46,7 +46,7 @@ $rankingComentarios = $repositorioJugadores->
 </div>
 <div style="clear:left;"></div>
 <div class="jugador-amigos">
-    
+
 </div>
 <div class="jugador-comentarios"></div>
 

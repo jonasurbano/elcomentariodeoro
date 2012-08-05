@@ -1,7 +1,7 @@
 <?php require_once 'bootstrap.php'; ?>
 
 <!DOCTYPE html>
-<html xmlns:fb="http://ogp.me/ns/fb#" lang="es">
+<html xmlns:fb="http://ogp.me/ns/fb#" lang="es" style="overflow:hidden">
     <head>
         <title>YoS&eacute;DeF&uacute;tbol</title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -29,7 +29,7 @@
       </script>
     <![endif]-->
 </head>
-<body>
+<body style="overflow:hidden">
     <div id=fb-root"></div>
 
     <script type="text/javascript">
@@ -47,6 +47,7 @@
         FB.Event.subscribe('auth.login', function(response) {
             window.location = window.location;
         });
+
 
         FB.Canvas.setAutoGrow();
     };
