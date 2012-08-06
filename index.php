@@ -1,7 +1,7 @@
 <?php require_once 'bootstrap.php'; ?>
 
 <!DOCTYPE html>
-<html xmlns:fb="http://ogp.me/ns/fb#" lang="es" style="overflow:hidden">
+<html xmlns:fb="http://ogp.me/ns/fb#" lang="en" style="overflow:hidden">
     <head>
         <title>YoS&eacute;DeF&uacute;tbol</title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -43,7 +43,8 @@
             status     : true,
             cookie     : true,
             xfbml      : true,
-            oauth      : true
+            oauth      : true,
+            xfbml      : true
         });
 
         FB.Event.subscribe('auth.login', function(response) {
@@ -57,7 +58,7 @@
         var js, fjs = d.getElementsByTagName(s)[0];
         if (d.getElementById(id)) return;
         js = d.createElement(s); js.id = id;
-            js.src = "//connect.facebook.net/en_US/all.js";
+        js.src = "//connect.facebook.net/es_ES/all.js";
         fjs.parentNode.insertBefore(js, fjs);
     }(document, 'script', 'facebook-jssdk'));
     </script>

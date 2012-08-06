@@ -537,6 +537,8 @@ cargarComentarios = function(idPartido,opcion) {
         });
 
         comportamientoBtnVotar();
+
+        FB.XFBML.parse();
     });
 
     offsetComentarios[idPartido] += 3;

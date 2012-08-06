@@ -120,8 +120,7 @@ foreach ($comentarios as $comentario) {
                 url(<?= $a['pic'] ?>);"></div>
             <div class="comentario-cabecera-nombre"><?= $a['name'] ?></div>
         </div><? } ?>
-        <div class="comentario-texto"><?=
-            $comentario->getComentario() ?></div>
+        <div class="comentario-texto"><?= he($comentario->getComentario()) ?></div>
         <div class="comentario-pie"><div class="votos"><?
         $votos = $comentario->getVotos();
         if ($votos == 1) echo '1 voto';
@@ -131,9 +130,11 @@ foreach ($comentarios as $comentario) {
         ?><div class="btnMas1<?= $marcadoMas1 ?>">+1</div><div class="btnMenos1
             <?= $marcadoMenos1 ?>">-1</div><? } ?><div
             class="btnCompartirComentario">Compartir en Facebook</div>
-            <div style="clear: both;" ></div>
+            <div style="clear:both;"></div>
         </div>
-
+        <div class="comentarios-fb">
+            <fb:comments href="<?= AppInfo::getUrl('/verComentario.php?id=' . $comentario->getId() ); ?>" num_posts="3" width="670"></fb:comments>
+        </div>
     </div>
 <div class="btnOcultarComentarios">Ocultar comentarios</div><? }
 

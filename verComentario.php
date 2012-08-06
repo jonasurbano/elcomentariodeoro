@@ -5,38 +5,30 @@
     <head>
         <title>YoS&eacute;DeF&uacute;tbol</title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-            
+
         <meta property="og:title" content="YoS&eacute;DeF&uacute;tbol" />
         <meta property="og:type" content="website" />
         <meta property="og:url" content="<?php echo AppInfo::getUrl(); ?>" />
         <meta property="og:image" content="<?php echo AppInfo::getUrl('/logo.png'); ?>" />
         <meta property="og:site_name" content="YoS&eacute;DeF&uacute;tbol" />
-        <meta property="og:description" content="" />        
-        <meta property="og:description" content="Demuestra todo lo que sabes de f&uacute;tbol y descubre qui&eacute;n controla. Todo y m&aacute;s en YoS&eacute;DeF&uacute;tbol." />        
-            
+        <meta property="og:description" content="" />
+        <meta property="og:description" content="Demuestra todo lo que sabes de f&uacute;tbol y descubre qui&eacute;n controla. Todo y m&aacute;s en YoS&eacute;DeF&uacute;tbol." />
+
         <link rel="stylesheet" href="stylesheets/screen.css" media="Screen" type="text/css" />
         <link rel="stylesheet" href="stylesheets/mobile.css" media="handheld, only screen and (max-width: 480px), only screen and (max-device-width: 480px)" type="text/css" />
         <link rel="stylesheet" href="stylesheets/ysdf.css" media="Screen" type="text/css" />
-            
+
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"
         type="text/javascript"  ></script>
         <script type="text/javascript" src="scripts/script.js"></script>
-        <script type="text/javascript" src="scripts/script2.js"></script>
-        <script type="text/javascript" src="scripts/fb.js"></script>   
+
     </head>
-        
-    <!--[if IE]>
-      <script type="text/javascript">
-        var tags = ['header', 'section'];
-        while(tags.length)
-          document.createElement(tags.pop());
-      </script>
-    <![endif]-->
+
 </head>
 <body>
     <div id=fb-root"></div>
 
-<? 
+<?
 
 if (!isset($_GET['id'])) {
     ?><a href="index.php">
@@ -59,17 +51,17 @@ if (!isset($comentario)) {
 
 <div class="comentario" id="com-<?= $comentario->getId() ?>">
 <?
-    $fql = "SELECT name, pic FROM profile WHERE id =" . 
+    $fql = "SELECT name, pic FROM profile WHERE id =" .
         $comentario->getEscritor()->getIdFacebook() . ";";
-            
+
     $array = $facebook->api(array( 'method' => 'fql.query',
                                     'query' => $fql,));
 
     $a = reset($array);
 ?>
-    
+
     <div class="comentario-cabecera">
-        <div class="comentario-cabecera-foto" style="background-image: 
+        <div class="comentario-cabecera-foto" style="background-image:
                 url(<?= $a['pic'] ?>);"></div>
         <div class="comentario-cabecera-nombre"><?= $a['name'] ?></div>
     </div>
@@ -86,6 +78,9 @@ if (!isset($comentario)) {
 ?>
         </div>
         <div class="btnCompartirComentario">Compartir en Facebook</div>
+    </div>
+    <div class="comentarios-fb">
+    <fb:comments href="<?= AppInfo::getUrl('verComentario.php?id=' . $comentario->getId() ); ?>" num_posts="3" width="600"></fb:comments>
     </div>
 </div>
 
@@ -107,15 +102,15 @@ $rankingComentarios = $repositorioJugadores->
            <?= $a['pic'] ?>);"></p>
         <div class="jugador-nombre"><a target="_blank" href="
                                        <?= $a['url'] ?>"><?= $a['name'] ?></a></div>
-        <div class="jugador-puntosPronostico">Puntos por pron&oacute;stico: 
+        <div class="jugador-puntosPronostico">Puntos por pron&oacute;stico:
             <?= $comentario->getEscritor()->getSumaPronosticos() ?></div>
-        <div class="jugador-ranking-pronostico">Ranking: 
+        <div class="jugador-ranking-pronostico">Ranking:
             <?= $rankingPronosticos ?>º</div>
-        <div class="jugador-puntosComentario">Puntos por comentario: 
+        <div class="jugador-puntosComentario">Puntos por comentario:
             <?= $comentario->getEscritor()->getSumaComentarios() ?></div>
-        <div class="jugador-ranking-comentario">Ranking: 
+        <div class="jugador-ranking-comentario">Ranking:
             <?= $rankingComentarios ?>º</div>
     </div><br><a href="index.php">
-        <img src="images/logo_454_340.jpg" /></a>    
+        <img src="images/logo_454_340.jpg" /></a>
 </body>
 </html>

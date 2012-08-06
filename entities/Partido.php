@@ -109,6 +109,7 @@ class Partido {
      * @return boolean
      */
     public function pronosticoAcertado($pronostico) {
+        if (!$pronostico) return false;
         if ($pronostico != '1' && $pronostico != 'x'
             && $pronostico != '2' && $pronostico != 'X')
             return false;
