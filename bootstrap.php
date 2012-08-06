@@ -1,5 +1,6 @@
 <?php
 
+header('P3P:CP="IDC DSP COR ADM DEVi TAIi PSA PSD IVAi IVDi CONi HIS OUR IND CNT"');
 header('Content-type: text/html; charset=utf-8');
 
 if (!class_exists("Doctrine\Common\Version", false)) {
