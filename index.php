@@ -19,7 +19,7 @@
         type="text/javascript"  ></script>
 
         <script type="text/javascript" src="scripts/script.js"></script>
-    </head>
+
 
     <!--[if IE]>
       <script type="text/javascript">
@@ -28,6 +28,8 @@
           document.createElement(tags.pop());
       </script>
     <![endif]-->
+
+    </head>
 </head>
 <body style="overflow:hidden">
     <div id=fb-root"></div>

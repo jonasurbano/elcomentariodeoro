@@ -52,7 +52,6 @@ mostrarJornadaAnterior = function() {
             accionesPartidos();
             $(this).slideDown();
 
-            FB.setAutoGrow();
         });
         jornadaAnteriorCargada = true;
     } else {
@@ -363,9 +362,7 @@ cargarEstadisticas = function(idFacebook) {
                 .html('Ocultar estad&iacute;sticas');
 
             $('div.estadisticas').slideDown();
-
-            FB.setAutoGrow();
-
+            
             offsetComentariosJugador = 0;
     });
 
@@ -453,8 +450,6 @@ cargarEstadisticas = function(idFacebook) {
         });
 
         $(this).css('display','block').slideDown();
-
-        FB.setAutoGrow();
     });
 }
 
@@ -537,8 +532,6 @@ cargarComentarios = function(idPartido,opcion) {
         });
 
         comportamientoBtnVotar();
-
-        FB.setAutoGrow();
     });
 
     offsetComentarios[idPartido] += 3;
@@ -642,8 +635,6 @@ cargarMejoresComentariosJugador = function(idFacebook) {
         comportamientoBtnVotar();
 
         $('div.jugador-comentarios').slideDown();
-
-        FB.setAutoGrow();
     });
 
     offsetComentariosJugador += 3;
