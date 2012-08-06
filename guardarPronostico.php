@@ -1,7 +1,7 @@
 <?php
 
-if (!isset($_POST['idPartido'])) die();
-if (!isset($_POST['resultado'])) die();
+if (!isset($_GET['idPartido'])) die();
+if (!isset($_GET['resultado'])) die();
 
 require_once 'bootstrap.php';
 

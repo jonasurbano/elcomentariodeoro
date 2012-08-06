@@ -51,6 +51,8 @@ mostrarJornadaAnterior = function() {
             .load('jornadaAnterior.php?jornada=' + numJornada,function() {
             accionesPartidos();
             $(this).slideDown();
+
+            FB.setAutoGrow();
         });
         jornadaAnteriorCargada = true;
     } else {
@@ -362,6 +364,8 @@ cargarEstadisticas = function(idFacebook) {
 
             $('div.estadisticas').slideDown();
 
+            FB.setAutoGrow();
+
             offsetComentariosJugador = 0;
     });
 
@@ -443,14 +447,14 @@ cargarEstadisticas = function(idFacebook) {
                         cargarMejoresComentariosJugador(idFacebook);
 
                         offsetComentariosJugador = 0;
+                    });
                 });
+            });
         });
-            })
-
-        })
 
         $(this).css('display','block').slideDown();
 
+        FB.setAutoGrow();
     });
 }
 
@@ -533,6 +537,8 @@ cargarComentarios = function(idPartido,opcion) {
         });
 
         comportamientoBtnVotar();
+
+        FB.setAutoGrow();
     });
 
     offsetComentarios[idPartido] += 3;
@@ -561,9 +567,9 @@ guardarComentario = function(idPartido,comentario) {
         { idPartido: idPartido, comentario: comentario });
 }
 
-guardarResultado = function($idPartido,$resultado) {
-    $.post("guardarPronostico.php",
-        { idPartido: $idPartido, resultado: $resultado });
+guardarResultado = function(idPartido,resultado) {
+    $.get("guardarPronostico.php",
+        { idPartido: idPartido, resultado: resultado });
 }
 
 /**
@@ -592,7 +598,7 @@ cargarMejoresComentariosJugador = function(idFacebook) {
             $('div.jugador-comentarios').hide();
             return;
         }
-        
+
         $('div.jugador-comentarios').append(data);
 
         $('div.btnOcultarComentarios').click(function() {
@@ -636,6 +642,8 @@ cargarMejoresComentariosJugador = function(idFacebook) {
         comportamientoBtnVotar();
 
         $('div.jugador-comentarios').slideDown();
+
+        FB.setAutoGrow();
     });
 
     offsetComentariosJugador += 3;

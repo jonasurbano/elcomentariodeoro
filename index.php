@@ -35,6 +35,8 @@
     <script type="text/javascript">
 
     window.fbAsyncInit = function() {
+        alert('fbAsyincInit');
+
         FB.init({
             appId      : '<?php echo AppInfo::appID(); ?>',
             channelUrl : '//<?php echo $_SERVER["HTTP_HOST"]; ?>/channel.html',
@@ -44,19 +46,23 @@
             oauth      : true
         });
 
+        alert('pasado init');
+
         FB.Event.subscribe('auth.login', function(response) {
             window.location = window.location;
         });
 
-
         FB.Canvas.setAutoGrow();
+
+        alert('despues setAutoGrow');
+
     };
 
     (function(d, s, id) {
         var js, fjs = d.getElementsByTagName(s)[0];
         if (d.getElementById(id)) return;
         js = d.createElement(s); js.id = id;
-        js.src = "//connect.facebook.net/en_US/all.js";
+            js.src = "//connect.facebook.net/en_US/all.js";
         fjs.parentNode.insertBefore(js, fjs);
     }(document, 'script', 'facebook-jssdk'));
     </script>
@@ -89,7 +95,6 @@ if (isset($basic)) {
         ?><div id="jugando" style="display: none;">jugando</div><?
     }
 
-    //$partidos = $em->getRepository('Partido')->getPartidos($numJornada);
     $partidos = $jornada->getPartidos();
     if (!$partidos) exit('E2. Hoy no hay YoSéDeFútbol, lo sentimos.');
 
@@ -159,7 +164,7 @@ if (isset($basic)) {
         <?php }
 
 
-        if (!$jugador || !$jugador->getSigueClub()) {
+        if (isset($jugador) && (!$jugador || !$jugador->getSigueClub())) {
         ?><div id="elegirClub">
             <label>¡Hola! Queremos saber de qué equipo eres</label><br><br>
             <select>
