@@ -37,10 +37,9 @@ $numUltimaJornada = $em->getRepository('Jornada')->numUltimaJornada();
 
 <select id="equipo1">
     <option selected="selected">At. Madrid</option>
-     <optio>Athletic Club</option>
+     <option>Athletic Club</option>
      <option>Barcelona</option>
      <option>Betis</option>
-     <option>Murcia</option>
      <option>Celta</option>
      <option>Córdoba</option>
      <option>Deportivo</option>
@@ -53,6 +52,7 @@ $numUltimaJornada = $em->getRepository('Jornada')->numUltimaJornada();
      <option>Lugo</option>
      <option>Málaga</option>
      <option>Mallorca</option>
+     <option>Murcia</option>
      <option>Numancia</option>
      <option>Osasuna</option>
      <option>Racing</option>
@@ -64,15 +64,15 @@ $numUltimaJornada = $em->getRepository('Jornada')->numUltimaJornada();
      <option>Sporting de Gijón</option>
      <option>Valencia</option>
      <option>Valladolid</option>
-     <option>Zaragozz</option>
-     <option>Zerez</option>
+     <option>Xerez</option>
+     <option>Zaragoza</option>
 </select>
 <label>-</label>
-    <option selected="selected">At. Madrid</option>
-     <optio>Athletic Club</option>
+<select id="equipo2">
+     <option selected="selected">At. Madrid</option>
+     <option>Athletic Club</option>
      <option>Barcelona</option>
      <option>Betis</option>
-     <option>Murcia</option>
      <option>Celta</option>
      <option>Córdoba</option>
      <option>Deportivo</option>
@@ -85,6 +85,7 @@ $numUltimaJornada = $em->getRepository('Jornada')->numUltimaJornada();
      <option>Lugo</option>
      <option>Málaga</option>
      <option>Mallorca</option>
+     <option>Murcia</option>
      <option>Numancia</option>
      <option>Osasuna</option>
      <option>Racing</option>
@@ -96,8 +97,8 @@ $numUltimaJornada = $em->getRepository('Jornada')->numUltimaJornada();
      <option>Sporting de Gijón</option>
      <option>Valencia</option>
      <option>Valladolid</option>
-     <option>Zaragozz</option>
-     <option>Zerez</option>
+     <option>Xerez</option>
+     <option>Zaragoza</option>
  <select id="equipo2">
 
 </select>
