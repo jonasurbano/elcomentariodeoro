@@ -137,7 +137,7 @@ foreach ($comentarios as $comentario) {
     </div>
 <div class="btnOcultarComentarios">Ocultar comentarios</div><? }
 
-if ($hayComentariosPosteriores > 0) {
+if ($hayComentariosPosteriores) {
     if ($opcion == 1) { ?><div class="masComentariosAmigos">M&aacute;s comentarios</div><?
     } else if ($opcion == 2) { ?><div class="masComentariosRecientes"><?
     } else if ($opcion == 3) { ?><div class="masComentariosMejores"><?

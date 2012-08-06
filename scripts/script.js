@@ -26,6 +26,26 @@ $(document).ready(function() {
     $('#jugando').remove();
 
     accionesPartidos();
+
+    /* Las explicaciones sólo se muestran en partidos.
+     * No en partidos-janterior
+     */
+    $('div.partido div.btnComentariosAmigos').hover(function() {
+        $('<span id="explicacion">¿Y tus amigos?</span>').insertAfter($(this));
+    },function() {
+        $('#explicacion').remove();
+    });
+    $('div.partido div.btnComentariosRecientes').hover(function() {
+        $('<span id="explicacion">Los últimos</span>').insertAfter($(this));
+    },function() {
+        $('#explicacion').remove();
+    });
+    $('div.partido div.btnComentariosMejores').hover(function() {
+        $('<span id="explicacion">Los + votados</span>').insertAfter($(this));
+    },function() {
+        $('#explicacion').remove();
+    });
+
     accionesListaAmigos();
 
     /**
@@ -185,35 +205,16 @@ accionesPartidos = function() {
     })
 
     $('div.btnComentariosAmigos').click(function() {
-        var idPartido = $(this).parent().parent().attr("id");
+        var idPartido = $(this).parent().attr("id");
         cargarComentarios(idPartido,1) });
 
     $('div.btnComentariosRecientes').click(function() {
-        var idPartido = $(this).parent().parent().attr("id");;
+        var idPartido = $(this).parent().attr("id");;
         cargarComentarios(idPartido,2) });
 
     $('div.btnComentariosMejores').click(function() {
-        var idPartido = $(this).parent().parent().attr("id");;
+        var idPartido = $(this).parent().attr("id");;
         cargarComentarios(idPartido,3) });
-
-    /* Las explicaciones sólo se muestran en partidos.
-     * No en partidos-janterior
-     */
-    $('div.partido div.btnComentariosAmigos').hover(function() {
-        $('<span id="explicacion">¿Y tus amigos?</span>').insertAfter($(this));
-    },function() {
-        $('#explicacion').remove();
-    });
-    $('div.partido div.btnComentariosRecientes').hover(function() {
-        $('<span id="explicacion">Los últimos</span>').insertAfter($(this));
-    },function() {
-        $('#explicacion').remove();
-    });
-    $('div.partido div.btnComentariosMejores').hover(function() {
-        $('<span id="explicacion">Los + votados</span>').insertAfter($(this));
-    },function() {
-        $('#explicacion').remove();
-    });
 
     if (!jugando) {
         $('div.partido div.resultado').children().hover(function() {
@@ -362,7 +363,7 @@ cargarEstadisticas = function(idFacebook) {
                 .html('Ocultar estad&iacute;sticas');
 
             $('div.estadisticas').slideDown();
-            
+
             offsetComentariosJugador = 0;
     });
 
@@ -499,6 +500,10 @@ cargarComentarios = function(idPartido,opcion) {
         + "&idpartido=" + idPartido + "&opcion=" + opcion;
 
     $.get(urlComentarios, function(data) {
+        if (data == '') {
+            return;
+        }
+
         $('#comentarios-' + idPartido + " > .masComentariosRecientes").remove();
         $('#comentarios-' + idPartido + " > .masComentariosMejores").remove();
 
@@ -592,13 +597,14 @@ cargarMejoresComentariosJugador = function(idFacebook) {
             return;
         }
 
+        $('div.jugador-comentarios > .masComentariosJugador').remove();
+
         $('div.jugador-comentarios').append(data);
 
         $('div.btnOcultarComentarios').click(function() {
             $(this).parent().slideUp();
             offsetComentariosJugador = 0;
         });
-        $('div.jugador-comentarios > .masComentariosJugador').remove();
 
         $('div.masComentariosJugador').click(function() {
             cargarMejoresComentariosJugador(idFacebook) });
