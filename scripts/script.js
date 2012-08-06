@@ -507,7 +507,7 @@ cargarComentarios = function(idPartido,opcion) {
         $('#comentarios-' + idPartido + " > .masComentariosRecientes").remove();
         $('#comentarios-' + idPartido + " > .masComentariosMejores").remove();
 
-        $('#comentarios-' + idPartido).append(data);
+        $('#comentarios-' + idPartido).append(data).show();
 
         $('.btnOcultarComentarios').click(function() {
             $(this).parent().slideUp();
@@ -536,9 +536,17 @@ cargarComentarios = function(idPartido,opcion) {
            compartirEnFacebook($(this), mensaje);
         });
 
+        $('div.comentario').hover(function() {
+            $('div.comentarios-fb').hide();
+            $(this).find('div.comentarios-fb').show();
+        },function() {
+            //$(this).find('div.comentarios-fb').hide();
+        });
+
         comportamientoBtnVotar();
 
         FB.XFBML.parse();
+
     });
 
     offsetComentarios[idPartido] += 3;
@@ -643,6 +651,8 @@ cargarMejoresComentariosJugador = function(idFacebook) {
         comportamientoBtnVotar();
 
         $('div.jugador-comentarios').slideDown();
+
+        FB.XFBML.parse();
     });
 
     offsetComentariosJugador += 3;

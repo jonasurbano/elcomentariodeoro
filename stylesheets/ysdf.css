@@ -274,7 +274,7 @@ body {
      width: 670px;
      background-color: #fff;
      color: #aaa;
-     padding: 4px 0px;
+     padding: 4px 0;
 }
 
 .comentario-pie {
@@ -283,6 +283,10 @@ body {
      border-top: solid 1px #ccc;
      background-image: url('../images/gris-blanco-vertical.jpg');
      background-repeat: repeat-x;
+}
+
+.comentarios-fb {
+    display: none;
 }
 
  .votos {
