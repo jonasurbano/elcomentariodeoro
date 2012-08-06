@@ -64,5 +64,5 @@ $votosComentarios = null;
 $comentario = null;
 } ?><div class="resultadoSemanal">Resultado semanal:<?
 if ($sumaSemanal == 1 || $sumaSemanal == -1) echo ' 1 punto.';
-else echo ' <span class="puntos">' . $sumaSemanal . '</span>puntos. ';
+else echo ' <span class="puntos">' . $sumaSemanal . '</span> puntos. ';
 ?><span class="compartirPuntuacionSemanalEnFb">Compartir</span></div></div>

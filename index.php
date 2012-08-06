@@ -35,8 +35,6 @@
     <script type="text/javascript">
 
     window.fbAsyncInit = function() {
-        alert('fbAsyincInit');
-
         FB.init({
             appId      : '<?php echo AppInfo::appID(); ?>',
             channelUrl : '//<?php echo $_SERVER["HTTP_HOST"]; ?>/channel.html',
@@ -46,16 +44,11 @@
             oauth      : true
         });
 
-        alert('pasado init');
-
         FB.Event.subscribe('auth.login', function(response) {
             window.location = window.location;
         });
 
         FB.Canvas.setAutoGrow();
-
-        alert('despues setAutoGrow');
-
     };
 
     (function(d, s, id) {

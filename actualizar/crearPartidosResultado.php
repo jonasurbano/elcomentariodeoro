@@ -5,7 +5,6 @@ if (isset($_SERVER['HTTP_X_FORWARDED_PROTO'])) {
         die('E1: La conexión tiene que ser HTTPS.');
 } else die('E2: La conexión tiene que ser HTTPS');
 
-
 if (!isset($_POST['usuario']) || !isset($_POST['contrasena']))
     die('Autenticación no recibida.<br>');
 if ($_POST['usuario'] != 'jonas' || $_POST['contrasena'] != 'jack')
@@ -48,6 +47,6 @@ for ($i = 0; $i < 15; $i++) {
 $em->flush();
 
 header('Content-type: text/html; charset=utf-8');
-echo 'Parece que los partidos se han creado correctamente';
+echo 'Parece que los partidos se han creado correctamente.';
 
 ?>
