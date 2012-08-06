@@ -708,6 +708,7 @@ a:link, a:visited, a:active, a:hover {
     left: 280px;
     overflow: hidden;
     color: #ccc;
+    border: solid 1px #eee;
 }
 
 #amigos:hover {
@@ -716,7 +717,7 @@ a:link, a:visited, a:active, a:hover {
     overflow-y: scroll;
     border: solid 1px #fff;
     background-color: #eee;
-    border: solid 1px #eee;
+
     color: #000;
 }
 
