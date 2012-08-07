@@ -1,11 +1,14 @@
 $(document).ready(function() {
 
     $('#elegirClub').fadeIn('slow');
-    $('#elegirClub .guardar').click(function() {
+    $('#elegirClub div.guardarClub').click(function() {
         $.get('guardarClub.php?club=' + $('#elegirClub option:selected').val(),
         function() {
             $('#elegirClub').fadeOut('slow').remove();
         });
+    })
+    $('#elegirClub div.cerrarElegirClub').click(function() {
+        $('#elegirClub').fadeOut('slow').remove();
     })
 
     /**
@@ -111,7 +114,7 @@ mostrarJornadaActual = function() {
 mostrarEstadisticas = function(idFacebook) {
     cargarEstadisticas(idFacebook);
 
-    $('div.btnJornadaAnterior').html('Jornada actual');
+    $('#btnJornadaAnterior').html('Jornada actual');
     /*$('#btnEstadisticas').html('Ocultar stad&iacute;sticas');*/
 
     $('div.partidos').slideUp();
@@ -198,11 +201,25 @@ accionesPartidos = function() {
      * No defino :hover en CSS porque cuando la altura de div.partido
      * se amplía para div.panel-comentar no quiero que :hover ocurra.
      */
-    $('div.partido, div.partido-janterior').hover(function() {
-        $(this).addClass('partido-hover');
+    $('div.partido:odd, div.partido-janterior:odd')
+        .addClass('partido-impar');
+
+    $('div.partido:even, div.partido-janterior:even')
+        .addClass('partido-par');
+
+    $('div.partido:odd, div.partido-janterior:odd').hover(function() {
+        $(this).addClass('partido-impar-hover');
     },function() {
-        $(this).removeClass('partido-hover');
+        $(this).removeClass('partido-impar-hover');
     })
+
+    $('div.partido:even, div.partido-janterior:even').hover(function() {
+        $(this).addClass('partido-par-hover');
+    },function() {
+        $(this).removeClass('partido-par-hover');
+    })
+
+
 
     $('div.btnComentariosAmigos').click(function() {
         var idPartido = $(this).parent().attr("id");
@@ -650,9 +667,18 @@ cargarMejoresComentariosJugador = function(idFacebook) {
 
         comportamientoBtnVotar();
 
-        $('div.jugador-comentarios').slideDown();
+        $('div.comentario').hover(function() {
+            $('div.comentarios-fb').hide();
+            $(this).find('div.comentarios-fb').show();
+        },function() {
+            //$(this).find('div.comentarios-fb').hide();
+        });
 
         FB.XFBML.parse();
+
+        $('div.jugador-comentarios').slideDown();
+
+
     });
 
     offsetComentariosJugador += 3;

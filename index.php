@@ -13,8 +13,8 @@
         <meta property="og:site_name" content="YoSéDeFútbol" />
         <meta property="og:description" content="'Cuéntanos qué pasará en la liga. En YoSéDeFútbol podrás puntuar y escribir todo lo que quieras sobre los partidos de la jornada. Además podrás leer lo que piensan tus amigos y más..." />
 
+        <link rel="stylesheet" href="sytlesheets/reset.css" media="Screen" type="text/css" />
         <link rel="stylesheet" href="stylesheets/ysdf.css" media="Screen" type="text/css" />
-
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"
         type="text/javascript"  ></script>
         <script type="text/javascript" src="scripts/script.js"></script>
@@ -132,7 +132,7 @@ if (isset($basic)) {
                     } else {
                         echo 'Comentar..."';
                     }
-                    ?> /><div class="btnComentarios"><div class="btnComentariosAmigos">.</div><div class="btnComentariosRecientes">.</div><div class="btnComentariosMejores">.</div>
+                    ?> /><div class="btnComentarios"><div class="btnComentariosAmigos"></div><div class="btnComentariosRecientes"></div><div class="btnComentariosMejores"></div>
                     </div>
                     <div class="comentarios" id="comentarios-<?= $idPartido ?>"></div>
                     <div class="comentar-panel"></div>
@@ -159,7 +159,8 @@ if (isset($basic)) {
         <?php }
 
 
-        if (isset($jugador) && (!$jugador || !$jugador->getSigueClub())) {
+        if (isset($jugador) && (!$jugador || !$jugador->getSigueClub()
+            || $jugador->getSigueClub() == '')) {
         ?><div id="elegirClub">
             <label>¡Hola! Queremos saber de qué equipo eres</label><br><br>
             <select>
@@ -194,7 +195,8 @@ if (isset($basic)) {
                  <option>Xerez</option>
                  <option>Zaragoza</option>
             </select>
-            <div class="guardar">Guardar</div>
+            <div class="guardarClub">Guardar</div>
+            <div class="cerrarElegirClub">Cerrar</div>
         </div><? } ?>
 
         <fb:like send="false" width="450" show_faces="false"></fb:like>

@@ -107,7 +107,8 @@ class JugadorRepositorio extends Doctrine\ORM\EntityRepository {
 
     public function rankingClubes() {
         $dql = "SELECT j.sigueClub, (j.sumaPronosticos + j.sumaComentarios)
-            AS suma FROM Jugador j GROUP BY j.sigueClub ORDER BY suma DESC";
+            AS suma FROM Jugador j WHERE j.sigueClub <> ''
+            GROUP BY j.sigueClub ORDER BY suma DESC";
 
         return $this->getEntityManager()->createQuery($dql)->getResult();
     }

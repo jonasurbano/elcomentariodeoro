@@ -67,9 +67,9 @@ body {
     /*height: 20px;*/
     color: #fff;
     font-weight: bold;
-    background-image: url('../images/partido.jpg');
-    background-repeat: no-repeat;
-    background-color: #0f4;
+    background-repeat: repeat-x;
+    background-color: #00c425;
+    line-height: 20px;
 }
 
 /**
@@ -87,17 +87,18 @@ body {
     border: solid 1px #fff;
 }
 
-.partido-hover {
-    background-image: url('../images/partido-hover.jpg');
-}
+.partido-impar { background-image: url('../images/partido.jpg'); }
+.partido-impar-hover { background-image: url('../images/partido-hover.jpg'); }
+.partido-par { background-image: url('../images/partido2.jpg'); }
+.partido-par-hover { background-image: url('../images/partido2-hover.jpg'); }
 
 .club {
     border: none;
     width: 135px;
     text-align: center;
     display: inline-block;
-    color: #fff;
     cursor: default;
+    vertical-align: middle;
 }
 
 .resultado {
@@ -105,6 +106,7 @@ body {
     width: 64px;
     display: inline;
     color: #fff;
+    vertical-align: middle;
 }
 
 .uno, .x, .dos {
@@ -143,6 +145,7 @@ body {
     color: #666;
     margin: 0 5px 0 0;
     padding-left: 2px;
+    vertical-align: middle;
 }
 
 .comentar:hover {
@@ -151,8 +154,9 @@ body {
 }
 
 .btnComentarios {
-    display: inline;
+    display: inline-block;
     height: 24px;
+    vertical-align: middle;
 }
 
 .btnComentariosAmigos,
@@ -199,6 +203,8 @@ body {
 
 #explicacion {
     margin: 0px 2px;
+    display: inline;
+    vertical-align: top;
 }
 
 .otrasSecciones {
@@ -247,6 +253,7 @@ body {
  */
 
 .comentarios {
+    display: none;
     margin: 4px 4px 0 4px;
 }
 
@@ -279,7 +286,7 @@ body {
 
 .comentario-pie {
      width: 670px;
-     height: 30px;
+     height: 28     px;
      border-top: solid 1px #ccc;
      background-image: url('../images/gris-blanco-vertical.jpg');
      background-repeat: repeat-x;
@@ -708,11 +715,15 @@ a:link, a:visited, a:active, a:hover {
     width: 220px;
     height: 25px;
     z-index: 1;
-    top: 71px;
+    top: 70px;
     left: 280px;
     overflow: hidden;
-    color: #ccc;
+    color: #666;
     border: solid 1px #eee;
+    border-top-right-radius: 5px;
+    border-top-left-radius: 5px;
+    background-image: url('../images/gris-blanco-vertical.jpg');
+    background-repeat: repeat-x;
 }
 
 #amigos:hover {
@@ -747,7 +758,6 @@ a:link, a:visited, a:active, a:hover {
     top: 180px;
     z-index: 1;
     display: none;
-    visibility: hidden;
     background-color: #fff;
     border: solid 1px #0c3;
     padding: 20px;
@@ -763,7 +773,8 @@ a:link, a:visited, a:active, a:hover {
     border: solid 1px #0c3;
 }
 
-#elegirClub .guardar {
+#elegirClub .guardarClub,
+#elegirClub .cerrarElegirClub {
     width: 80px;
     height: 25px;
     border: solid 1px #0c3;
@@ -775,7 +786,8 @@ a:link, a:visited, a:active, a:hover {
     cursor:  pointer;
 }
 
-#elegirClub .guardar:hover {
+#elegirClub .cerrarElegirClub:hover,
+#elegirClub .guardarClub:hover {
     background-color: #0c3;
     color: #fff;
 }
