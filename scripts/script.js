@@ -88,6 +88,8 @@ mostrarJornadaAnterior = function() {
     $('div.estadisticas').slideUp();
 
     mostrando = "anterior";
+
+    $("html, body").animate({ scrollTop: 0 }, "slow");
 }
 
 mostrarJornadaActual = function() {
@@ -99,6 +101,8 @@ mostrarJornadaActual = function() {
     $('div.partidos').slideDown();
 
     mostrando = "actual";
+
+    $("html, body").animate({ scrollTop: 0 }, "slow");
 }
 
 /**
@@ -122,6 +126,8 @@ mostrarEstadisticas = function(idFacebook) {
     $('div.estadisticas').slideDown();
 
     mostrando = "estadisticas";
+
+    $("html, body").animate({ scrollTop: 0 }, "slow");
 }
 
 function sendRequestToRecipients(idFacebook) {
@@ -149,11 +155,13 @@ compartirEnFacebook = function($boton,mensaje) {
     $mensajeFb.find('div.btnCompartir').click(function() {
         $mensajeFb.find('span').css('visibility','visible');
         $.get('compartirEnFB.php?mensaje=' + mensaje,function(data) {
-            if (data != '') alert(data);
-            /*$mensajeFb.children().not('span').remove();
+            //if (data != '') alert(data);
+            $mensajeFb.children().not('span').remove();
             $mensajeFb.find('span').html('Compartido en tu muro.');
-            $mensajeFb.delay(5000).fadeOut().remove();*/
-            $mensajeFb.fadeOut().remove();
+            $mensajeFb.delay(2500).fadeOut(function() {
+                $(this).remove();
+            });
+            //$mensajeFb.fadeOut().remove();
         });
     });
 
@@ -549,7 +557,6 @@ cargarComentarios = function(idPartido,opcion) {
                 $(this).empty();
             })
             var idPartido = $(this).parent().parent().attr("id");
-            alert(idPartido);
             offsetComentarios[idPartido] = 0;
         });
 
@@ -675,8 +682,13 @@ cargarMejoresComentariosJugador = function(idFacebook) {
             $mensajeFb.find('div.btnCompartir').click(function() {
                 $mensajeFb.find('span').css('visibility','visible');
                 $.get('compartirEnFB.php?mensaje=' + mensaje,function(data) {
-                    if (data != '') alert(data);
-                    $mensajeFb.fadeOut().remove();
+                    //if (data != '') alert(data);
+                    $mensajeFb.children().not('span').remove();
+                    $mensajeFb.find('span').html('Compartido en tu muro.');
+                    $mensajeFb.delay(2500).fadeOut(function() {
+                        $(this).remove();
+                    });º
+                    //$mensajeFb.fadeOut().remove();
                 });
             });
 
