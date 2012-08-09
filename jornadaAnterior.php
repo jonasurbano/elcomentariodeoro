@@ -35,7 +35,7 @@ foreach ($partidos as $partido) {
             ">1</div><div class="x <? if (isset($resultado) && $resultado == 'x') echo ', borde-rojo' ?>">X</div><div class="dos <? if (isset($resultado) && $resultado == '2') echo ', borde-rojo' ?>">2</div></div><div class="club"><?= htmlentities($partido->getClub2()); ?></div><input type="text" class="comentar" readonly="readonly" value="<?
             if (isset($comentario) && $comentario) echo $comentario->getComentario();
             else echo '';
-            ?>" /><div class="btnComentariosAmigos">.</div><div class="btnComentariosRecientes">.</div><div class="btnComentariosMejores">.</div><div class="puntuacion puntuacionPronostico<?
+            ?>" /><div class="btnComentarios"><div class="btnComentariosAmigos">.</div><div class="btnComentariosRecientes">.</div><div class="btnComentariosMejores">.</div></div><div class="puntuacion puntuacionPronostico<?
             if ($partido->pronosticoAcertado($resultado)) {
                 $sumaSemanal += 3;
                 echo ' puntuacionPositiva">3';

@@ -219,18 +219,16 @@ accionesPartidos = function() {
         $(this).removeClass('partido-par-hover');
     })
 
-
-
     $('div.btnComentariosAmigos').click(function() {
-        var idPartido = $(this).parent().attr("id");
+        var idPartido = $(this).parent().parent().attr("id");
         cargarComentarios(idPartido,1) });
 
     $('div.btnComentariosRecientes').click(function() {
-        var idPartido = $(this).parent().attr("id");;
+        var idPartido = $(this).parent().parent().attr("id");;
         cargarComentarios(idPartido,2) });
 
     $('div.btnComentariosMejores').click(function() {
-        var idPartido = $(this).parent().attr("id");;
+        var idPartido = $(this).parent().parent().attr("id");;
         cargarComentarios(idPartido,3) });
 
     if (!jugando) {
@@ -386,9 +384,14 @@ cargarEstadisticas = function(idFacebook) {
 
     offsetRanking = 0;
 
-    $('div.estadisticasGlobales').empty()
+    var cargando = '<div class="cargandoEstadisticas"><img src="images/balon.gif"'
+        + '/><span>Cargando...</span></div>';
+
+    $('div.estadisticasGlobales').html(cargando).show()
         .load('cargarRanking.php?offset=' + offsetRanking,
         function() {
+
+        $(this).find('div.cargandoEstadisticas').remove();
 
         $('div.ranking-nombre').click(function() {
             var idElem = $(this).parent().attr('id');
@@ -413,13 +416,13 @@ cargarEstadisticas = function(idFacebook) {
         });
 
         $('div.rankingPronosticos div.ranking-jugador-pronosticos').first()
-            .css('background-image','');
+            .addClass('oro');
 
         $('div.rankingComentarios div.ranking-jugador-comentarios').first()
             .addClass('oro');
 
         $('div.rankingClubes div.ranking-club').first()
-            .accClass('oro')
+            .addClass('oro')
 
         $('div.rankingPronosticos div.ranking-jugador-pronosticos').eq(1)
             .addClass('plata');
@@ -431,7 +434,7 @@ cargarEstadisticas = function(idFacebook) {
             .addClass('plata');
 
         $('div.rankingPronosticos div.ranking-jugador-pronosticos').eq(2)
-            .accClass('bronce');
+            .addClass('bronce');
 
         $('div.rankingComentarios div.ranking-jugador-comentarios').eq(2)
             .addClass('bronce');
@@ -509,6 +512,11 @@ comportamientoBtnVotar = function() {
  * - Define el comportamiento de los botones para compartir en Fb.
  */
 cargarComentarios = function(idPartido,opcion) {
+    var cargando = '<div class="cargandoComentarios"><img src="images/balon.gif"'
+        + '/><span>Cargando...</span></div>';
+
+    $('#comentarios-' + idPartido).append(cargando).slideDown();
+
     if (typeof offsetComentarios[idPartido] == 'undefined')
         offsetComentarios[idPartido] = 0;
 
@@ -518,17 +526,30 @@ cargarComentarios = function(idPartido,opcion) {
 
     $.get(urlComentarios, function(data) {
         if (data == '') {
+            $cargandoComentarios = $('#comentarios-' + idPartido)
+                .find('div.cargandoComentarios');
+
+            $cargandoComentarios.find('img').remove();
+            $cargandoComentarios.find('span')
+                .html('No hay comentarios');
+            $cargandoComentarios.parent().delay(2500).slideUp(function() {
+                $cargandoComentarios.remove();
+                $(this).hide();
+            });
             return;
         }
 
-        $('#comentarios-' + idPartido + " > .masComentariosRecientes").remove();
-        $('#comentarios-' + idPartido + " > .masComentariosMejores").remove();
-
+        $('#comentarios-' + idPartido + " div.masComentariosRecientes").remove();
+        $('#comentarios-' + idPartido + " div.masComentariosMejores").remove();
+        $('#comentarios-' + idPartido + ' div.cargandoComentarios').remove();
         $('#comentarios-' + idPartido).append(data).show();
 
         $('.btnOcultarComentarios').click(function() {
-            $(this).parent().slideUp();
+            $(this).parent().slideUp(function() {
+                $(this).empty();
+            })
             var idPartido = $(this).parent().parent().attr("id");
+            alert(idPartido);
             offsetComentarios[idPartido] = 0;
         });
 

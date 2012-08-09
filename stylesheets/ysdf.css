@@ -500,7 +500,7 @@ body {
 
  /* Como tiene padding inicialmente hay que ocultar la capa */
 .estadisticasGlobales {
-    padding: 10px 0px 10px 89px;
+    padding: 10px 0px 10px 87px;
     background-color: #e5fffd;
     display: none;
 }
@@ -578,8 +578,10 @@ body {
 .rankingPronosticos{
     width: 250px;
     float: left;
-    margin-right: 40px;
+}
 
+.rankingPronosticos {
+    margin-right: 40px;
 }
 
 .ranking-jugador-pronosticos,
@@ -600,6 +602,7 @@ body {
     font-size: 14px;
     color: #000;
     border-radius: 5px;
+    text-align: center;
     cursor: hand;
     cursor: pointer;
 }
@@ -614,7 +617,7 @@ body {
  .ranking-numero {
      width: 86px;
      height: 38px;
-     color: #ccc;
+     color: #3b5998;
      font-size: 26px;
      float: left;
     text-align: center;
@@ -858,3 +861,29 @@ a:link, a:visited, a:active, a:hover {
 .oro { background-image: url("../images/oro.jpg"); }
 .plata { background-image: url("../images/plata.jpg"); }
 .bronce { background-image: url("../images/bronce.jpg"); }
+
+.cargandoComentarios,
+.cargandoEstadisticas {
+    position: relative;
+    display: table;
+    width: 180px;
+    left: 250px;
+    border: solid 1px #000;
+    margin: 5px 0;
+    padding: 5px;
+    background-color: #fff;
+}
+
+.cargandoEstadisticas {
+    left: 181px;
+}
+
+.cargandoComentarios span,
+.cargandoEstadisticas span {
+    display: table-cell;
+    width: 100%;
+    margin-left: 10px;
+    vertical-align: middle;
+    color: #000;
+    text-align: center;
+}

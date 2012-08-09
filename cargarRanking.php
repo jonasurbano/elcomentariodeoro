@@ -28,9 +28,9 @@ $array = $facebook->api(array( 'method' => 'fql.query',
 
 $i = $offset + 1 ;
 
-?><div class="partidos-texto">El primer ranking es el de pronósticos (1,X,2), el segundo es el de los votos de los comentarios.</div>
+?>
 
-<div class="rankingPronosticos"><?
+<div class="rankingPronosticos"><div>Ranking de pronosticos:</div><?
 
 foreach ($array as $key => $a) {
 ?>
@@ -51,7 +51,7 @@ foreach ($array as $key => $a) {
     </div></div>
 <? $i++; }
 
-?></div><div class="rankingComentarios"><?
+?></div><div class="rankingComentarios"><div>Ranking de comentarios:</div><?
 
 $jugadores = $repositorioJugadores->rankingComentarios($offset);
 $hayMasJugadores = $repositorioJugadores->hayMasRanking($offset);
@@ -98,7 +98,8 @@ if ($offset == 0) {
 $clubes = $repositorioJugadores->rankingClubes();
 
 ?></div><div style="clear: both;"></div><div class="rankingClubes">
-    <div class="partidos-texto">Este es el ranking de los clubes según los puntos que han conseguido sus seguidores.</div>
+    <div class="partidos-texto">Este es el ranking de los clubes.</div>
+    <div class="partidos-texto">Cada equipo obtiene los puntos que han conseguido sus seguidores.</div>
     <?
 
     foreach ($clubes as $club) {
