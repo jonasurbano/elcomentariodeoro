@@ -17,7 +17,7 @@ try {
                 'y escribir todo lo que quieras sobre los partidos ' .
                 'de la jornada. Además podrás leer lo que piensan tus ' .
                 'amigos y más...',
-            'picture' => 'http://ysdf.phpfogapp.com/images/icono.png',
+            'picture' => 'http://ysdf.phpfogapp.com/images/icono.jpg',
             'type' => 'link',
             'application' => array(
                 'name' => 'Name of your app',

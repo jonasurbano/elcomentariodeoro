@@ -413,31 +413,31 @@ cargarEstadisticas = function(idFacebook) {
         });
 
         $('div.rankingPronosticos div.ranking-jugador-pronosticos').first()
-            .css('background-image','url("../images/oro.jpg")');
+            .css('background-image','');
 
         $('div.rankingComentarios div.ranking-jugador-comentarios').first()
-            .css('background-image','url("../images/oro.jpg")');
+            .addClass('oro');
 
         $('div.rankingClubes div.ranking-club').first()
-            .css('background-image','url("../images/oro.jpg")');
+            .accClass('oro')
 
         $('div.rankingPronosticos div.ranking-jugador-pronosticos').eq(1)
-            .css('background-image','url("../images/plata.jpg")');
+            .addClass('plata');
 
         $('div.rankingComentarios div.ranking-jugador-comentarios').eq(1)
-            .css('background-image','url("../images/plata.jpg")');
+            .addClass('plata');
 
         $('div.rankingClubes div.ranking-club').eq(1)
-            .css('background-image','url("../images/plata.jpg")');
+            .addClass('plata');
 
         $('div.rankingPronosticos div.ranking-jugador-pronosticos').eq(2)
-            .css('background-image','url("../images/bronce.jpg")');
+            .accClass('bronce');
 
         $('div.rankingComentarios div.ranking-jugador-comentarios').eq(2)
-            .css('background-image','url("../images/bronce.jpg")');
+            .addClass('bronce');
 
         $('div.rankingClubes div.ranking-club').eq(2)
-            .css('background-image','url("../images/bronce.jpg")');
+            .addClass('bronce');
 
         offsetRanking += 5;
 

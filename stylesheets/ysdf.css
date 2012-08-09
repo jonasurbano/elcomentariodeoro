@@ -121,13 +121,13 @@ body {
 }
 
 .resultados-hover {
+    background-color: #fff;
     background-image: url('../images/degradado-am-claro-vertical.jpg');
     background-repeat: repeat-x;
     cursor: hand;
     cursor: pointer;
 }
 
-/* ToDo: Cambiar de nombre */
 .borde-rojo {
     border: solid 1px #f00;
     color: #f00;
@@ -716,7 +716,7 @@ a:link, a:visited, a:active, a:hover {
     height: 25px;
     z-index: 1;
     top: 70px;
-    left: 280px;
+    left: 418px;
     overflow: hidden;
     color: #666;
     border: solid 1px #eee;
@@ -854,3 +854,7 @@ a:link, a:visited, a:active, a:hover {
     z-index: 1;
     padding: 2px;
 }
+
+.oro { background-image: url("../images/oro.jpg"); }
+.plata { background-image: url("../images/plata.jpg"); }
+.bronce { background-image: url("../images/bronce.jpg"); }
