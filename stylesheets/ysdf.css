@@ -412,6 +412,10 @@ body {
     background-repeat: no-repeat;
  }
 
+ .comentar-panel .comentarios-fb {
+   margin-left: 10px;
+ }
+
  .btnPanelComentario {
     height: 26px;
     padding-top: 4px;

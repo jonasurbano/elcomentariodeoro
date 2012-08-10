@@ -123,12 +123,11 @@ if (isset($basic)) {
                         >X</div><div class="dos <? if (isset($resultado) && $resultado == '2') echo ', borde-rojo' ?>"
                         >2</div></div>
                     <div class="club"><?= $partido->getClub2() ?></div>
-                    <input type="text" class="comentar" value="
-<?
+                    <input type="text" class="comentar" value="<?
                     if ($jugador) {
                         $c = $repositorioComentarios->getComentario($idPartido,$jugador->getId());
                         if (!$c) echo 'Comentar..."';
-                        else echo $c->getComentario() . '" readonly="readonly"';
+                        else echo $c->getComentario() . '" readonly="readonly" id="com-' . $c->getId() . '"';
                     } else {
                         echo 'Comentar..."';
                     }

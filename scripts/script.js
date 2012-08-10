@@ -228,14 +228,17 @@ accionesPartidos = function() {
     })
 
     $('div.btnComentariosAmigos').click(function() {
+        if ($(this).parent().parent().find('div.comentarios').html() != '') return;
         var idPartido = $(this).parent().parent().attr("id");
         cargarComentarios(idPartido,1) });
 
     $('div.btnComentariosRecientes').click(function() {
+        if ($(this).parent().parent().find('div.comentarios').html() != '') return;
         var idPartido = $(this).parent().parent().attr("id");;
         cargarComentarios(idPartido,2) });
 
     $('div.btnComentariosMejores').click(function() {
+        if ($(this).parent().parent().find('div.comentarios').html() != '') return;
         var idPartido = $(this).parent().parent().attr("id");;
         cargarComentarios(idPartido,3) });
 
@@ -290,9 +293,13 @@ accionesPartidos = function() {
  */
 mostrarPanelComentar = function() {
     var comentarPanel1 = '<textarea class="comentar-textarea">';
-    var comentarPanel2 = '</textarea><div class="btnPanelComentario ' +
-        'btnOcultarComentar">Ocultar</div>';
-    var comentarPanel3 = '<div class="btnPanelComentario btnComentar">' +
+    var comentarPanel2 = '</textarea>'
+    var comentarPanel3 = '<div class="comentarios-fb">' +
+        '<fb:comments href="https://ysdf.phpfogapp.com/verComentario.php?id=';
+    var comentarPanel4 = '" num_posts="3" width="652"></fb:comments></div>';
+    var comentarPanel5 = '<div class="btnPanelComentario btnOcultarComentar">' +
+        'Ocultar</div>'
+    var comentarPanel6 = '<div class="btnPanelComentario btnComentar">' +
         'Guardar comentarios</div>';
 
     $('input.comentar').click(function() {
@@ -303,7 +310,11 @@ mostrarPanelComentar = function() {
         /* Si el comentario viene desde la BD input['readonly']='readonly' */
         var readonly = $(this).attr('readonly');
         if (!jugando && (!readonly || readonly.toLowerCase() === 'false')) {
-            contenidoHttml += comentarPanel3;
+            contenidoHttml += comentarPanel5 + comentarPanel6;
+        } else {
+            var idComentario = $(this).attr('id').substring(4);
+            contenidoHttml += comentarPanel3 + idComentario
+                + comentarPanel4 + comentarPanel5;
         }
 
         /* Retirar hover de partido */
@@ -313,7 +324,10 @@ mostrarPanelComentar = function() {
             .slideDown()
             .removeClass('partido-hover')
             .addClass('mostrandoComentario')
-            .unbind('hover');
+            .unbind('hover')
+            .find('div.comentarios-fb').show();
+
+        FB.XFBML.parse();
 
         $(this).addClass('no-visible');
 

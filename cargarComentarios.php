@@ -120,7 +120,14 @@ foreach ($comentarios as $comentario) {
                 url(<?= $a['pic'] ?>);"></div>
             <div class="comentario-cabecera-nombre"><?= $a['name'] ?></div>
         </div><? } ?>
-        <div class="comentario-texto"><?= $comentario->getComentario() ?></div>
+        <div class="comentario-texto">
+        <? if ($opcion == 4) {
+            $partido = $comentario->getPartido();
+            $club1 = $partido->getClub1();
+            $club2 = $partido->getClub2();
+            echo '<b>Partido: ' . $club1 . ' - ' . $club2 . '.</b> ';
+        } ?>
+        <?= $comentario->getComentario() ?></div>
         <div class="comentario-pie"><div class="votos"><?
         $votos = $comentario->getVotos();
         if ($votos == 1) echo '1 voto';
