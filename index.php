@@ -102,7 +102,7 @@ if (isset($basic)) {
 
 ?>
     <div class="principal">
-        <div class="cabecera"></div>
+        <a href="index.php"><div class="cabecera"></div></a>
         <div class="partidos">
             <div id="partidos-centrar">
                 <div class="partidos-texto">¿Cómo quedarán los resultados?</div>

@@ -228,7 +228,10 @@ accionesPartidos = function() {
     })
 
     $('div.btnComentariosAmigos').click(function() {
-        if ($(this).parent().parent().find('div.comentarios').html() != '') return;
+        if ($(this).parent().parent().find('div.comentarios').html() != '') {
+            alert('Este no es el botón, amigo');
+            return;
+        }
         var idPartido = $(this).parent().parent().attr("id");
         cargarComentarios(idPartido,1) });
 
