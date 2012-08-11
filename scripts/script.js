@@ -143,8 +143,14 @@ function sendRequestToRecipients(idFacebook) {
 function requestCallback(response) {
 }
 
-
-compartirEnFacebook = function($boton,mensaje) {
+/**
+ * Compartir en Facebook.
+ * @param $boton para situar la ventanita.
+ * @param mensaje
+ * @param idComentario. (Opcional) Si se va a compartir en Fb un comentario,
+ *  se indica el idComentario para construir la url para ver el comentario.
+ */
+compartirEnFacebook = function($boton,mensaje,idComentario) {
     var $mensajeFb = $('<div class="mensajeFb"><textarea class="texto">'
         + mensaje + '</textarea><span>Compartiendo...</span><div class="btnCerrar">Cerrar</div>' +
         '<div class="btnCompartir">Compartir</div></div>')
@@ -154,9 +160,14 @@ compartirEnFacebook = function($boton,mensaje) {
             'left': $boton.offset().left - 101
         }).fadeIn();
 
+    var url = 'compartirEnFB.php?mensaje=' + mensaje;
+    if (typeof idComentario != 'undefined') {
+         url += '&idComentario=' + idComentario;
+    }
+
     $mensajeFb.find('div.btnCompartir').click(function() {
         $mensajeFb.find('span').css('visibility','visible');
-        $.get('compartirEnFB.php?mensaje=' + mensaje,function(data) {
+        $.get(url,function(data) {
             //if (data != '') alert(data);
             $mensajeFb.children().not('span').remove();
             $mensajeFb.find('span').html('Compartido en tu muro.');
@@ -588,6 +599,7 @@ cargarComentarios = function(idPartido,opcion) {
         $('div.btnCompartirComentario').click(function() {
             var $comentario = $(this).parent().parent();
             var $partido = $comentario.parent().parent();
+            var idComentario = $comentario.attr('id').substring(4);
             var jugador = $comentario
                 .find('div.comentario-cabecera-nombre').html();
             var club1 = $partido.find('div.club').eq(0).html();
@@ -596,7 +608,7 @@ cargarComentarios = function(idPartido,opcion) {
                'sobre el partido entre ' + club1 + ' y ' + club2 +
                ' en YoSéDeFútbol. ¿No vas a leerlo?';
 
-           compartirEnFacebook($(this), mensaje);
+           compartirEnFacebook($(this), mensaje, idComentario);
         });
 
         $('div.comentario').hover(function() {
