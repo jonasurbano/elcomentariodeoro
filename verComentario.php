@@ -61,7 +61,7 @@
     }(document, 'script', 'facebook-jssdk'));
     </script>
 
-    <a href="<? AppInfo::getUrl() ?>"><img src="images/elcomentariodeoro-solonombre.jpg" /></a>
+    <a href="<?= $urlFacebook ?>"><img src="images/elcomentariodeoro-solonombre.jpg" /></a>
 
 <?
 
@@ -116,7 +116,7 @@ if (isset($comentario) && $comentario) {
         <div class="fb-login-button" data-scope="publish_stream"></div>
     <? } } ?>
     <br><br>
-    <a href="<? AppInfo::getUrl() ?>"><img src="images/banner.jpg" /></a>
+    <a href="<? $urlFacebook ?>"><img src="images/banner.jpg" /></a>
     <div style="width:670px; color:#ff0; font-size:1.6em; text-align:center;
          line-height: 25px;">
 Acierta los resultados de la jornada.<br>

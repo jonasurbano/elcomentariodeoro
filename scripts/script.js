@@ -90,6 +90,7 @@ mostrarJornadaAnterior = function() {
     mostrando = "anterior";
 
     $("html, body").animate({ scrollTop: 0 }, "slow");
+    FB.Canvas.scrollTo(0,0);
 }
 
 mostrarJornadaActual = function() {
@@ -103,6 +104,7 @@ mostrarJornadaActual = function() {
     mostrando = "actual";
 
     $("html, body").animate({ scrollTop: 0 }, "slow");
+    FB.Canvas.scrollTo(0,0);
 }
 
 /**
@@ -488,6 +490,7 @@ cargarEstadisticas = function(idFacebook) {
                         offsetComentariosJugador = 0;
 
                         $("html, body").animate({ scrollTop: 0 }, "slow");
+                        FB.Canvas.scrollTo(0,0);
                     });
                 });
             });
