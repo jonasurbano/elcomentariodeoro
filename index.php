@@ -1,7 +1,7 @@
 <?php require_once 'bootstrap.php'; ?>
 
 <!DOCTYPE html>
-<html xmlns:fb="http://ogp.me/ns/fb#" lang="en" style="overflow:hidden">
+<html xmlns:fb="http://ogp.me/ns/fb#" lang="es" style="overflow:hidden">
     <head>
         <title>YoS&eacute;DeF&uacute;tbol</title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -102,7 +102,7 @@ if (isset($basic)) {
 
 ?>
     <div class="principal">
-        <a href="index.php"><div class="cabecera"></div></a>
+       <div class="cabecera"></div>
         <div class="partidos">
             <div id="partidos-centrar">
                 <div class="partidos-texto">¿Cómo quedarán los resultados?</div>

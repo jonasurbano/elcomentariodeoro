@@ -3,7 +3,7 @@ $(document).ready(function() {
     $('#elegirClub').fadeIn('slow');
     $('#elegirClub div.guardarClub').click(function() {
         $.get('guardarClub.php?club=' + $('#elegirClub option:selected').val(),
-        function() {
+        function(data) {
             $('#elegirClub').fadeOut('slow').remove();
         });
     })
@@ -191,9 +191,8 @@ accionesListaAmigos = function() {
                 } else {
                     sendRequestToRecipients(idFb);
                 }
-            })
-
-        });
+            });
+        })
     });
 }
 
@@ -487,6 +486,8 @@ cargarEstadisticas = function(idFacebook) {
                         cargarMejoresComentariosJugador(idFacebook);
 
                         offsetComentariosJugador = 0;
+
+                        $("html, body").animate({ scrollTop: 0 }, "slow");
                     });
                 });
             });

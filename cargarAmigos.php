@@ -7,6 +7,7 @@
  *
  * Tantas veces como usuarios:
  * <div id="amigos">
+ *  <div class="amigo" id="amigos-primera"></div> // Una vez
  *  <div class="amigo" div="ami-idFb">Id de la app.</div>
  * </div>
  *
@@ -16,10 +17,13 @@
 
 require_once 'bootstrap.php';
 
+$idFacebook = $facebook->getUser();
+if (!$idFacebook) exit();
+
 $em = GetMyEntityManager();
 $repositorioJugadores = $em->getRepository('Jugador');
 
-$consulta = $facebook->api('/me/friends?');
+$consulta = $facebook->api('/' . $idFacebook . '/friends?');
 $amigosFb = idx($consulta, 'data', array());
 
 ?>

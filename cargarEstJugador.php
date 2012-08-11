@@ -7,11 +7,9 @@
 
 require_once 'bootstrap.php';
 
-if (!isset($_GET['idf'])) {
+if (!isset($_GET['idf']) || !is_numeric($_GET['idf']))
     $idFacebook = $facebook->getUser();
-} else {
-    $idFacebook = $_GET['idf'];
-}
+else $idFacebook = $_GET['idf'];
 
 $em = GetMyEntityManager();
 $repositorioJugadores = $em->getRepository('Jugador');

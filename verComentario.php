@@ -1,56 +1,79 @@
 <?php require_once 'bootstrap.php'; ?>
 
 <!DOCTYPE html>
-<html>
+<html xmlns:fb="http://ogp.me/ns/fb#" lang="es">
     <head>
-        <title>YoS&eacute;DeF&uacute;tbol</title>
+        <title><?= $nombreAplicacion ?></title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
-        <meta property="og:title" content="YoS&eacute;DeF&uacute;tbol" />
+        <meta property="og:title" content="<?= $nombreAplicacion ?>" />
         <meta property="og:type" content="website" />
         <meta property="og:url" content="<?php echo AppInfo::getUrl(); ?>" />
-        <meta property="og:image" content="<?php echo AppInfo::getUrl('/logo.png'); ?>" />
-        <meta property="og:site_name" content="YoS&eacute;DeF&uacute;tbol" />
+        <meta property="og:image" content="<?php echo AppInfo::getUrl('/images/icono.png'); ?>" />
+        <meta property="og:site_name" content="<?= $nombreAplicacion ?>" />
         <meta property="og:description" content="" />
-        <meta property="og:description" content="Demuestra todo lo que sabes de f&uacute;tbol y descubre qui&eacute;n controla. Todo y m&aacute;s en YoS&eacute;DeF&uacute;tbol." />
+        <meta property="og:description" content="Demuestra todo lo que sabes de f&uacute;tbol y descubre qui&eacute;n controla. Todo y m&aacute;s en <?= $nombreAplicacion ?>." />
 
         <link rel="stylesheet" href="stylesheets/screen.css" media="Screen" type="text/css" />
         <link rel="stylesheet" href="stylesheets/mobile.css" media="handheld, only screen and (max-width: 480px), only screen and (max-device-width: 480px)" type="text/css" />
         <link rel="stylesheet" href="stylesheets/ysdf.css" media="Screen" type="text/css" />
 
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"
-        type="text/javascript"  ></script>
-        <script type="text/javascript" src="scripts/script.js"></script>
 
+        <!--[if IE]>
+        <script type="text/javascript">
+        var tags = ['header', 'section'];
+        while(tags.length)
+          document.createElement(tags.pop());
+        </script>
+        <![endif]-->
     </head>
 
-</head>
-<body>
+<body style="margin:auto; background-color: #000;">
+
     <div id=fb-root"></div>
 
-<?
+    <script type="text/javascript">
 
-if (!isset($_GET['id'])) {
-    ?><a href="index.php">
-        <img src="images/logo_454_340.jpg" />
-    </a><?exit();
-}
+    window.fbAsyncInit = function() {
+        FB.init({
+            appId      : '<?php echo AppInfo::appID(); ?>',
+            channelUrl : '//<?php echo $_SERVER["HTTP_HOST"]; ?>/channel.html',
+            status     : true,
+            cookie     : true,
+            xfbml      : true,
+            oauth      : true,
+            xfbml      : true
+        });
+
+        FB.Event.subscribe('auth.login', function(response) {
+            window.location = window.location;
+        });
+
+        FB.Canvas.setAutoGrow();
+    };
+
+    (function(d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) return;
+        js = d.createElement(s); js.id = id;
+        js.src = "//connect.facebook.net/es_ES/all.js";
+        fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));
+    </script>
+
+    <a href="<? AppInfo::getUrl() ?>"><img src="images/elcomentariodeoro-solonombre.jpg" /></a>
+
+<?
 
 $em = GetMyEntityManager();
 $repositorioComentarios = $em->getRepository('Comentario');
 
-$id = (int)$_GET['id'];
-$comentario = $repositorioComentarios->find($id);
-
-if (!isset($comentario)) {
-    ?><a href="index.php">
-    <img src="images/logo_gr.jpg" /></a><? exit();
+if (isset($_GET['id']) && is_numeric($_GET['id'])) {
+    $comentario = $repositorioComentarios->find($_GET['id']);
 }
 
-?>
+if (isset($comentario) && $comentario) {
 
-<div class="comentario" id="com-<?= $comentario->getId() ?>">
-<?
     $fql = "SELECT name, pic FROM profile WHERE id =" .
         $comentario->getEscritor()->getIdFacebook() . ";";
 
@@ -58,59 +81,48 @@ if (!isset($comentario)) {
                                     'query' => $fql,));
 
     $a = reset($array);
+
 ?>
 
-    <div class="comentario-cabecera">
-        <div class="comentario-cabecera-foto" style="background-image:
+    <div class="comentario" style="border:none;" id="com-<?= $comentario->getId() ?>">
+        <div class="comentario-cabecera">
+            <div class="comentario-cabecera-foto" style="background-image:
                 url(<?= $a['pic'] ?>);"></div>
-        <div class="comentario-cabecera-nombre"><?= $a['name'] ?></div>
-    </div>
-    <div class="comentario-texto"><?= $comentario->getComentario() ?></div>
-    <div class="comentario-pie">
-        <div class="votos"><?
-             $votos = $comentario->getVotos();
-             if ($votos == 1)
-                 echo '1 voto';
-             else if ($votos == -1)
-                 echo '-1 voto';
-             else
-                 echo $comentario->getVotos() . ' votos';
-?>
+            <div class="comentario-cabecera-nombre"><?= $a['name'] ?></div>
         </div>
-        <div class="btnCompartirComentario">Compartir en Facebook</div>
-    </div>
-    <div class="comentarios-fb">
-    <fb:comments href="<?= AppInfo::getUrl('verComentario.php?id=' . $comentario->getId() ); ?>" num_posts="3" width="600"></fb:comments>
-    </div>
-</div>
-
-<?
-
-$repositorioJugadores = $em->getRepository('Jugador');
-
-$rankingPronosticos = $repositorioJugadores->
-    posicionRankingPronosticos($comentario->getEscritor()->getId());
-
-$rankingComentarios = $repositorioJugadores->
-    posicionRankingComentarios($comentario->getEscritor()->getId());
-
+        <div class="comentario-texto"><?
+        $partido = $comentario->getPartido();
+            $club1 = $partido->getClub1();
+            $club2 = $partido->getClub2();
+            echo '<b>Partido: ' . $club1 . ' - ' . $club2 . '.</b> ' .
+            $comentario->getComentario() ?></div>
+        <div class="comentario-pie">
+            <div class="votos"><?
+                 $votos = $comentario->getVotos();
+                 if ($votos == 1)
+                     echo '1 voto';
+                 else if ($votos == -1)
+                     echo '-1 voto';
+                 else
+                     echo $comentario->getVotos() . ' votos';
 ?>
-
-    <div class="jugador-cabecera" id="
-         <?= $comentario->getEscritor()->getIdFacebook() ?>">
-        <p class="jugador-foto" style="background-image: url(
-           <?= $a['pic'] ?>);"></p>
-        <div class="jugador-nombre"><a target="_blank" href="
-                                       <?= $a['url'] ?>"><?= $a['name'] ?></a></div>
-        <div class="jugador-puntosPronostico">Puntos por pron&oacute;stico:
-            <?= $comentario->getEscritor()->getSumaPronosticos() ?></div>
-        <div class="jugador-ranking-pronostico">Ranking:
-            <?= $rankingPronosticos ?>º</div>
-        <div class="jugador-puntosComentario">Puntos por comentario:
-            <?= $comentario->getEscritor()->getSumaComentarios() ?></div>
-        <div class="jugador-ranking-comentario">Ranking:
-            <?= $rankingComentarios ?>º</div>
-    </div><br><a href="index.php">
-        <img src="images/logo_454_340.jpg" /></a>
+            </div>
+        </div>
+    </div>
+    <? if ($facebook->getUser()) { ?>
+        <fb:comments style="background-color:#fff" href="<?= AppInfo::getUrl('verComentario.php?id=' .
+            $comentario->getId() ); ?>" num_posts="3" width="670"></fb:comments>
+    <? } else { ?>
+        <div class="fb-login-button" data-scope="publish_stream"></div>
+    <? } } ?>
+    <br><br>
+    <a href="<? AppInfo::getUrl() ?>"><img src="images/banner.jpg" /></a>
+    <div style="width:670px; color:#ff0; font-size:1.6em; text-align:center;
+         line-height: 25px;">
+Acierta los resultados de la jornada.<br>
+Comenta qué pasará en cada partido.<br>
+Lee los comentarios de tus amigos.<br>
+Vota y responde otros comentarios.
+    </div>
 </body>
 </html>

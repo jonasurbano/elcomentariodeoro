@@ -36,4 +36,6 @@ $facebook = new Facebook(array(
     'cookie' => true,
 ));
 
+$nombreAplicacion = 'El comentario de oro';
+$urlFacebook = 'https://apps.facebook.com/394014370642216/';
 ?>

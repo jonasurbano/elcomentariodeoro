@@ -1,12 +1,12 @@
 <?php
 
-if (!isset($_GET['jornada'])) die();
+if (!isset($_GET['jornada']) || !is_numeric($_GET['jornada'])) exit();
 
 require_once 'bootstrap.php';
 
 $em = GetMyEntityManager();
 
-$numJornada = (int)$_GET['jornada'] - 1;
+$numJornada = $_GET['jornada'] - 1;
 $partidos = $em->getRepository('Partido')->getPartidos($numJornada);
 if (!$partidos) exit('No encontramos los partidos. Lo sentimos.');
 

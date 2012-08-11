@@ -85,11 +85,12 @@ class Jugador
         $this->setSumaComentarios(0);
         $this->setSumaPronosticos(0);
         $this->setSumaPuntosSemanal(0);
+        $this->setUltimaConexion(new DateTime());
 
         $this->pronosticos = new ArrayCollection();
         $this->comentarios = new ArrayCollection();
         $this->comentariosGustados = new ArrayCollection();
-            $this->comentariosNoGustados = new ArrayCollection();
+        $this->comentariosNoGustados = new ArrayCollection();
     }
 
     public function comentarioAsignado($comentario)

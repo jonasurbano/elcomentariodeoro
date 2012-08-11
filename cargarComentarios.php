@@ -13,8 +13,33 @@
  *  opciones 1, 2 y 3.
  */
 
-if (!isset($_GET['opcion'])) die();
-if (!isset($_GET['offset'])) die();
+/**
+ * Esquema DOM resultante.
+ * <div class="comentario" id="com-idComentario">">
+ *  <div class="comentario-cabecera">
+ *   <div class="comentario-cabecera-foto"></div>
+ *   <div class="comentario-cabecera-nombre"></div>
+ *  </div>
+ *  <div class="comentario-texto"></div>
+ *  <div class="comentario-pie">
+ *   <div class="votos"></div>
+ *   <div class="btnMas1">+1</div>
+ *   <div class="btnMenos1">-1</div>
+ *   <div class="btnCompartirComentario">Compartir en Facebook</div>
+ *   <div style="clear:both;"></div>
+ *  </div>
+ *  <div class="comentarios-fb">
+ *   <fb:comments></fb:comments>
+ *  </div>
+ * </div>
+ * <div class="btnOcultarComentarios">Ocultar comentarios</div>
+ * <div class="masComentariosAmigos">M&aacute;s comentarios</div>
+ */
+
+if (!isset($_GET['opcion']) || !is_numeric($_GET['opcion']) ||
+    $_GET['opcion'] < 1 || $_GET['opcion'] > 4) exit();
+if (!isset($_GET['offset']) || !is_numeric($_GET['offset']) ||
+    $_GET['offset'] < 0) exit();
 
 require_once 'bootstrap.php';
 
@@ -44,12 +69,15 @@ function listaAmigos($amigosFb) {
 }
 
 $opcion = $_GET['opcion'];
-if ($opcion != 4 && !isset($_GET['idpartido'])) die();
+if ($opcion != 4 && !isset($_GET['idpartido'])) exit();
 $offset = $_GET['offset'];
 
 $idFacebook = $facebook->getUser();
-$jugador = $repositorioJugadores->getJugador($idFacebook);
-$idJugador = $jugador->getId();
+if ($idFacebook) {
+    $jugador = $repositorioJugadores->getJugador($idFacebook);
+    if ($jugador) $idJugador = $jugador->getId();
+    else $idJugador = -1;
+}
 
 /**
  * Si los comentarios son del usuario, no se pueden votar.
@@ -57,21 +85,26 @@ $idJugador = $jugador->getId();
 $mostrarVotacion = true;
 
 if ($opcion == 1) {
+    if (!isset($_GET['idpartido']) || !is_numeric($_GET['idpartido'])) exit();
     $idPartido = $_GET['idpartido'];
 
-    $amigosFb = idx($facebook->api('/me/friends?limit=10'), 'data', array());
+    if (!$idFacebook) exit();
+    $amigosFb = idx($facebook->api('/' . $idFacebook .
+        '/friends?limit=10'), 'data', array());
     $listaAmigos = listaAmigos($amigosFb);
 
     $comentarios = $repositorioComentarios->
         getComentariosAmigos($offset,$idPartido,$listaAmigos);
 
 } else if ($opcion == 2) {
+    if (!isset($_GET['idpartido']) || !is_numeric($_GET['idpartido'])) exit();
     $idPartido = $_GET['idpartido'];
 
     $comentarios = $repositorioComentarios->
         getComentariosRecientes($offset,$idPartido,$idJugador);
 
 } else if ($opcion == 3) {
+    if (!isset($_GET['idpartido']) || !is_numeric($_GET['idpartido'])) exit();
     $idPartido = $_GET['idpartido'];
 
     $comentarios = $repositorioComentarios->
@@ -79,7 +112,7 @@ if ($opcion == 1) {
 
 
 } else if ($opcion == 4) {
-    if (isset($_GET['idf'])) {
+    if (isset($_GET['idf']) && is_numeric($_GET['idf'])) {
         $mostrarVotacion = true;
         $idJugador = $repositorioJugadores->getIdJugador($_GET['idf']);
     } else $mostrarVotacion = false;

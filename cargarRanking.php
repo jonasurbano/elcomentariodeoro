@@ -4,7 +4,8 @@
  * @param int offset Primer comentario a devolver por la consulta.
  */
 
-if (!isset($_GET['offset'])) die();
+if (!isset($_GET['offset']) || !is_numeric($_GET['offset'])
+    || $_GET['offset'] < 0) exit();
 
 require_once 'bootstrap.php';
 
