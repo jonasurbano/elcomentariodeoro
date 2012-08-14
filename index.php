@@ -82,7 +82,7 @@ if (isset($basic)) {
     $em = GetMyEntityManager();
 
     $jornada = $em->getRepository('Jornada')->getJornada();
-    if (!$jornada) exit('Hoy no hay ' . $nombreAplicacion . ', lo sentimos.');
+    if (!$jornada) exit('Jornada. Hoy no hay ' . $nombreAplicacion . ', lo sentimos.');
 
     $numJornada = $jornada->getId();
     ?> <div id="jornada"><?= $numJornada ?></div> <?
@@ -92,7 +92,7 @@ if (isset($basic)) {
     }
 
     $partidos = $jornada->getPartidos();
-    if (!$partidos) exit('Hoy no hay "' . $nombreAplicacion . '", lo sentimos.');
+    if (!$partidos) exit('Partidos. Hoy no hay "' . $nombreAplicacion . '", lo sentimos.');
 
     $repositorioComentarios = $em->getRepository('Comentario');
     $repositorioJugadores = $em->getRepository('Jugador');

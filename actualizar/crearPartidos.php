@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 
 if (isset($_SERVER['HTTP_X_FORWARDED_PROTO'])) {
     if ($_SERVER['HTTP_X_FORWARDED_PROTO'] != 'https')
