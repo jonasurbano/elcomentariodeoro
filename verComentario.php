@@ -14,8 +14,8 @@
         <meta property="og:description" content="" />
         <meta property="og:description" content="Demuestra todo lo que sabes de f&uacute;tbol y descubre qui&eacute;n controla. Todo y m&aacute;s en <?= $nombreAplicacion ?>." />
 
-        <link rel="stylesheet" href="stylesheets/screen.css" media="Screen" type="text/css" />
-        <link rel="stylesheet" href="stylesheets/mobile.css" media="handheld, only screen and (max-width: 480px), only screen and (max-device-width: 480px)" type="text/css" />
+        <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+        <link rel="icon" href="/favicon.ico" type="image/x-icon">
         <link rel="stylesheet" href="stylesheets/ysdf.css" media="Screen" type="text/css" />
 
 
@@ -29,7 +29,6 @@
     </head>
 
 <body style="margin:auto; background-color: #000;">
-
     <div id=fb-root"></div>
 
     <script type="text/javascript">
@@ -61,7 +60,7 @@
     }(document, 'script', 'facebook-jssdk'));
     </script>
 
-    <a href="<?= $urlFacebook ?>"><img src="images/elcomentariodeoro-solonombre.jpg" /></a>
+    <a href="<?= $urlFacebook ?>"><div id="landingPage-superior"></div></a>
 
 <?
 
@@ -116,13 +115,12 @@ if (isset($comentario) && $comentario) {
         <div class="fb-login-button" data-scope="publish_stream"></div>
     <? } } ?>
     <br><br>
-    <a href="<? $urlFacebook ?>"><img src="images/banner.jpg" /></a>
-    <div style="width:670px; color:#ff0; font-size:1.6em; text-align:center;
-         line-height: 25px;">
+    <a href="<?= $urlFacebook ?>"><div id="landingPage-inferior"></div></a><br><br>
+    <div id="landingPage-desc">
 Acierta los resultados de la jornada.<br>
 Comenta qué pasará en cada partido.<br>
 Lee los comentarios de tus amigos.<br>
 Vota y responde otros comentarios.
-    </div>
+    </div><br><br>
 </body>
 </html>

@@ -1,3 +1,53 @@
+/* http://meyerweb.com/eric/tools/css/reset/
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+body {
+	line-height: 1;
+}
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+/* ysdf.css */
 
 body {
     color: #666;
@@ -16,7 +66,8 @@ body {
 .cabecera {
     width: 718px;
     height: 97px;
-    background-image: url('../images/cabecera2.jpg');
+    background-image: url('../images/fondos2.jpg');
+    background-position: 0 0;
 }
 
 .cabecera-foto {
@@ -64,7 +115,6 @@ body {
 .partido, .partido-janterior {
     padding: 2px 0 1px 0;
     width: 680px;
-    /*height: 20px;*/
     color: #fff;
     font-weight: bold;
     background-repeat: repeat-x;
@@ -116,13 +166,15 @@ body {
     display: inline-block;
     color: #000;
     background-color: #fff;
-    background-image: url('../images/bl-gr-bl-vertical.jpg');
+    background-image: url('../images/repeatx.jpg');
+    background-position: 0 0;
     background-repeat: repeat-x;
 }
 
 .resultados-hover {
     background-color: #fff;
-    background-image: url('../images/degradado-am-claro-vertical.jpg');
+    background-image: url('../images/repeatx.jpg');
+    background-position: 0 -134px;
     background-repeat: repeat-x;
     cursor: hand;
     cursor: pointer;
@@ -140,8 +192,9 @@ body {
     display: inline;
     border: solid 1px #ccc;
     background-color: #fff;
-    background-image: url('../images/bl-gr-bl-vertical.jpg');
+    background-image: url('../images/repeatx.jpg');
     background-repeat: repeat-x;
+    background-position: 0 0;
     color: #666;
     margin: 0 5px 0 0;
     padding-left: 2px;
@@ -149,8 +202,8 @@ body {
 }
 
 .comentar:hover {
-    background-image: url('../images/degradado-am-claro-vertical.jpg');
-    background-repeat: repeat-x;
+    background-image: url('../images/repeatx.jpg');
+    background-position: 0 -134px;
 }
 
 .btnComentarios {
@@ -174,31 +227,37 @@ body {
 
 
 .btnComentariosAmigos {
-    background-image: url('../images/amigos.png');
+    background-image: url('../images/botones.png');
+    background-position: -23px 0;
     margin-right: 1px;
 }
 
 .btnComentariosAmigos:hover {
-    background-image: url('../images/amigos-hover.png');
+    background-image: url('../images/botones.png');
+    background-position: 0 0;
     margin-right: 1px;
 }
 
 .btnComentariosRecientes {
-    background-image: url('../images/recientes.png');
+    background-image: url('../images/botones.png');
+    background-position: -115px 0;
     margin-right: 1px;
 }
 
 .btnComentariosRecientes:hover {
-    background-image: url('../images/recientes-hover.png');
+    background-image: url('../images/botones.png');
+    background-position: -92px 0;
     margin-right: 1px;
 }
 
 .btnComentariosMejores {
-    background-image: url('../images/mejores.png');
+    background-image: url('../images/botones.png');
+    background-position: -69px 0;
 }
 
 .btnComentariosMejores:hover {
-    background-image: url('../images/mejores-hover.png');
+    background-image: url('../images/botones.png');
+    background-position: -46px 0;
 }
 
 #explicacion {
@@ -210,7 +269,8 @@ body {
 .otrasSecciones {
     width: 718px;
     height: 80px;
-    background-image: url('../images/otras-secciones.jpg');
+    background-image: url('../images/fondos2.jpg');
+    background-position: 0 -98px;
     background-repeat: no-repeat;
 }
 
@@ -222,7 +282,8 @@ body {
     display: inline-block;
     margin: 38px 5px 0 208px;
     color: #373;
-    background-image: url('../images/gris-blanco-vertical.jpg');
+    background-image: url('../images/repeatx.jpg');
+    background-position: 0 -266px;
     background-repeat: repeat;
     cursor: hand;
     cursor: pointer;
@@ -230,7 +291,8 @@ body {
 
 #btnJornadaAnterior:hover,
 #btnEstadisticas:hover {
-    background-image: url('../images/degradado-am-claro-vertical.jpg');
+    background-image: url('../images/repeatx.jpg');
+    background-position: 0 -134px;
     background-repeat: repeat;
 }
 
@@ -242,7 +304,8 @@ body {
     display: inline-block;
     margin-left: 6px;
     color: #373;
-    background-image: url('../images/gris-blanco-vertical.jpg');
+    background-image: url('../images/repeatx.jpg');
+    background-position: 0 -266px;
     background-repeat: repeat;
     cursor: hand;
     cursor: pointer;
@@ -267,7 +330,8 @@ body {
      width: 670px;
      height: 26px;
      border-bottom: solid 1px #ccc;
-     background-image: url('../images/gris-blanco-vertical.jpg');
+     background-image: url('../images/repeatx.jpg');
+     background-position: 0 -266px;
      background-repeat: repeat-x;
  }
 
@@ -286,9 +350,10 @@ body {
 
 .comentario-pie {
      width: 670px;
-     height: 28     px;
+     height: 28px;
      border-top: solid 1px #ccc;
-     background-image: url('../images/gris-blanco-vertical.jpg');
+     background-image: url('../images/repeatx.jpg');
+      background-position: 0 -266px;
      background-repeat: repeat-x;
 }
 
@@ -300,10 +365,8 @@ body {
      width: 80px;
      height: 20px;
      display: inline-block;
-     /*background-color:#cff; */
      color: #666;
      margin: 2px;
-     /*border: solid 1px #fff;*/
      text-align: center;
      cursor: default;
  }
@@ -317,18 +380,19 @@ body {
      color: #666;
      text-align: center;
      margin: 2px 2px 2px 0;
-     background-image: url('../images/gris-blanco-vertical.jpg');
+     background-image: url('../images/repeatx.jpg');
+     background-position: 0 -266px;
      background-repeat: repeat-x;
      cursor: hand;
      cursor: pointer;
  }
 
  .btnVotos-hover {
-    background-image: url('../images/degradado-am-claro-vertical.jpg');
+    background-image: url('../images/repeatx.jpg');
+    background-position: 0 -134px;
     background-repeat: repeat-x;
  }
 
- /* born to die */
  .btnCompartirComentario {
      background-color: #3b5998;
      border: solid 1px #00f;
@@ -359,7 +423,8 @@ body {
      text-align: center;
      background-color: #fff;
      color: #666;
-     background-image: url('../images/gris-blanco-vertical.jpg');
+     background-image: url('../images/repeatx.jpg');
+     background-position: 0 -266px;
      background-repeat: repeat-x;
      cursor: hand;
      cursor: pointer;
@@ -376,7 +441,8 @@ body {
 .masComentariosRecientes:hover,
 .btnOcultarComentarios:hover,
 .ranking-masJugadores:hover {
-     background-image: url('../images/degradado-am-claro-vertical.jpg');
+     background-image: url('../images/repeatx.jpg');
+     background-position: 0 -134px;
      background-repeat: repeat-x;
  }
 
@@ -389,7 +455,8 @@ body {
      color: #fff;
      text-align: center;
      margin: 2px 2px 2px 0;
-     background-image: url('../images/verde_vertical.jpg');
+     background-image: url('../images/repeatx.jpg');
+     background-position: 0 -666px;
      background-repeat: repeat-x;
  }
 
@@ -425,7 +492,8 @@ body {
      text-align: center;
      margin-top: 5px;
      margin-bottom: 5px;
-     background-image: url('../images/verde-vertical-30.jpg');
+     background-image: url('../images/repeatx.jpg');
+     background-position: 0 -635px;
      background-repeat: repeat-x;
      cursor: hand;
      cursor: pointer;
@@ -513,7 +581,8 @@ body {
      width: 718px;
      height: 70px;
      background-color: #e5fffd;
-     background-image: url('../images/gris-blanco-vertical-100.jpg');
+     background-image: url('../images/repeatx.jpg');
+     background-position: 0 -155px;
      background-repeat: repeat-x;
  }
 
@@ -596,7 +665,8 @@ body {
     background-color: #fff;
     border-radius: 5px;
     margin-bottom: 5px;
-    background-image: url('../images/gris-blanco-vertical-100.jpg');
+    background-image: url('../images/repeatx.jpg');
+    background-position: 0 -155px;
     background-repeat: repeat-x;
 }
 
@@ -808,7 +878,8 @@ a:link, a:visited, a:active, a:hover {
     border: solid 1px #ccc;
     background-color: #fff;
     border-radius: 5px;
-    background-image: url('../images/gris-blanco-vertical.jpg');
+    background-image: url('../images/repeatx.jpg');
+    background-position: 0 -266px;
     background-repeat: repeat-x;
 }
 
@@ -862,9 +933,12 @@ a:link, a:visited, a:active, a:hover {
     padding: 2px;
 }
 
-.oro { background-image: url("../images/oro.jpg"); }
-.plata { background-image: url("../images/plata.jpg"); }
-.bronce { background-image: url("../images/bronce.jpg"); }
+.oro { background-image: url("../images/repeatx.jpg");
+    background-position: 0 -297px;  }
+.plata { background-image: url("../images/repeatx.jpg");
+    background-position: 0 -524px; }
+.bronce { background-image: url("../images/repeatx.jpg");
+    background-position: 0 -23px; }
 
 .cargandoComentarios,
 .cargandoEstadisticas {
@@ -891,3 +965,25 @@ a:link, a:visited, a:active, a:hover {
     color: #000;
     text-align: center;
 }
+
+#landingPage-superior {
+    width: 670px;
+    height: 140px;
+    background-image: url('../images/landingpage.jpg');
+    background-position: 0 -346px;
+}
+
+#landingPage-inferior {
+    width: 670px;
+    height: 345px;
+    background-image: url('../images/landingpage.jpg');
+}
+
+#landingPage-desc {
+    width:670px;
+    color:#ff0;
+    font-size:1.6em;
+    text-align:center;
+    line-height: 35px;
+}
+

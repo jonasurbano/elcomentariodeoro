@@ -6,14 +6,15 @@
         <title>YoS&eacute;DeF&uacute;tbol</title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
-        <meta property="og:title" content="YoSéDeFútbol" />
+        <meta property="og:title" content="<?= $nombreAplicacion ?>" />
         <meta property="og:type" content="website" />
         <meta property="og:url" content="<?php echo AppInfo::getUrl(); ?>" />
         <meta property="og:image" content="<?php echo AppInfo::getUrl('images/icono.png'); ?>" />
-        <meta property="og:site_name" content="YoSéDeFútbol" />
-        <meta property="og:description" content="'Cuéntanos qué pasará en la liga. En YoSéDeFútbol podrás puntuar y escribir todo lo que quieras sobre los partidos de la jornada. Además podrás leer lo que piensan tus amigos y más..." />
+        <meta property="og:site_name" content="<?= $nombreAplicacion ?>" />
+        <meta property="og:description" content="'Cuéntanos qué pasará en la liga. En <?= $nombreAplicacion ?> podrás puntuar y escribir todo lo que quieras sobre los partidos de la jornada. Además podrás leer lo que piensan tus amigos y más..." />
 
-        <link rel="stylesheet" href="sytlesheets/reset.css" media="Screen" type="text/css" />
+        <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+        <link rel="icon" href="/favicon.ico" type="image/x-icon">
         <link rel="stylesheet" href="stylesheets/ysdf.css" media="Screen" type="text/css" />
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"
         type="text/javascript"  ></script>
@@ -81,7 +82,7 @@ if (isset($basic)) {
     $em = GetMyEntityManager();
 
     $jornada = $em->getRepository('Jornada')->getJornada();
-    if (!$jornada) exit('E1. Hoy no hay YoSéDeFútbol, lo sentimos.');
+    if (!$jornada) exit('Hoy no hay ' . $nombreAplicacion . ', lo sentimos.');
 
     $numJornada = $jornada->getId();
     ?> <div id="jornada"><?= $numJornada ?></div> <?
@@ -91,7 +92,7 @@ if (isset($basic)) {
     }
 
     $partidos = $jornada->getPartidos();
-    if (!$partidos) exit('E2. Hoy no hay YoSéDeFútbol, lo sentimos.');
+    if (!$partidos) exit('Hoy no hay "' . $nombreAplicacion . '", lo sentimos.');
 
     $repositorioComentarios = $em->getRepository('Comentario');
     $repositorioJugadores = $em->getRepository('Jugador');
