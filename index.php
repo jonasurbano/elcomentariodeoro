@@ -139,12 +139,14 @@ if (isset($basic)) {
                 </div>
             <? $resultado = NULL; } ?>
             <div class="compartirPronosticos">Compartir mis pronósticos en Facebook</div>
-                </div>
+        </div></div>
             <div class="partidos-janterior"></div>
+
             <div class="estadisticas">
                 <div class="estadisticas-jugador"></div>
                 <div class="estadisticasGlobales" ></div>
-            </div></div>
+            </div>
+    </div>
             <div class="otrasSecciones">
                 <div id="btnJornadaAnterior">Jornada anterior</div>
                 <div id="btnEstadisticas">Estad&iacute;sticas</div>
