@@ -11,7 +11,6 @@
         <meta property="og:url" content="<?php echo AppInfo::getUrl(); ?>" />
         <meta property="og:image" content="<?php echo AppInfo::getUrl('/images/icono.png'); ?>" />
         <meta property="og:site_name" content="<?= $nombreAplicacion ?>" />
-        <meta property="og:description" content="" />
         <meta property="og:description" content="Demuestra todo lo que sabes de f&uacute;tbol y descubre qui&eacute;n controla. Todo y m&aacute;s en <?= $nombreAplicacion ?>." />
 
         <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">

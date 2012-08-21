@@ -4,10 +4,10 @@ date_default_timezone_set("Europe/Madrid");
 
 echo 'Tiempo del sistema: ' . date_format(new DateTime,DateTime::W3C) . '<BR>';
 
-if (isset($_SERVER['HTTP_X_FORWARDED_PROTO'])) {
-    if ($_SERVER['HTTP_X_FORWARDED_PROTO'] != 'https')
-        die('E1: La conexión tiene que ser HTTPS');
-} else die('E2: La conexión tiene que ser HTTPS');
+//if (isset($_SERVER['HTTP_X_FORWARDED_PROTO'])) {
+//    if ($_SERVER['HTTP_X_FORWARDED_PROTO'] != 'https')
+//        die('E1: La conexión tiene que ser HTTPS');
+//} else die('E2: La conexión tiene que ser HTTPS');
 
 ?>
 <!DOCTYPE>

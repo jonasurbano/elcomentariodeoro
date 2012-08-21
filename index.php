@@ -95,7 +95,7 @@ if (isset($basic)) {
     if (!$partidos) exit('Partidos. Hoy no hay "' . $nombreAplicacion . '", lo sentimos.');
 
     $repositorioComentarios = $em->getRepository('Comentario');
-    $repositorioJugadores = $em->getRepository('Jugador');
+      $repositorioJugadores = $em->getRepository('Jugador');
     $repositorioPronostico = $em->getRepository('Pronostico');
 
     /* $jugador puede ser NULL */
@@ -106,7 +106,7 @@ if (isset($basic)) {
        <div class="cabecera"></div>
         <div class="partidos">
             <div id="partidos-centrar">
-                <div class="partidos-texto">¿Cómo quedarán los resultados?</div>
+                <div class="partidos-texto">¿Cómo quedarán los equipos? Tienes hasta el sábado para comentar y puntuar los partidos.</div>
 <?
 
     foreach ($partidos as $partido) {
@@ -138,18 +138,17 @@ if (isset($basic)) {
                     <div class="comentar-panel"></div>
                 </div>
             <? $resultado = NULL; } ?>
+            <div class="compartirPronosticos">Compartir mis pronósticos en Facebook</div>
                 </div>
-            </div>
             <div class="partidos-janterior"></div>
             <div class="estadisticas">
                 <div class="estadisticas-jugador"></div>
                 <div class="estadisticasGlobales" ></div>
-            </div>
+            </div></div>
             <div class="otrasSecciones">
                 <div id="btnJornadaAnterior">Jornada anterior</div>
-                <div id="btnEstadisticas">Estad&iacute;sticas</div
-                <div class="fb-like" data-send="false" data-width="50" data-show-faces="false"></div>
-            </div></div>
+                <div id="btnEstadisticas">Estad&iacute;sticas</div>
+            </div>
 
         <?php } else { ?>
         <div>
@@ -164,17 +163,22 @@ if (isset($basic)) {
         ?><div id="elegirClub">
             <label>¡Hola! Queremos saber de qué equipo eres</label><br><br>
             <select>
-                <option selected="selected">At. Madrid</option>
+                 <option selected="selected">Alcorcón</option>
+                 <option>At. Madrid</option>
                  <option>Athletic Club</option>
                  <option>Barcelona</option>
                  <option>Betis</option>
                  <option>Celta</option>
                  <option>Córdoba</option>
                  <option>Deportivo</option>
+                 <option>Elche</option>
                  <option>Espanyol</option>
                  <option>Getafe</option>
+                 <option>Girona</option>
                  <option>Granada</option>
+                 <option>Guadalajara</option>
                  <option>Hércules</option>
+                 <option>Huesca</option>
                  <option>Las palmas</option>
                  <option>Levante</option>
                  <option>Lugo</option>
@@ -183,15 +187,18 @@ if (isset($basic)) {
                  <option>Murcia</option>
                  <option>Numancia</option>
                  <option>Osasuna</option>
+                 <option>Ponferradina</option>
                  <option>Racing</option>
-                 <option>Rayo vallecano</option>
+                 <option>Rayo Vallecano</option>
                  <option>R. Madrid</option>
                  <option>Real Sociedad</option>
                  <option>Recreativo</option>
+                 <option>Sabadell</option>
                  <option>Sevilla</option>
                  <option>Sporting de Gijón</option>
                  <option>Valencia</option>
                  <option>Valladolid</option>
+                 <option>Villarreal</option>
                  <option>Xerez</option>
                  <option>Zaragoza</option>
             </select>

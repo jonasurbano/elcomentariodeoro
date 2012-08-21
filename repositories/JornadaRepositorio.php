@@ -35,7 +35,7 @@ class JornadaRepositorio extends EntityRepository {
         $now = new DateTime();
         $fecha = "'" . $now->format("Y-m-d H:i:s") . "'";
         $dql = "SELECT j FROM Jornada j
-            WHERE" . $fecha . "< j.fechaResultados
+            WHERE" . $fecha . " < j.fechaResultados
             ORDER BY j.id ASC";
         $query = $this->getEntityManager()->
             createQuery($dql)->

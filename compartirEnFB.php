@@ -2,13 +2,19 @@
 
 require_once 'bootstrap.php';
 
-if (!isset($_GET['mensaje'])) exit('Mensaje no recibido.');
-$mensaje = $_GET['mensaje'];
+if (!isset($_POST['mensaje'])) exit('error');
+$mensaje = $_POST['mensaje'];
 
-if (isset($_GET['idComentario']) && is_numeric($_GET['idComentario'])) {
+if (isset($_POST['idComentario']) && is_numeric($_POST['idComentario'])) {
     $enlace = 'https://ysdf.phpfogapp.com/verComentario.php?id=' .
-        $_GET['idComentario'];
-} else $enlace = AppInfo::getUrl();
+        $_POST['idComentario'];
+} else if (isset($_POST['enlace'])) {
+    if (substr($_POST['enlace'],0,26) != 'https://ysdf.phpfogapp.com')
+        exit('error');
+    $enlace = $_POST['enlace'];
+} else {
+    $enlace = AppInfo::getUrl();
+}
 
 $idFacebook = $facebook->getUser();
 

@@ -106,6 +106,7 @@ body {
     margin-left: -340px;
 }
 
+
 .partidos-texto {
     color: #180; /* Verde oscuro */
     font-size: 14px;
@@ -142,6 +143,11 @@ body {
 .partido-par { background-image: url('../images/partido2.jpg'); }
 .partido-par-hover { background-image: url('../images/partido2-hover.jpg'); }
 
+.partido-pronostico {
+    width: 670px;
+
+}
+
 .club {
     border: none;
     width: 135px;
@@ -151,12 +157,25 @@ body {
     vertical-align: middle;
 }
 
+.club-pronostico {
+    width: 300px;
+    display: inline-block;
+    color: #fff;
+    text-align: center;
+    border-bottom: dashed 1px #ff0;
+}
+
 .resultado {
     border: none;
     width: 64px;
     display: inline;
     color: #fff;
     vertical-align: middle;
+}
+
+.resultado-pronostico {
+    width: 64px;
+    display: inline;
 }
 
 .uno, .x, .dos {
@@ -169,6 +188,12 @@ body {
     background-image: url('../images/repeatx.jpg');
     background-position: 0 0;
     background-repeat: repeat-x;
+}
+
+.resultado-pronostico .uno,
+.resultado-pronostico .x,
+.resultado-pronostico .dos {
+    border: solid 1px #ccc;
 }
 
 .resultados-hover {
@@ -509,7 +534,8 @@ body {
      margin-left: 10px;
  }
 
- .btnComentar {
+.btnComentar,
+.btnPublicar {
      width: 198px;
      margin-left: 332px;
  }
@@ -744,7 +770,8 @@ a:link, a:visited, a:active, a:hover {
     text-decoration: none;
 }
 
-.mensajeFb {
+.mensajeFb,
+.mensajeInformacion {
     position: absolute;;
     width: 400px;
     z-index: 1;
@@ -809,7 +836,6 @@ a:link, a:visited, a:active, a:hover {
     overflow-y: scroll;
     border: solid 1px #fff;
     background-color: #eee;
-
     color: #000;
 }
 
@@ -820,11 +846,14 @@ a:link, a:visited, a:active, a:hover {
     padding-left: 30px;
     cursor: hand;
     cursor: pointer;
+    border-bottom: solid 1px #ccc;
+    background-color: #fff;
+    margin-bottom: 2px;
 }
 
 #amigos .amigo:hover {
     border: solid 1px #666;
-    background-color: #fff;
+    background-color: #eee;
 }
 
 #elegirClub {
@@ -909,7 +938,8 @@ a:link, a:visited, a:active, a:hover {
     background-color: #70cbeb;
 }
 
-.compartirPuntuacionSemanalEnFb {
+.compartirPuntuacionSemanalEnFb,
+.compartirPronosticos {
     width: 130px;
     background-color: #3b5998;
     border: solid 1px #fff;
@@ -920,7 +950,13 @@ a:link, a:visited, a:active, a:hover {
     cursor: pointer;
 }
 
-.compartirPuntuacionSemanalEnFb:hover {
+.compartirPronosticos {
+    margin-top: 5px;
+    width: 260px;
+}
+
+.compartirPuntuacionSemanalEnFb:hover,
+.compartirPronosticos:hover {
     background-color: #70cbeb;
 }
 
@@ -987,3 +1023,13 @@ a:link, a:visited, a:active, a:hover {
     line-height: 35px;
 }
 
+.jugador-pronostico {
+    margin-left: 40px;
+    width:601px;
+    padding: 20px 5px 5px 85px;
+    background-repeat: no-repeat;
+    background-size: 64px 64px;
+    height: 64px;
+    color: #fff;
+    font-size: 1.4em;
+}

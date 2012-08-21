@@ -1,9 +1,9 @@
 <?php
 
-if (isset($_SERVER['HTTP_X_FORWARDED_PROTO'])) {
-    if ($_SERVER['HTTP_X_FORWARDED_PROTO'] != 'https')
-        die('E1: La conexión tiene que ser HTTPS.');
-} else die('E2: La conexión tiene que ser HTTPS');
+//if (isset($_SERVER['HTTP_X_FORWARDED_PROTO'])) {
+//    if ($_SERVER['HTTP_X_FORWARDED_PROTO'] != 'https')
+//        die('E1: La conexión tiene que ser HTTPS.');
+//} else die('E2: La conexión tiene que ser HTTPS');
 
 if (!isset($_POST['usuario']) || !isset($_POST['contrasena']))
     die('Autenticación no recibida.<br>');
@@ -20,12 +20,13 @@ if (!class_exists("Doctrine\Common\Version", false)) {
 require_once '../repositories/JornadaRepositorio.php';
 require_once "../entities/Jornada.php";
 require_once "../entities/Partido.php";
+require_once "../entities/Comentario.php";
 
 $em = GetMyEntityManager();
 $jornadaActual = $em->getRepository('Jornada')->getJornada();
 $numUltimaJornada = $em->getRepository('Jornada')->numUltimaJornada();
 
-if (!isset($jornadaActual)) echo 'La jornada actual no está definida.';
+if (!$jornadaActual) echo 'La jornada actual no está definida.';
 
 ?>
 

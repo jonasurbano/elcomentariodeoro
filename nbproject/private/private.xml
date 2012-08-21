@@ -1,12 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/1"/>
-    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="5">
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="9">
         <file>
-            <url>stylesheets/ysdf.css</url>
-            <bookmark id="5">
-                <name/>
-                <line>568</line>
+            <url>scripts/script.js</url>
+            <bookmark id="8">
+                <name>función compartirEnFacebook</name>
+                <line>154</line>
+                <key/>
+            </bookmark>
+            <bookmark id="9">
+                <name>acción botón compartirPronosticos</name>
+                <line>303</line>
+                <key/>
+            </bookmark>
+            <bookmark id="7">
+                <name>función mensaje</name>
+                <line>834</line>
                 <key/>
             </bookmark>
         </file>

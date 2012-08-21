@@ -61,13 +61,22 @@ class Jugador
      * */
     private $comentarios = null;
 
+   /**
+     * @ManyToMany(targetEntity="Jornada")
+     * @JoinTable(name="jornadaspublicas",
+     * joinColumns={@JoinColumn(name="jugador_id", referencedColumnName="id")},
+     * inverseJoinColumns={@JoinColumn(name="jornada_id",referencedColumnName="id")})
+     * @var Comentario[]
+     */
+    private $jornadasPublicas = null;
+
     /**
      * @ManyToMany(targetEntity="Comentario")
      * @JoinTable(name="comentariosgustados",
      * joinColumns={@JoinColumn(name="jugador_id", referencedColumnName="id")},
      * inverseJoinColumns={@JoinColumn(name="comentario_id",referencedColumnName="id")})
      * @var Comentario[]
-     * */
+     */
     private $comentariosGustados = null;
 
     /**
@@ -76,7 +85,7 @@ class Jugador
      * joinColumns={@JoinColumn(name="jugador_id", referencedColumnName="id")},
      * inverseJoinColumns={@JoinColumn(name="comentario_id",referencedColumnName="id")})     )
      * @var Comentario[]
-     * */
+     */
     private $comentariosNoGustados = null;
 
     function __construct($idFb)
@@ -91,6 +100,7 @@ class Jugador
         $this->comentarios = new ArrayCollection();
         $this->comentariosGustados = new ArrayCollection();
         $this->comentariosNoGustados = new ArrayCollection();
+        $this->jornadasPublicas = new ArrayCollection();
     }
 
     public function comentarioAsignado($comentario)
@@ -98,9 +108,17 @@ class Jugador
         $this->comentarios[] = $comentario;
     }
 
-    public function pronosticoAsignado($pronostico)
-    {
+    public function pronosticoAsignado($pronostico){
         $this->pronosticos[] = $pronostico;
+    }
+
+    public function isJornadaPublica($idJornada) {
+        if (!is_numeric($idJornada)) return false;
+        foreach ($this->jornadasPublicas as $jornada) {
+            if ($jornada->getId() == $idJornada)
+                return true;
+        }
+        return false;
     }
 
     public function comentarioGustado($comentario) {
@@ -111,6 +129,10 @@ class Jugador
     public function comentarioNoGustado($comentario) {
         $this->comentariosNoGustados->add($comentario);
         $comentario->menosUnVoto();
+    }
+
+    public function jornadaPublicaAsignada($jornada) {
+        $this->jornadasPublicas->add($jornada);
     }
 
 

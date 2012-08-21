@@ -1,9 +1,9 @@
 ﻿<?php
 
-if (isset($_SERVER['HTTP_X_FORWARDED_PROTO'])) {
-    if ($_SERVER['HTTP_X_FORWARDED_PROTO'] != 'https')
-        die('E1: La conexión tiene que ser HTTPS.');
-} else die('E2: La conexión tiene que ser HTTPS');
+//if (isset($_SERVER['HTTP_X_FORWARDED_PROTO'])) {
+//    if ($_SERVER['HTTP_X_FORWARDED_PROTO'] != 'https')
+//        die('E1: La conexión tiene que ser HTTPS.');
+//} else die('E2: La conexión tiene que ser HTTPS');
 
 if (!isset($_POST['usuario']) || !isset($_POST['contrasena']))
     die('Autenticación no recibida.<br>');
@@ -36,69 +36,85 @@ $numUltimaJornada = $em->getRepository('Jornada')->numUltimaJornada();
 <div id="partido-<?= $i ?>">
 
 <select id="equipo1">
-    <option selected="selected">At. Madrid</option>
-     <option>Athletic Club</option>
-     <option>Barcelona</option>
-     <option>Betis</option>
-     <option>Celta</option>
-     <option>Córdoba</option>
-     <option>Deportivo</option>
-     <option>Espanyol</option>
-     <option>Getafe</option>
-     <option>Granada</option>
-     <option>Hércules</option>
-     <option>Las palmas</option>
-     <option>Levante</option>
-     <option>Lugo</option>
-     <option>Málaga</option>
-     <option>Mallorca</option>
-     <option>Murcia</option>
-     <option>Numancia</option>
-     <option>Osasuna</option>
-     <option>Racing</option>
-     <option>Rayo vallecano</option>
-     <option>R. Madrid</option>
-     <option>Real Sociedad</option>
-     <option>Recreativo</option>
-     <option>Sevilla</option>
-     <option>Sporting de Gijón</option>
-     <option>Valencia</option>
-     <option>Valladolid</option>
-     <option>Xerez</option>
-     <option>Zaragoza</option>
+<option selected="selected">Alcorcón</option>
+                 <option>At. Madrid</option>
+                 <option>Athletic Club</option>
+                 <option>Barcelona</option>
+                 <option>Betis</option>
+                 <option>Celta</option>
+                 <option>Córdoba</option>
+                 <option>Deportivo</option>
+                 <option>Elche</option>
+                 <option>Espanyol</option>
+                 <option>Getafe</option>
+                 <option>Girona</option>
+                 <option>Granada</option>
+                 <option>Guadalajara</option>
+                 <option>Hércules</option>
+                 <option>Huesca</option>
+                 <option>Las palmas</option>
+                 <option>Levante</option>
+                 <option>Lugo</option>
+                 <option>Málaga</option>
+                 <option>Mallorca</option>
+                 <option>Murcia</option>
+                 <option>Numancia</option>
+                 <option>Osasuna</option>
+                 <option>Ponferradina</option>
+                 <option>Racing</option>
+                 <option>Rayo Vallecano</option>
+                 <option>R. Madrid</option>
+                 <option>Real Sociedad</option>
+                 <option>Recreativo</option>
+                 <option>Sabadell</option>
+                 <option>Sevilla</option>
+                 <option>Sporting de Gijón</option>
+                 <option>Valencia</option>
+                 <option>Valladolid</option>
+                 <option>Villarreal</option>
+                 <option>Xerez</option>
+                 <option>Zaragoza</option>
 </select>
 <label>-</label>
 <select id="equipo2">
-     <option selected="selected">At. Madrid</option>
-     <option>Athletic Club</option>
-     <option>Barcelona</option>
-     <option>Betis</option>
-     <option>Celta</option>
-     <option>Córdoba</option>
-     <option>Deportivo</option>
-     <option>Espanyol</option>
-     <option>Getafe</option>
-     <option>Granada</option>
-     <option>Hércules</option>
-     <option>Las palmas</option>
-     <option>Levante</option>
-     <option>Lugo</option>
-     <option>Málaga</option>
-     <option>Mallorca</option>
-     <option>Murcia</option>
-     <option>Numancia</option>
-     <option>Osasuna</option>
-     <option>Racing</option>
-     <option>Rayo vallecano</option>
-     <option>R. Madrid</option>
-     <option>Real Sociedad</option>
-     <option>Recreativo</option>
-     <option>Sevilla</option>
-     <option>Sporting de Gijón</option>
-     <option>Valencia</option>
-     <option>Valladolid</option>
-     <option>Xerez</option>
-     <option>Zaragoza</option>
+<option selected="selected">Alcorcón</option>
+                 <option>At. Madrid</option>
+                 <option>Athletic Club</option>
+                 <option>Barcelona</option>
+                 <option>Betis</option>
+                 <option>Celta</option>
+                 <option>Córdoba</option>
+                 <option>Deportivo</option>
+                 <option>Elche</option>
+                 <option>Espanyol</option>
+                 <option>Getafe</option>
+                 <option>Girona</option>
+                 <option>Granada</option>
+                 <option>Guadalajara</option>
+                 <option>Hércules</option>
+                 <option>Huesca</option>
+                 <option>Las palmas</option>
+                 <option>Levante</option>
+                 <option>Lugo</option>
+                 <option>Málaga</option>
+                 <option>Mallorca</option>
+                 <option>Murcia</option>
+                 <option>Numancia</option>
+                 <option>Osasuna</option>
+                 <option>Ponferradina</option>
+                 <option>Racing</option>
+                 <option>Rayo Vallecano</option>
+                 <option>R. Madrid</option>
+                 <option>Real Sociedad</option>
+                 <option>Recreativo</option>
+                 <option>Sabadell</option>
+                 <option>Sevilla</option>
+                 <option>Sporting de Gijón</option>
+                 <option>Valencia</option>
+                 <option>Valladolid</option>
+                 <option>Villarreal</option>
+                 <option>Xerez</option>
+                 <option>Zaragoza</option>
  <select id="equipo2">
 
 </select>

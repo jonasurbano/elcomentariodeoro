@@ -12,7 +12,8 @@ $equipos = array('At. Madrid','Athletic Club','Barcelona','Betis','Celta','Córd
     'Deportivo','Espanyol','Getafe','Granada','Hércules','Las palmas','Levante',
     'Lugo','Málaga','Mallorca','Murcia','Numancia','Osasuna','Racing',
     'Rayo vallecano','R. Madrid','Real Sociedad','Recreativo','Sevilla',
-    'Sporting de Gijón','Valencia','Valladolid','Xerez','Zaragoza');
+    'Sporting de Gijón','Valencia','Valladolid','Xerez','Zaragoza','Alcorcón',
+    'Elche','Girona','Guadalajara','Huesca','Ponferradina','Sabadell');
 
 $encontrado = false;
 foreach ($equipos as $equipo) {
