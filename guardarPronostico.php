@@ -1,14 +1,14 @@
 <?php
 
 /**
- * Guarda un comentario en la base de datos.
+ * Guarda un pronóstico en la base de datos.
  * Se realizan varias comprobaciones:
- * 1. Los parámetros POST hayan sido establecidos.
+ * 1. Los parámetros GET hayan sido establecidos.
  * 2. Exista el partido al que se refiere el parámetro.
  * 3. La jornada existe.
  * 4. La fecha tope de la jornada no haya pasado.
  * 5. El usuario esté autenticado en Facebook.
- * 6. No exista un comentario para ese partido y de ese jugador.
+ * 6. No exista un pronóstico para ese partido y de ese jugador.
  */
 
 if (!isset($_GET['idPartido']) || !is_numeric($_GET['idPartido'])) exit();
@@ -44,7 +44,10 @@ $pronostico = $repositorioPronostico->
 
 $resultado = $_GET['resultado'];
 if (!$pronostico) {
-    $pronostico = new Pronostico($jugador,$partido,$resultado);
+    $pronostico = new Pronostico();
+    $pronostico->setJugador($jugador);
+    $pronostico->setPartido($partido);
+    $pronostico->setResultado($resultado);
     $em->persist($pronostico);
 } else {
     if ($pronostico->getResultado() != $resultado) {

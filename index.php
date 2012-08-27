@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <html xmlns:fb="http://ogp.me/ns/fb#" lang="es" style="overflow:hidden">
     <head>
-        <title>YoS&eacute;DeF&uacute;tbol</title>
+        <title>El comentario de oro</title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
         <meta property="og:title" content="<?= $nombreAplicacion ?>" />

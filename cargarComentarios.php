@@ -93,6 +93,7 @@ if ($opcion == 1) {
         '/friends?limit=10'), 'data', array());
     $listaAmigos = listaAmigos($amigosFb);
 
+    if ($listaAmigos == '') exit();
     $comentarios = $repositorioComentarios->
         getComentariosAmigos($offset,$idPartido,$listaAmigos);
 

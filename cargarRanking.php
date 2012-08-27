@@ -31,7 +31,8 @@ $i = $offset + 1 ;
 
 ?>
 
-<div class="rankingPronosticos"><div>Ranking de pronosticos:</div><?
+<div class="rankingPronosticos">
+    <div class="rankingPronosticos-cabecera"></div><?
 
 foreach ($array as $key => $a) {
 ?>
@@ -52,7 +53,8 @@ foreach ($array as $key => $a) {
     </div></div>
 <? $i++; }
 
-?></div><div class="rankingComentarios"><div>Ranking de comentarios:</div><?
+?></div><div class="rankingComentarios">
+    <div class="rankingComentarios-cabecera"></div><?
 
 $jugadores = $repositorioJugadores->rankingComentarios($offset);
 $hayMasJugadores = $repositorioJugadores->hayMasRanking($offset);

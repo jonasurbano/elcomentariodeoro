@@ -76,10 +76,7 @@ class Pronostico
             $this->jugador = $jugador;
 	}
 
-        public function __construct($jugador,$partido,$resultado) {
-            $this->setJugador($jugador);
-            $this->partido = $partido;
-            $this->resultado = $resultado;
+        public function __construct() {
             $this->fecha = new DateTime();
         }
 

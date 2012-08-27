@@ -212,7 +212,7 @@ body {
 }
 
 .comentar {
-    width: 90px;
+    width: 240px;
     height: 18px;
     display: inline;
     border: solid 1px #ccc;
@@ -491,7 +491,7 @@ body {
 
  .comentar-textarea {
     width: 652px;
-    height: 300px;
+    height: 100px;
     color: #666;
     margin: 4px 10px 0 10px;
     font-family: sans-serif;
@@ -664,6 +664,10 @@ body {
      margin: 23px;
  }
 
+ .jugador-comentarios .comentario {
+     border: solid 1px #ccc;
+ }
+
  .jugador-comentarios .comentario-texto {
      width: 662px;
      padding: 4px;
@@ -677,6 +681,23 @@ body {
 .rankingPronosticos{
     width: 250px;
     float: left;
+}
+
+.rankingComentarios-cabecera,
+.rankingPronosticos-cabecera {
+    width: 248px;
+    height: 100px;
+    margin: 5px 0px;
+    border: solid 1px #ccc;
+    border-radius: 5px;
+}
+
+.rankingComentarios-cabecera {
+    background-image: url('../images/ranking_comentarios.jpg');
+}
+
+.rankingPronosticos-cabecera {
+    background-image: url('../images/ranking_pronosticos.jpg');
 }
 
 .rankingPronosticos {
@@ -960,7 +981,8 @@ a:link, a:visited, a:active, a:hover {
     background-color: #70cbeb;
 }
 
-#puntuacionDscripcion {
+#puntuacionDscripcion,
+#infoBotonesComentarios {
     position: absolute;
     color: #666;
     background-color: #fff;

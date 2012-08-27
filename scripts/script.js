@@ -32,7 +32,6 @@ $(document).ready(function() {
 
     /* Las explicaciones sólo se muestran en partidos.
      * No en partidos-janterior
-     */
     $('div.partido div.btnComentariosAmigos').hover(function() {
         $('<span id="explicacion">¿Y tus amigos?</span>').insertAfter($(this));
     },function() {
@@ -48,6 +47,45 @@ $(document).ready(function() {
     },function() {
         $('#explicacion').remove();
     });
+    */
+
+    $('div.partido div.btnComentariosAmigos').hover(function() {
+        $('<div id="infoBotonesComentarios">Comentarios de tus amigos</div>')
+            .appendTo('body')
+            .css({
+                'top' : $(this).offset().top - 22,
+                'left': $(this).offset().left - 22
+            }).show();
+    },function() {
+        $('#infoBotonesComentarios').remove();
+        $('#infoBotonesComentarios').remove();
+        $('#btnComentariosMejores').remove();
+    });
+    $('div.partido div.btnComentariosRecientes').hover(function() {
+        $('<div id="infoBotonesComentarios">Comentarios recientes</div>')
+            .appendTo('body')
+            .css({
+                'top' : $(this).offset().top - 22,
+                'left': $(this).offset().left - 22
+            }).show();
+    },function() {
+        $('#infoBotonesComentarios').remove();
+        $('#infoBotonesComentarios').remove();
+        $('#btnComentariosMejores').remove();
+    });
+    $('div.partido div.btnComentariosMejores').hover(function() {
+        $('<div id="infoBotonesComentarios">Comentarios más votados</div>')
+            .appendTo('body')
+            .css({
+                'top' : $(this).offset().top - 22,
+                'left': $(this).offset().left - 22
+            }).show();
+    },function() {
+        $('#infoBotonesComentarios').remove();
+        $('#infoBotonesComentarios').remove();
+        $('#btnComentariosMejores').remove();
+    });
+
 
     accionesListaAmigos();
 
@@ -275,6 +313,7 @@ accionesPartidos = function() {
             var idPartido = $parent.parent().attr('id');
             $parent.find('.borde-rojo').removeClass('borde-rojo');
             $this.addClass('borde-rojo');
+            /* Eliminar el $(this) */
             if ($this.hasClass('uno')) guardarResultado(idPartido,'1');
             else if ($this.hasClass('x')) guardarResultado(idPartido,'2');
             else if ($this.hasClass('dos')) guardarResultado(idPartido,'3');
@@ -439,6 +478,16 @@ mostrarPanelComentar = function() {
                 $(comentarPanel7).insertAfter($partido.
                     find('div.btnOcultarComentario'));
 
+                /**
+                 * @version 26/08/12
+                 * No permitir que se acceda después de guardar un
+                 * comentario mientras preparo una consulta AJAX.
+                 */
+                $partido.find('input.comentar').unbind('click')
+                    .attr('readonly','readonly');
+                $partido.find('textarea.comentar-textarea')
+                    .attr('readonly','readonly');
+
                 $partido.find('div.comentar-panel').append(comentarPanel7);
 
                 $partido.find('div.btnPublicar').click(function() {
@@ -575,6 +624,15 @@ cargarEstadisticas = function(idFacebook) {
                         $("html, body").animate({ scrollTop: 0 }, "slow");
                         FB.Canvas.scrollTo(0,0);
                     });
+                });
+
+                 $('div.compartirRankingEnFb').click(function() {
+                    var $rankingJugador = $(this).parent().parent();
+                    var mensaje = 'He conseguido el ' +
+                    $rankingJugador.find('div.ranking-numero').html()
+                        + ' puesto en El comentario de oro. Soy un crack.';
+
+                    compartirEnFacebook($(this),mensaje);
                 });
             });
         });
