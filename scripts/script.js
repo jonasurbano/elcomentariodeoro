@@ -215,7 +215,9 @@ compartirEnFacebook = function($boton,mensaje,idComentario,enlace) {
     $mensajeFb.find('div.btnCompartir').click(function() {
         $mensajeFb.find('span').css('visibility','visible');
 
-        $.post(url,contenido,function() {
+        $.post(url,contenido,function(data) {
+            alert(data);
+
             $mensajeFb.children().not('span').remove();
             $mensajeFb.find('span').html('Compartido en tu muro.');
             $mensajeFb.delay(2500).fadeOut(function() {
@@ -468,6 +470,7 @@ mostrarPanelComentar = function() {
                 .find('textarea.comentar-textarea').val();
 
             var idComentario = guardarComentario(idPartido,comentario);
+            alert("El idComentario en linea 473 es " + idComentario);
             if (idComentario == -1)
                 ocultarPanel($partido);
             else {
@@ -781,18 +784,21 @@ gustoComentario = function($comentario,opcion) {
  */
 guardarComentario = function(idPartido,comentario) {
     var idComentario;
+    alert(data);
     $.post("guardarComentario.php",
         { idPartido: idPartido, comentario: comentario },
     function(data) {
-        if (data != 'error') icComentario = data;
-        else idComentario = -1;
+        if (data != 'error')
+            idComentario = data;
     });
     return idComentario;
 }
 
 guardarResultado = function(idPartido,resultado) {
     $.get("guardarPronostico.php",
-        { idPartido: idPartido, resultado: resultado });
+        { idPartido: idPartido, resultado: resultado },function(data) {
+            alert(data);
+        });
 }
 
 /**

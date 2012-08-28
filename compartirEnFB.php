@@ -2,6 +2,8 @@
 
 require_once 'bootstrap.php';
 
+echo $_POST['mensaje'] . ', ' . $_POST['enlace'];
+
 if (!isset($_POST['mensaje'])) exit('error');
 $mensaje = $_POST['mensaje'];
 
@@ -10,13 +12,17 @@ if (isset($_POST['idComentario']) && is_numeric($_POST['idComentario'])) {
         $_POST['idComentario'];
 } else if (isset($_POST['enlace'])) {
     if (substr($_POST['enlace'],0,26) != 'https://ysdf.phpfogapp.com')
-        exit('error');
+        exit('error 1');
     $enlace = $_POST['enlace'];
 } else {
-    $enlace = AppInfo::getUrl();
+    $enlace = $urlFacebook;
 }
 
+echo 'Enlace ' . $enlace;
+echo 'Mensaje ' . $mensaje;
+
 $idFacebook = $facebook->getUser();
+if (!$idFacebook) exit('Usuario no autenticado.');
 
 try {
     $ret_obj = $facebook->api('/' . $idFacebook . '/feed', 'POST',
@@ -35,6 +41,8 @@ try {
                 'name' => $nombreAplicacion,
                 'id' => AppInfo::appID() )
         ));
+
+    var_dump($ret_obj);
 } catch (FacebookApiException $e) {
     echo $e;
 }

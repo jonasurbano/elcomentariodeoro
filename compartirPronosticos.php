@@ -30,10 +30,12 @@ foreach ($partidos as $partido) {
 }
 
 if ($numPronosticos > 0) {
-    $jugador->jornadaPublicaAsignada($jornada);
-    $em->persist($jugador);
-    $em->flush();
-    echo 'https://ysdf.phpfogapp.com/verPronosticos.php?id=' . $jugador->getId()
-        . '&j=' . $_GET['jornada'];
+    if (!$jugador->isJornadaPublica($jornada->getId())) {
+        $jugador->jornadaPublicaAsignada($jornada);
+        $em->persist($jugador);
+        $em->flush();
+    }
+    echo 'https://ysdf.phpfogapp.com/verPronosticos.php?id=' .
+        $jugador->getId() . '&j=' . $jornada->getId();;
 } else exit('no-pronosticos');
 ?>

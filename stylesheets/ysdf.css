@@ -231,6 +231,10 @@ body {
     background-position: 0 -134px;
 }
 
+.partido-janterior .comentar {
+    width: 100px;
+}
+
 .btnComentarios {
     display: inline-block;
     height: 24px;

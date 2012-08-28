@@ -90,7 +90,7 @@ if ($opcion == 1) {
 
     if (!$idFacebook) exit();
     $amigosFb = idx($facebook->api('/' . $idFacebook .
-        '/friends?limit=10'), 'data', array());
+        '/friends?'), 'data', array());
     $listaAmigos = listaAmigos($amigosFb);
 
     if ($listaAmigos == '') exit();
