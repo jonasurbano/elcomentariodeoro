@@ -14,7 +14,7 @@
 if (!isset($_GET['idPartido']) || !is_numeric($_GET['idPartido'])) exit();
 if (!isset($_GET['resultado'])) exit();
 if ($_GET['resultado'] != '1' && $_GET['resultado'] != 'x' &&
-    $_GET['resultado'] != 'X' && $_GET['resultado'] != '2') exit();
+    $_GET['resultado'] != 'X' && $_GET['resultado'] != '2') exit('resultado-mal');
 
 require_once 'bootstrap.php';
 
@@ -24,10 +24,10 @@ $repositorioPronostico = $em->getRepository('Pronostico');
 
 $idPartido = $_GET['idPartido'];
 $partido = $em->find("Partido",$idPartido);
-if (!$partido) exit();
+if (!$partido) exit('no-partido');
 
 $jornada = $partido->getJornada();
-if (!$jornada) exit();
+if (!$jornada) exit('no-jornada');
 if (new DateTime > $jornada->getFechaTope()) exit('en-juego');
 
 $idFacebook = $facebook->getUser();

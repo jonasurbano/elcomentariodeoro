@@ -103,7 +103,9 @@ if (isset($basic)) {
 
 ?>
     <div class="principal">
-       <div class="cabecera"></div>
+       <div class="cabecera">
+           <a href="index.php"><div style="width:120px; height:95px; float:left;"></div></a>
+       </div>
         <div class="partidos">
             <div id="partidos-centrar">
                 <div class="partidos-texto">¿Cómo quedarán los equipos? Tienes hasta el sábado para comentar y puntuar los partidos.</div>
@@ -186,6 +188,7 @@ if (isset($basic)) {
                  <option>Lugo</option>
                  <option>Málaga</option>
                  <option>Mallorca</option>
+                 <option>Mirandés</option>
                  <option>Murcia</option>
                  <option>Numancia</option>
                  <option>Osasuna</option>

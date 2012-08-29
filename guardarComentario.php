@@ -22,14 +22,14 @@ $partido = $em->find('Partido',$_POST['idPartido']);
 if (!$partido) exit();
 
 $jornada = $partido->getJornada();
-if (!$jornada) exit('error');
-if (new DateTime > $jornada->getFechaTope())  exit('error');
+if (!$jornada) exit('no-jornada');
+if (new DateTime > $jornada->getFechaTope())  exit('en-juego');
 
 $repositorioComentarios = $em->getRepository('Comentario');
 $repositorioJugadores = $em->getRepository('Jugador');
 
 $idFacebook = $facebook->getUser();
-if (!$idFacebook) exit('error');
+if (!$idFacebook) exit('no-login');
 
 $escritor = $repositorioJugadores->getJugador($idFacebook);
 if (!$escritor) {
@@ -51,7 +51,7 @@ if (!$existeComentario) {
     $nuevoComentario = new Comentario($textComentario,$escritor,$partido);
     $em->persist($nuevoComentario);
     $em->flush($nuevoComentario);
-    echo $nuevoComentario->getId();
-} else echo 'error';
+    echo 'id:' . $nuevoComentario->getId();
+} else exit('existe-comentario');
 
 ?>

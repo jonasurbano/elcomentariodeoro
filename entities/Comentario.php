@@ -1,49 +1,49 @@
 <?php
 
 /**
- * @Entity(repositoryClass="ComentarioRepositorio") 
+ * @Entity(repositoryClass="ComentarioRepositorio")
  * @Table(name="comentarios")
 */
 class Comentario {
-    
-    /** 
-     * @Id @Column(type="integer") @GeneratedValue 
+
+    /**
+     * @Id @Column(type="integer") @GeneratedValue
      * @var int
     **/
     private $id;
     /**
-     * @Column(type="string") 
+     * @Column(type="string")
      * @var string
-    **/	
+    **/
     private $comentario;
-    /** 
-     * @Column(type="integer") 
+    /**
+     * @Column(type="integer")
      * @var int
     **/
     private $votos;
-    /** 
-     * @Column(type="datetime") 
+    /**
+     * @Column(type="datetime")
      **/
     private $fecha;
-    /** 
-     * @ManyToOne(targetEntity="Jugador", inversedBy="comentarios") 
+    /**
+     * @ManyToOne(targetEntity="Jugador", inversedBy="comentarios")
      * @var Jugador
     **/
     private $escritor;
-    /** 
-     * @ManyToOne(targetEntity="Partido", inversedBy="comentarios") 
+    /**
+     * @ManyToOne(targetEntity="Partido", inversedBy="comentarios")
      * @var Partido
     **/
     private $partido;
 
     public function __construct($comentario,$escritor,$partido) {
-        $this->comentario = $comentario;
+        $this->setComentario($comentario);
         $this->setEscritor($escritor);
         $this->setPartido($partido);
         $this->fecha = new DateTime();
         $this->votos = 0;
     }
-    
+
     public function setEscritor($escritor)
     {
         $escritor->comentarioAsignado($this);
@@ -54,19 +54,19 @@ class Comentario {
         $partido->comentarioAsignado($this);
         $this->partido = $partido;
     }
-    
+
     public function getId() {
         return $this->id;
     }
-    
+
     public function setId($id) {
         $this->id = $id;
     }
-    
+
     public function getComentario() {
         return $this->comentario;
     }
-    
+
     public function setComentario($comentario) {
         $this->comentario = $comentario;
     }
@@ -74,19 +74,19 @@ class Comentario {
     public function getVotos() {
         return $this->votos;
     }
-    
+
     public function setVotos($votos) {
         $this->votos = $votos;
     }
-    
+
     public function getFecha() {
         return $this->fecha;
     }
-    
+
     public function setFecha($fecha) {
         $this->fecha = $fecha;
     }
-    
+
     public function getEscritor() {
         return $this->escritor;
     }
@@ -104,7 +104,7 @@ class Comentario {
         $this->votos--;
         $this->escritor->menosUnVotoComentario();
     }
-    
+
 }
 
 ?>

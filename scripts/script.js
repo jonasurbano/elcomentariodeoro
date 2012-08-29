@@ -216,7 +216,7 @@ compartirEnFacebook = function($boton,mensaje,idComentario,enlace) {
         $mensajeFb.find('span').css('visibility','visible');
 
         $.post(url,contenido,function(data) {
-            alert(data);
+            if (data != '') alert('Toma una captura de pantalla y envíala por correo a jonasur@gmail.com. Gracias. ' + data);
 
             $mensajeFb.children().not('span').remove();
             $mensajeFb.find('span').html('Compartido en tu muro.');
@@ -317,8 +317,8 @@ accionesPartidos = function() {
             $this.addClass('borde-rojo');
             /* Eliminar el $(this) */
             if ($this.hasClass('uno')) guardarResultado(idPartido,'1');
-            else if ($this.hasClass('x')) guardarResultado(idPartido,'2');
-            else if ($this.hasClass('dos')) guardarResultado(idPartido,'3');
+            else if ($this.hasClass('x')) guardarResultado(idPartido,'x');
+            else if ($this.hasClass('dos')) guardarResultado(idPartido,'2');
         });
     }
 
@@ -470,7 +470,6 @@ mostrarPanelComentar = function() {
                 .find('textarea.comentar-textarea').val();
 
             var idComentario = guardarComentario(idPartido,comentario);
-            alert("El idComentario en linea 473 es " + idComentario);
             if (idComentario == -1)
                 ocultarPanel($partido);
             else {
@@ -695,7 +694,10 @@ cargarComentarios = function(idPartido,opcion) {
         + "&idpartido=" + idPartido + "&opcion=" + opcion;
 
     $.get(urlComentarios, function(data) {
-        if (data == '') {
+        if (data.substring(0,23) != '<div class="comentario"') {
+            if (data != '') {
+                alert('Toma una captura de pantalla y envíala por correo a jonasur@gmail.com. Gracias. ' + data);
+            }
             $cargandoComentarios = $('#comentarios-' + idPartido)
                 .find('div.cargandoComentarios');
 
@@ -783,21 +785,26 @@ gustoComentario = function($comentario,opcion) {
  * o -1 si ha ocurrido algún error.
  */
 guardarComentario = function(idPartido,comentario) {
-    var idComentario;
-    alert(data);
+    var idComentario = null;
+    $.ajaxSetup({async: false});
     $.post("guardarComentario.php",
         { idPartido: idPartido, comentario: comentario },
-    function(data) {
-        if (data != 'error')
-            idComentario = data;
+        function(data) {
+            if (data.substring(0,3) == 'id:') idComentario = data.substring(3);
+            else {
+                alert('Toma una captura de pantalla y envíala por correo a jonasur@gmail.com. Gracias. ' + data);
+                idComentario = -1;
+            }
     });
+    $.ajaxSetup({async: true});
     return idComentario;
 }
 
 guardarResultado = function(idPartido,resultado) {
     $.get("guardarPronostico.php",
-        { idPartido: idPartido, resultado: resultado },function(data) {
-            alert(data);
+        { idPartido: idPartido, resultado: resultado },
+        function(data) {
+            if (data != '') alert("Toma una captura de pantalla y envíala a jonasur@gmail.com. Gracias" + data);
         });
 }
 
@@ -823,7 +830,10 @@ cargarMejoresComentariosJugador = function(idFacebook) {
     else urlComentarios += "&opcion=4&idf=" + idFacebook;
 
     $.get(urlComentarios, function(data) {
-        if (data == '') {
+        if (data.substring(0,23) != '<div class="comentario"') {
+            if (data != '') {
+                alert('Toma una captura de pantalla y envíala por correo a jonasur@gmail.com. Gracias. ' + data);
+            }
             $('div.jugador-comentarios').hide();
             return;
         }
@@ -845,27 +855,9 @@ cargarMejoresComentariosJugador = function(idFacebook) {
             var jugador = $('div.jugador-nombre a').html();
             var mensaje = jugador + ' ha escrito comentarios muy buenos ' +
                 'en "El comentario de oro". ¿No vas a leerlos?';
+            var idComentario = $(this).parent().parent().attr('id').substring(4);
 
-            var $mensajeFb = $('<div class="mensajeFb"><textarea class="texto">'
-                + mensaje + '</textarea><span>Compartiendo...</span><div class="btnCerrar">Cerrar</div>' +
-                '<div class="btnCompartir">Compartir</div></div>')
-                .appendTo('body').hide()
-                .css({
-                    'top' : $(this).offset().top + 22,
-                    'left': $(this).offset().left - 101
-                }).fadeIn();
-
-            $mensajeFb.find('div.btnCompartir').click(function() {
-                $mensajeFb.find('span').css('visibility','visible');
-                $.get('compartirEnFB.php?mensaje=' + mensaje,function(data) {
-                    $mensajeFb.children().not('span').remove();
-                    $mensajeFb.find('span').html('Compartido en tu muro.');
-                    $mensajeFb.delay(2500).fadeOut(function() {
-                        $(this).remove();
-                    });º
-                    //$mensajeFb.fadeOut().remove();
-                });
-            });
+            compartirEnFacebook($(this), mensaje, idComentario);
 
             $mensajeFb.find('div.btnCerrar').click(function() {
                 $mensajeFb.fadeOut().remove();

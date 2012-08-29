@@ -57,6 +57,7 @@ $numUltimaJornada = $em->getRepository('Jornada')->numUltimaJornada();
                  <option>Lugo</option>
                  <option>Málaga</option>
                  <option>Mallorca</option>
+                 <option>Mirandés</option>
                  <option>Murcia</option>
                  <option>Numancia</option>
                  <option>Osasuna</option>
@@ -98,6 +99,7 @@ $numUltimaJornada = $em->getRepository('Jornada')->numUltimaJornada();
                  <option>Lugo</option>
                  <option>Málaga</option>
                  <option>Mallorca</option>
+                 <option>Mirandés</option>
                  <option>Murcia</option>
                  <option>Numancia</option>
                  <option>Osasuna</option>
