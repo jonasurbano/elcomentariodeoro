@@ -73,6 +73,7 @@ $numUltimaJornada = $em->getRepository('Jornada')->numUltimaJornada();
                  <option>Racing</option>
                  <option>Rayo Vallecano</option>
                  <option>Real Sociedad</option>
+                 <option>Real Unión</option>
                  <option>Reus Deportivo</option>
                  <option>Recreativo</option>
                  <option>Sabadell</option>
@@ -126,6 +127,7 @@ $numUltimaJornada = $em->getRepository('Jornada')->numUltimaJornada();
                  <option>Racing</option>
                  <option>Rayo Vallecano</option>
                  <option>Real Sociedad</option>
+                 <option>Real Unión</option>
                  <option>Reus Deportivo</option>
                  <option>Recreativo</option>
                  <option>Sabadell</option>

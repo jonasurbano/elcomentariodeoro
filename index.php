@@ -204,6 +204,7 @@ if (isset($basic)) {
                  <option>Racing</option>
                  <option>Rayo Vallecano</option>
                  <option>Real Sociedad</option>
+                 <option>Real Unión</option>
                  <option>Reus Deportivo</option>
                  <option>Recreativo</option>
                  <option>Sabadell</option>
