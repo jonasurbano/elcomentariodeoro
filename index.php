@@ -167,11 +167,15 @@ if (isset($basic)) {
         ?><div id="elegirClub">
             <label>¡Hola! Queremos saber de qué equipo eres</label><br><br>
             <select>
-                 <option selected="selected">Alcorcón</option>
+                 <option selected="selected">Alavés</option>
+                 <option>Alcorcón</option>
+                 <option>Almería</option>
                  <option>At. Madrid</option>
                  <option>Athletic Club</option>
                  <option>Barcelona</option>
+                 <option>Barcelona B</option>
                  <option>Betis</option>
+                 <option>Cacereño</option>
                  <option>Celta</option>
                  <option>Córdoba</option>
                  <option>Deportivo</option>
@@ -188,19 +192,25 @@ if (isset($basic)) {
                  <option>Lugo</option>
                  <option>Málaga</option>
                  <option>Mallorca</option>
+                 <option>Melilla</option>
                  <option>Mirandés</option>
                  <option>Murcia</option>
                  <option>Numancia</option>
                  <option>Osasuna</option>
+                 <option>Ourense</option>
                  <option>Ponferradina</option>
+                 <option>R. M. Castilla</option>
+                 <option>R. Madrid</option>
                  <option>Racing</option>
                  <option>Rayo Vallecano</option>
-                 <option>R. Madrid</option>
                  <option>Real Sociedad</option>
+                 <option>Reus Deportivo</option>
                  <option>Recreativo</option>
                  <option>Sabadell</option>
+                 <option>Sant Andreu</option>
                  <option>Sevilla</option>
                  <option>Sporting de Gijón</option>
+                 <option>Tenerife</option>
                  <option>Valencia</option>
                  <option>Valladolid</option>
                  <option>Villarreal</option>
