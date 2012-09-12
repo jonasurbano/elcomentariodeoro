@@ -1,4 +1,4 @@
-<?php require_once 'bootstrap.php'; ?>
+<? require_once 'bootstrap.php'; ?>
 
 <!DOCTYPE html>
 <html xmlns:fb="http://ogp.me/ns/fb#" lang="es" style="overflow:hidden">
@@ -8,8 +8,8 @@
 
         <meta property="og:title" content="<?= $nombreAplicacion ?>" />
         <meta property="og:type" content="website" />
-        <meta property="og:url" content="<?php echo AppInfo::getUrl(); ?>" />
-        <meta property="og:image" content="<?php echo AppInfo::getUrl('images/icono.png'); ?>" />
+        <meta property="og:url" content="<? echo AppInfo::getUrl(); ?>" />
+        <meta property="og:image" content="<? echo AppInfo::getUrl('images/icono.png'); ?>" />
         <meta property="og:site_name" content="<?= $nombreAplicacion ?>" />
         <meta property="og:description" content="'Cuéntanos qué pasará en la liga. En <?= $nombreAplicacion ?> podrás puntuar y escribir todo lo que quieras sobre los partidos de la jornada. Además podrás leer lo que piensan tus amigos y más..." />
 
@@ -17,7 +17,7 @@
         <link rel="icon" href="/favicon.ico" type="image/x-icon">
         <link rel="stylesheet" href="stylesheets/ysdf.css" media="Screen" type="text/css" />
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"
-        type="text/javascript"  ></script>
+        type="text/javascript"></script>
         <script type="text/javascript" src="scripts/script.js"></script>
 
 
@@ -38,8 +38,8 @@
 
     window.fbAsyncInit = function() {
         FB.init({
-            appId      : '<?php echo AppInfo::appID(); ?>',
-            channelUrl : '//<?php echo $_SERVER["HTTP_HOST"]; ?>/channel.html',
+            appId      : '<? echo AppInfo::appID(); ?>',
+            channelUrl : '//<? echo $_SERVER["HTTP_HOST"]; ?>/channel.html',
             status     : true,
             cookie     : true,
             xfbml      : true,
@@ -154,12 +154,12 @@ if (isset($basic)) {
                 <div id="btnEstadisticas">Estad&iacute;sticas</div>
             </div>
 
-        <?php } else { ?>
+        <? } else { ?>
         <div>
             <h1>Bienvenido</h1>
             <div class="fb-login-button" data-scope="publish_stream"></div>
         </div>
-        <?php }
+        <? }
 
 
         if (isset($jugador) && (!$jugador || !$jugador->getSigueClub()

@@ -54,7 +54,7 @@ $(document).ready(function() {
             .appendTo('body')
             .css({
                 'top' : $(this).offset().top - 22,
-                'left': $(this).offset().left - 22
+                'left': $(this).offset().left - 120
             }).show();
     },function() {
         $('#infoBotonesComentarios').remove();
@@ -66,7 +66,7 @@ $(document).ready(function() {
             .appendTo('body')
             .css({
                 'top' : $(this).offset().top - 22,
-                'left': $(this).offset().left - 22
+                'left': $(this).offset().left - 120
             }).show();
     },function() {
         $('#infoBotonesComentarios').remove();
@@ -78,7 +78,7 @@ $(document).ready(function() {
             .appendTo('body')
             .css({
                 'top' : $(this).offset().top - 22,
-                'left': $(this).offset().left - 22
+                'left': $(this).offset().left - 120
             }).show();
     },function() {
         $('#infoBotonesComentarios').remove();
