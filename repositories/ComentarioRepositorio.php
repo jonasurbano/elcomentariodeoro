@@ -41,17 +41,15 @@ class ComentarioRepositorio extends EntityRepository {
      * @return Array de objetos Comentario.
      * Comprobar isset() y sizeof().
      */
-    public function getComentariosMasVotados($offset,$idPartido,$idJugador) {
+    public function getComentariosMasVotados($offset,$idPartido) {
         if ($offset < 0) return NULL;
 
         $dql = "SELECT c FROM Comentario c
             WHERE c.partido = ?1
-            AND c.escritor <> ?2
             ORDER BY c.votos DESC";
         $query = $this->getEntityManager()->
             createQuery($dql)->
             setParameter(1, (int)$idPartido)->
-            setParameter(2, (int)$idJugador)->
             setMaxResults(4)->
             setFirstResult((int)$offset);
         return $query->getResult();

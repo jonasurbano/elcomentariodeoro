@@ -109,7 +109,7 @@ if ($opcion == 1) {
     $idPartido = $_GET['idpartido'];
 
     $comentarios = $repositorioComentarios->
-        getComentariosMasVotados($offset,$idPartido,$idJugador);
+        getComentariosMasVotados($offset,$idPartido);
 
 
 } else if ($opcion == 4) {
