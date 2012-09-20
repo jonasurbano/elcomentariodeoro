@@ -42,8 +42,7 @@ class PronosticoRepositorio extends \Doctrine\ORM\EntityRepository {
             WHERE p.partido = ?1";
         $query = $this->getEntityManager()->
             createQuery($dql)->
-            setParameter(1, (int)$idPartido)->
-            setMaxResults(1);
+            setParameter(1, (int)$idPartido);
 
         $result = $query->getResult();
         if (!isset($result) || sizeof($result) == 0) return NULL;

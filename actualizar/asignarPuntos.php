@@ -96,16 +96,18 @@ $puntuaciones = array();
 
 foreach ($partidos as $partido) {
     $resultado = $partido->getResultado();
-    if (!isset($resultado)) {
+    if (!$resultado) {
         echo 'El partido ' . $partido->getClub1() . ' - ' .
             $partido->getClub2() . ' no se ha puntuado';
         break;
     }
 
+    echo 'Puntuando partido ' . $partido->getClub1() . ' - ' . $partido->getClub2() . '<br>';
+
     $pronosticos = $em->getRepository('Pronostico')
         ->getPronosticos($partido->getId());
 
-    if (!isset($pronosticos) || sizeof($pronosticos) == 0) {
+    if (!$pronosticos || sizeof($pronosticos) == 0) {
         echo 'El partido ' . $partido->getClub1() . ' - ' .
             $partido->getClub2() . ' no tiene pronosticos';
         break;
@@ -115,6 +117,9 @@ foreach ($partidos as $partido) {
         if ($pronostico->getResultado() == $resultado) {
             $jugador = $pronostico->getJugador();
             $jugador->mas3Puntos();
+
+            echo 'El jugador ' . $jugador->getIdFacebook() . ' ha acertado el partido.<br>';
+
             $em->persist($jugador);
 
             if (!array_key_exists($jugador->getIdFacebook(), $puntuaciones))
@@ -131,18 +136,7 @@ arsort($puntuaciones);
 foreach ($puntuaciones as $id => $p) { ?>
 <div class="puntuacion">
     <span class="idf"><?= $id ?>'</span>
-    <span class="nombre"></span> ha conseguido <span class="puntos"><?= $p ?>
-    </span> puntos.<input type="text" class="mensaje" /><span class="btnCompartirComentario" style="border:solid
-    1px #00f; width: 200px; text-align:center;">Compartir en FB</span>
-</div>';
+    <span class="nombre"></span> ha conseguido <span class="puntos"><?= $p ?></span> puntos.
+</div>
 
-<? } ?>
-
-<script>
-    $('span.btnCompartirComentario').click(function() {
-        mensaje = $(this).parent().find('input.mensaje').val();
-        $.get('compartirEnFB.php?mensaje=' + mensaje,function(data) {
-            if (data != '') alert(data);
-        });
-    });
-</script>
+<? }
