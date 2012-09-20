@@ -47,51 +47,6 @@ $partidos = $jornada->getPartidos();
 if (sizeof($partidos) == 0)
     exit('No hay partidos asignados a esta jornada.');
 
-require_once('../AppInfo.php');
-require_once('../utils.php');
-require_once('../sdk/src/facebook.php');
-
-$facebook = new Facebook(array(
-    'appId' => AppInfo::appID(),
-    'secret' => AppInfo::appSecret(),
-    'cookie' => true,
-));
-
-?>
-
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"
-    type="text/javascript"  ></script>
-
-
-<script type="text/javascript">
-    window.fbAsyncInit = function() {
-        FB.init({
-            appId      : '<?php echo AppInfo::appID(); ?>',
-            channelUrl : '//<?php echo $_SERVER["HTTP_HOST"]; ?>/channel.html',
-            status     : true,
-            cookie     : true,
-            xfbml      : true,
-            oauth      : true
-        });
-
-        FB.Event.subscribe('auth.login', function(response) {
-            window.location = window.location;
-        });
-
-        FB.Canvas.setAutoGrow();
-    };
-
-    (function(d, s, id) {
-        var js, fjs = d.getElementsByTagName(s)[0];
-        if (d.getElementById(id)) return;
-        js = d.createElement(s); js.id = id;
-        js.src = "//connect.facebook.net/en_US/all.js";
-        fjs.parentNode.insertBefore(js, fjs);
-    }(document, 'script', 'facebook-jssdk'));
-</script>
-
-<?
-
 $puntuaciones = array();
 
 foreach ($partidos as $partido) {
