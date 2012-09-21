@@ -151,7 +151,7 @@ if (isset($basic)) {
     </div>
             <div class="otrasSecciones">
                 <div id="btnJornadaAnterior">Jornada anterior</div>
-                <div id="btnEstadisticas">Estad&iacute;sticas</div>
+                <div id="btnEstadisticas">Rankings</div>
             </div>
 
         <? } else { ?>

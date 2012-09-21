@@ -367,13 +367,13 @@ body {
 .comentario-cabecera-nombre {
     padding-top: 5px;
     font-size: 18px;
-    color: #666;
+    color: #aaa;
 }
 
  .comentario-texto {
      width: 670px;
      background-color: #fff;
-     color: #aaa;
+     color: #666;
      padding: 4px 0;
 }
 

@@ -120,7 +120,7 @@ mostrarJornadaAnterior = function() {
     }
 
     $('#btnJornadaAnterior').html('Jornada actual');
-    $('#btnEstadisticas').html('Estad&iacute;sticas');
+    $('#btnEstadisticas').html('Rankings');
 
     $('div.partidos').slideUp();
     $('div.estadisticas').slideUp();
@@ -133,7 +133,7 @@ mostrarJornadaAnterior = function() {
 
 mostrarJornadaActual = function() {
     $('#btnJornadaAnterior').html('Jornada anterior');
-    $('#btnEstadisticas').html('Estad&iacute;sticas');
+    $('#btnEstadisticas').html('Rankings');
 
     $('div.estadisticas').slideUp();
     $('div.partidos-janterior').slideUp();
@@ -532,7 +532,7 @@ cargarEstadisticas = function(idFacebook) {
         .load(url,function() {
             cargarMejoresComentariosJugador(idFacebook);
             $('#btnEstadisticas')
-                .html('Ocultar estad&iacute;sticas');
+                .html('Ocultar rankings');
 
             $('div.estadisticas').slideDown();
 

@@ -60,7 +60,7 @@
     </script>
 
     <a href="<?= $urlFacebook ?>"><div id="landingPage-superior"></div></a>
-
+    <br>
 <?
 
 $em = GetMyEntityManager();
