@@ -1,12 +1,14 @@
 <?php
 
+ini_set( "display_errors", 0);
+
 if (!isset($_POST['texto'])) exit('No llegó información.');
 
 require_once 'libs/Swift/lib/swift_required.php';
 
 $transport = Swift_SmtpTransport::newInstance("smtp.gmail.com",465,"ssl")
-    ->setUsername("jonasur@gmail.com")
-    ->setPassword("mir34anda");
+    ->setUsername("soporte.elcomentariodeoro@gmail.com")
+    ->setPassword("miragooglewave");
 
 $mailer = Swift_Mailer::newInstance($transport);
 
@@ -20,7 +22,8 @@ $message = Swift_Message::newInstance($subject)
     ->setBody($body);
 
 $result = $mailer->send($message);
-
-echo $result;
+if ($result)
+    echo 'Enviado correctamente. Gracias.';
+else echo 'Ha ocurrido un problema. Por favor, inténtelo más tarde.';
 
 ?>
