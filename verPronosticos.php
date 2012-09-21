@@ -17,13 +17,6 @@
         <link rel="icon" href="/favicon.ico" type="image/x-icon">
         <link rel="stylesheet" href="stylesheets/ysdf.css" media="Screen" type="text/css" />
 
-        <!--[if IE]>
-        <script type="text/javascript">
-        var tags = ['header', 'section'];
-        while(tags.length)
-          document.createElement(tags.pop());
-        </script>
-        <![endif]-->
     </head>
 
 <body style="margin:auto; background-color: #000;">

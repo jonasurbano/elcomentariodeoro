@@ -1052,10 +1052,11 @@ a:link, a:visited, a:active, a:hover {
 .jugador-pronostico {
     margin-left: 40px;
     width:601px;
-    padding: 20px 5px 5px 85px;
+    padding: 20px 20px 5px 85px;
     background-repeat: no-repeat;
     background-size: 64px 64px;
     height: 64px;
     color: #fff;
     font-size: 1.4em;
+
 }
