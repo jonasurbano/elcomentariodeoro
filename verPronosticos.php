@@ -21,7 +21,7 @@
 
 <body style="margin:auto; background-color: #000;">
     <a href="<?= $urlFacebook ?>"><div id="landingPage-superior"></div></a>
-    <br><br>
+    
 <?
 
 if (isset($_GET['id']) && is_numeric($_GET['id']) &&
@@ -48,9 +48,13 @@ if ($jugador && $jugador->isJornadaPublica($_GET['j'])) {
 
             $a = reset($array);
         ?>
+    
+    <div class="jugador-pronostico">
+        <img src="<?= $a['pic'] ?>" width="64" height="64" />
+        <span><?= $a['name'] ?></span>
+    </div>
 
-<div class="jugador-pronostico" style="background-image:url(<?= $a['pic'] ?>);"><?= $a['name'] ?></div><?
-
+<?
         foreach ($partidos as $partido) {
             $idPartido = $partido->getId();
             $resultado = $repositorioPronostico->

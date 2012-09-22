@@ -37,9 +37,9 @@ foreach ($amigosFb as $amigo) {
     $idAmigo = $repositorioJugadores->getIdJugador($idFbAmigo);
     if ($idAmigo) $listaAmigos .= "'" . $idAmigo . "',";
 ?>
-    <div id="ami-<?= $idFbAmigo ?>" class="amigo"
-         style="background-image: url('https://graph.facebook.com/<?=
-            $idFbAmigo ?>/picture?type=square')"><?= idx($amigo,'name'); ?>
+    <div id="ami-<?= $idFbAmigo ?>" class="amigo">
+        <img width="25" height="25" src="https://graph.facebook.com/<?= $idFbAmigo ?>/picture?type=square" />
+        <span><?= idx($amigo,'name'); ?></span>
     </div>
 <? } ?>
 

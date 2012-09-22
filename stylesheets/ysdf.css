@@ -864,21 +864,27 @@ a:link, a:visited, a:active, a:hover {
     color: #000;
 }
 
-#amigos .amigo {
-    background-repeat: no-repeat;
-    background-size: 25px;
-    height: 25px;
+#amigos-primera {
     padding-left: 30px;
+}
+
+#amigos .amigo {
+    height: 25px;
     cursor: hand;
     cursor: pointer;
     border-bottom: solid 1px #ccc;
-    background-color: #fff;
-    margin-bottom: 2px;
+    line-height: 25px;
 }
+
+#amigos .amigo span {
+    position: relative;
+    top: -8px;
+}
+
 
 #amigos .amigo:hover {
     border: solid 1px #666;
-    background-color: #eee;
+    background-color: #fff;
 }
 
 #elegirClub {
@@ -1050,13 +1056,13 @@ a:link, a:visited, a:active, a:hover {
 }
 
 .jugador-pronostico {
-    margin-left: 40px;
-    width:601px;
-    padding: 20px 20px 5px 85px;
-    background-repeat: no-repeat;
-    background-size: 64px 64px;
-    height: 64px;
+    padding: 40px;
     color: #fff;
     font-size: 1.4em;
+}
 
+.jugador-pronostico span {
+    position: relative;
+    top: -25px;
+    left: 5px;
 }
