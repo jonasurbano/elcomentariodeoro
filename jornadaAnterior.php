@@ -21,8 +21,6 @@ $sumaSemanal = 0;
 
 ?>
 
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-
 <div id="partidos-centrar-janterior">
     <div class="partidos-texto">Estos son los resultados de la jornada anterior. Para cada partido verás a la derecha los puntos conseguidos por el pronóstico (1, X, 2) y los puntos conseguidos por los votos de tu comentario.</div>
 <?
