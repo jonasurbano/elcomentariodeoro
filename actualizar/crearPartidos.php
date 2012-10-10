@@ -39,18 +39,23 @@ $numUltimaJornada = $em->getRepository('Jornada')->numUltimaJornada();
 <option selected="selected">Alavés</option>
                  <option>Alcorcón</option>
                  <option>Almería</option>
+                 <option>At. Baleares</option>
                  <option>At. Madrid</option>
                  <option>Athletic Club</option>
                  <option>Barcelona</option>
                  <option>Barcelona B</option>
                  <option>Betis</option>
                  <option>Cacereño</option>
+                 <option>Cartagena</option>
                  <option>Celta</option>
                  <option>Córdoba</option>
+                 <option>Coruxo</option>
                  <option>Deportivo</option>
+                 <option>Eibar</option>
                  <option>Elche</option>
                  <option>Espanyol</option>
                  <option>Getafe</option>
+                 <option>Gimanstic</option>
                  <option>Girona</option>
                  <option>Granada</option>
                  <option>Guadalajara</option>
@@ -67,6 +72,7 @@ $numUltimaJornada = $em->getRepository('Jornada')->numUltimaJornada();
                  <option>Numancia</option>
                  <option>Osasuna</option>
                  <option>Ourense</option>
+                 <option>Oviedo</option>
                  <option>Ponferradina</option>
                  <option>R. M. Castilla</option>
                  <option>R. Madrid</option>
@@ -79,12 +85,15 @@ $numUltimaJornada = $em->getRepository('Jornada')->numUltimaJornada();
                  <option>Sabadell</option>
                  <option>Sant Andreu</option>
                  <option>Sevilla</option>
+                 <option>Sevilla At.</option>
                  <option>Sporting de Gijón</option>
                  <option>Tenerife</option>
+                 <option>Teruel</option>
                  <option>Valencia</option>
                  <option>Valladolid</option>
                  <option>Villarreal</option>
                  <option>Xerez</option>
+                 <option>Zamora</option>
                  <option>Zaragoza</option>
 </select>
 <label>-</label>
@@ -93,18 +102,23 @@ $numUltimaJornada = $em->getRepository('Jornada')->numUltimaJornada();
 <option selected="selected">Alavés</option>
                  <option>Alcorcón</option>
                  <option>Almería</option>
+                 <option>At. Baleares</option>
                  <option>At. Madrid</option>
                  <option>Athletic Club</option>
                  <option>Barcelona</option>
                  <option>Barcelona B</option>
                  <option>Betis</option>
                  <option>Cacereño</option>
+                 <option>Cartagena</option>
                  <option>Celta</option>
                  <option>Córdoba</option>
+                 <option>Coruxo</option>
                  <option>Deportivo</option>
+                 <option>Eibar</option>
                  <option>Elche</option>
                  <option>Espanyol</option>
                  <option>Getafe</option>
+                 <option>Gimanstic</option>
                  <option>Girona</option>
                  <option>Granada</option>
                  <option>Guadalajara</option>
@@ -121,6 +135,7 @@ $numUltimaJornada = $em->getRepository('Jornada')->numUltimaJornada();
                  <option>Numancia</option>
                  <option>Osasuna</option>
                  <option>Ourense</option>
+                 <option>Oviedo</option>
                  <option>Ponferradina</option>
                  <option>R. M. Castilla</option>
                  <option>R. Madrid</option>
@@ -133,12 +148,15 @@ $numUltimaJornada = $em->getRepository('Jornada')->numUltimaJornada();
                  <option>Sabadell</option>
                  <option>Sant Andreu</option>
                  <option>Sevilla</option>
+                 <option>Sevilla At.</option>
                  <option>Sporting de Gijón</option>
                  <option>Tenerife</option>
+                 <option>Teruel</option>
                  <option>Valencia</option>
                  <option>Valladolid</option>
                  <option>Villarreal</option>
                  <option>Xerez</option>
+                 <option>Zamora</option>
                  <option>Zaragoza</option>
  <select id="equipo2">
 
