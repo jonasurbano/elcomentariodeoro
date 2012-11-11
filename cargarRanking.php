@@ -15,7 +15,12 @@ $repositorioJugadores = $em->getRepository('Jugador');
 $offset = $_GET['offset'];
 
 $jugadores = $repositorioJugadores->rankingPronostico($offset);
-$hayMasJugadores = $repositorioJugadores->hayMasRanking($offset);
+
+$hayMasJugadores = sizeof($jugadores) >= 6;
+if ($hayMasJugadores) {
+    unset($jugadores[5]);
+}
+
 
 $lista_id = '';
 foreach ($jugadores as $jugador) {
@@ -57,7 +62,11 @@ foreach ($array as $key => $a) {
     <div class="rankingComentarios-cabecera"></div><?
 
 $jugadores = $repositorioJugadores->rankingComentarios($offset);
-$hayMasJugadores = $repositorioJugadores->hayMasRanking($offset);
+
+
+if ($hayMasJugadores) {
+    unset($jugadores[5]);
+}
 
 $lista_id = '';
 foreach ($jugadores as $jugador) {

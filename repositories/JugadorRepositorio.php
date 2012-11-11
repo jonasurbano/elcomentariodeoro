@@ -56,7 +56,7 @@ class JugadorRepositorio extends Doctrine\ORM\EntityRepository {
         $query = $this->getEntityManager()->
             createQuery($dql)->
             setFirstResult($offset)->
-            setMaxResults(5);
+            setMaxResults(6);
 
         return $query->getResult();
     }
@@ -85,22 +85,13 @@ class JugadorRepositorio extends Doctrine\ORM\EntityRepository {
         }
     }
 
-    public function hayMasRanking($offset) {
-        $dql = "SELECT COUNT(j.id) AS num FROM Jugador j";
-        $query = $this->getEntityManager()->
-            createQuery($dql)->getResult();
-
-        $r = reset($query);
-        return ($offset * 5) < $r['num'];
-    }
-
     public function rankingComentarios($offset) {
         $dql = "SELECT j FROM Jugador j
             ORDER BY j.sumaComentarios DESC";
         $query = $this->getEntityManager()->
             createQuery($dql)->
             setFirstResult($offset)->
-            setMaxResults(5);
+            setMaxResults(6);
 
         return $query->getResult();
     }

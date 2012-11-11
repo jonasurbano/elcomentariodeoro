@@ -599,45 +599,7 @@ cargarEstadisticas = function(idFacebook) {
         $('div.rankingClubes div.ranking-club').eq(2)
             .addClass('bronce');
 
-        offsetRanking += 5;
-
-        $('div.ranking-masJugadores').click(function() {
-            $.get('cargarRanking.php?offset=' + offsetRanking,function(data) {
-                $('div.ranking-masJugadores').remove();
-                $(data).find('div.ranking-jugador-pronosticos')
-                    .appendTo('div.rankingPronosticos');
-                $(data).find('div.ranking-jugador-comentarios')
-                    .appendTo('div.rankingComentarios');
-
-
-                offsetRanking += 3;
-
-                $('div.ranking-nombre').click(function() {
-                    var idElem = $(this).parent().attr('id');
-                    var idFacebook = idElem.substring(4);
-
-                    $('div.estadisticas-jugador').empty()
-                        .load('cargarEstJugador.php?idf=' + idFacebook,
-                    function() {
-                        cargarMejoresComentariosJugador(idFacebook);
-
-                        offsetComentariosJugador = 0;
-
-                        $("html, body").animate({ scrollTop: 0 }, "slow");
-                        FB.Canvas.scrollTo(0,0);
-                    });
-                });
-
-                 $('div.compartirRankingEnFb').click(function() {
-                    var $rankingJugador = $(this).parent().parent();
-                    var mensaje = 'He conseguido el ' +
-                    $rankingJugador.find('div.ranking-numero').html()
-                        + ' puesto en El comentario de oro. Soy un crack.';
-
-                    compartirEnFacebook($(this),mensaje);
-                });
-            });
-        });
+        cargarMasRanking();
 
         $(this).css('display','block').slideDown();
     });
@@ -899,4 +861,48 @@ mensajeInfo = function($boton,mensaje) {
         }).fadeIn().delay(5000).fadeOut(function () {
             $(this).remove();
         });
+}
+
+cargarMasRanking = function() {
+    $('div.ranking-masJugadores').click(function() {
+        offsetRanking += 5;
+        
+        $.get('cargarRanking.php?offset=' + offsetRanking,function(data) {
+            $('div.ranking-masJugadores').remove();
+            $(data).find('div.ranking-jugador-pronosticos')
+                .appendTo('div.rankingPronosticos');
+            $(data).find('div.ranking-jugador-comentarios')
+                .appendTo('div.rankingComentarios');
+
+            $(data).find('div.ranking-masJugadores')
+                .appendTo('div.rankingComentarios');
+
+            $('div.ranking-nombre').click(function() {
+                var idElem = $(this).parent().attr('id');
+                var idFacebook = idElem.substring(4);
+
+                $('div.estadisticas-jugador').empty()
+                    .load('cargarEstJugador.php?idf=' + idFacebook,
+                function() {
+                    cargarMejoresComentariosJugador(idFacebook);
+
+                    offsetComentariosJugador = 0;
+
+                    $("html, body").animate({ scrollTop: 0 }, "slow");
+                    FB.Canvas.scrollTo(0,0);
+                });
+            });
+
+             $('div.compartirRankingEnFb').click(function() {
+                var $rankingJugador = $(this).parent().parent();
+                var mensaje = 'He conseguido el ' +
+                $rankingJugador.find('div.ranking-numero').html()
+                    + ' puesto en El comentario de oro. Soy un crack.';
+
+                compartirEnFacebook($(this),mensaje);
+            });
+
+            cargarMasRanking();
+        });
+    });
 }
