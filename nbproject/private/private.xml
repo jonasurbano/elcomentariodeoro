@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/1"/>
-    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="9">
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="10">
         <file>
             <url>scripts/script.js</url>
             <bookmark id="8">
@@ -14,9 +14,14 @@
                 <line>344</line>
                 <key/>
             </bookmark>
+            <bookmark id="10">
+                <name/>
+                <line>601</line>
+                <key/>
+            </bookmark>
             <bookmark id="7">
                 <name>función mensaje</name>
-                <line>890</line>
+                <line>852</line>
                 <key/>
             </bookmark>
         </file>
